@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Творец</string>
+    <string name="Nickname">Псевдоним</string>
+    <string name="Email">Почта</string>
+    <string name="RegistrationClose">Готово</string>
+    <string name="Password">Пароль</string>
+    <string name="Sing">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="PasswordRepeat">Повторите пароль</string>
+    <string name="errorPassword">Пороли не совпадают</string>
+    <string name="registrHello">Регистрация</string>
+    <string name="Search">Поиск</string>
+    <string name="Writer">Библиотека</string>
+    <string name="Music">Музыка</string>
+    <string name="Art">Галерея</string>
+    <string name="Card">Book</string>
+    <string name="hello">Вход</string>
+    <string name="atelier">Студии</string>
+    <string name="todo">TODO</string>
+    <string name="Exp">Уровень:</string>
+
+
+
+</resources>

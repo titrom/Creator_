@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/topHot"
+        android:enabled="true"
+        android:icon="@drawable/baseline_local_fire_department_black_18dp"
+        android:title="Топ"/>
+    <item
+        android:id="@+id/favorite"
+        android:enabled="true"
+        android:icon="@drawable/baseline_favorite_black_18dp"
+        android:title="Подписки"/>
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/baseline_account_circle_black_18dp"
+        android:title="Профиль"
+        />
+
+</menu>

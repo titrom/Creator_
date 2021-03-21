@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:text="@string/atelier"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:id="@+id/buttonProfileRecycler"
+        app:iconSize="25dp"
+        app:iconTint="@color/grey"
+        android:textSize="15sp"
+        android:fontFamily="@font/osr"
+        android:textColor="@color/black"
+        />
+
+</RelativeLayout>
