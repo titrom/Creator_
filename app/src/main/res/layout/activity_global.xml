@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.Creator_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLoginActivity"
+    android:background="#F5F5F5"
     tools:context=".GlobalActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -23,11 +24,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        android:backgroundTint="@color/ItemColor"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/bar"
-        app:itemTextColor="@color/black"
-        app:itemRippleColor="@color/ItemColor"
-        style="@style/MyStyle_Navigate"
+        android:elevation="6dp"
+        style="@style/Theme.Creator_"
         app:itemIconSize="25dp"
         app:menu="@menu/buton_navigation_item" />
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:id="@+id/chip_groupRec"
+        android:layout_marginEnd="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.Chip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="#688EBFB4"
+            android:id="@+id/chipRec"
+            app:rippleColor="@color/bar"
+            app:chipIcon="@drawable/ic_file"
+            android:fontFamily="@font/opb"
+            android:textSize="20sp"
+            app:closeIconEnabled="true"
+            app:closeIconEndPadding="9dp"
+            app:closeIconSize="26dp"
+            app:iconStartPadding="15dp"
+            />
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+</RelativeLayout>

@@ -1,20 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 
-    <style name="Theme.Creator_" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Creator_" parent="Theme.MaterialComponents.Light.NoActionBar" >
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:screenOrientation">portrait</item>
+
+        <item name="backgroundTint">@color/white</item>
+        <item name="tabIndicatorColor">@color/ItemColor</item>
+        <item name="trackColor">#4F03484A</item>
+        <item name="colorPrimaryVariant">@color/ItemColor</item>
+        <item name="itemTextColor">@color/black</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="tabSelectedTextColor">@color/ItemColor</item>
+        <item name="tabRippleColor">@color/black</item>
+        <item name="itemRippleColor">@color/ItemColor</item>
+        <item name="iconTint">@color/ItemColor</item>
+        <item name="itemIconTint">@color/ItemColor</item>
+        <item name="tabTextColor">@color/black</item>
+
 
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/ItemColor</item>
+        <item name="colorSecondaryVariant">@color/ItemColor</item>
+        <item name="colorOnSecondary">@color/ItemColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+
     </style>
+
+
+
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipe_library"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="850dp"
+            android:id="@+id/MyLibraryRecycler"
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            style="@style/Theme.Creator_"
+            android:layout_alignParentEnd="true"
+            app:maxImageSize="30dp"
+            android:layout_margin="15dp"
+
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp"
+            android:id="@+id/add_book"
+            app:srcCompat="@drawable/ic_action_add"
+            android:contentDescription="@string/todo" />
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

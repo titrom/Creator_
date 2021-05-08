@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundLoginActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,46 +15,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        style="@style/Theme.Creator_"
         android:id="@+id/bar"
-        android:background="@color/backgroundLoginActivity"
-
         >
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search"
             android:layout_marginRight="22dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="22dp"
-            android:background="@color/bar"
+            app:titleTextColor="@color/ItemColor"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/Search"
             app:menu="@menu/tool_bar_navig_icon"
             />
-        <com.google.android.material.tabs.TabLayout
-            app:tabMode="fixed"
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundLoginActivity"
-            app:tabSelectedTextColor="@color/ItemColor"
-            app:tabRippleColor="@color/ItemColor">
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Library"
-                android:text="@string/Writer"/>
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Music"/>
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Art"
-                />
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            app:tabMode="fixed"-->
+<!--            style="@style/Theme.Creator_"-->
+<!--            android:id="@+id/location"-->
+<!--            app:tabIndicatorColor="@color/ItemColor"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            >-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/Library"-->
+<!--                android:text="@string/Writer"/>-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/Music"/>-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/Art"-->
+<!--                />-->
 
-        </com.google.android.material.tabs.TabLayout>
+<!--        </com.google.android.material.tabs.TabLayout>-->
     </com.google.android.material.appbar.AppBarLayout>
+
 
 
 </RelativeLayout>

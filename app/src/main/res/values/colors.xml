@@ -6,14 +6,16 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="bar">#BEF8EC</color>
+    <color name="bar">#190F0F</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="backgroundLoginActivity">#D7F1F6</color>
+    <color name="backgroundLoginActivity">#BC000000</color>
     <color name="grey">#C6C4C4</color>
-    <color name="ItemColor">#9C27B0</color>
+    <color name="ItemColor">#03484A</color>
     <color name="boxStrokeColor">#A201C6</color>
     <color name="Red">#FF0000</color>
     <color name="button">#8AB85DEA</color>
     <color name="buttonStroke">#8A8E21D3</color>
+    <color name="MyCardColor">#94A537B8</color>
+    <color name="yellow">#F7FF00</color>
 
 </resources>

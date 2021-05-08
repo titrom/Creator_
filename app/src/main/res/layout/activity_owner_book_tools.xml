@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rr"
+    android:layout_height="wrap_content"
+    tools:context=".InsideBooks.OwnerBookToolsActivity">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/ToolbarBook"
+        android:elevation="3dp"
+        app:title="@string/Book"
+        app:navigationIcon="@drawable/ic_back_item"
+        app:navigationIconTint="@color/ItemColor"
+        app:menu="@menu/title_book_item"
+        app:titleTextColor="@color/ItemColor"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        />
+    <ScrollView
+        android:background="#EEEEEE"
+        android:id="@+id/r2"
+        android:layout_below="@id/ToolbarBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:state_dragged="true"
+                android:background="#00FFFFFF"
+                android:id="@+id/cardInformation"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <!--                    <RadioGroup-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="350dp"-->
+                    <!--                        android:layout_marginEnd="10dp"-->
+                    <!--                        android:orientation="horizontal"-->
+                    <!--                        >-->
+                    <!--                        <com.google.android.material.radiobutton.MaterialRadioButton-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:gravity="center_vertical"-->
+                    <!--                            android:id="@+id/rStatistic"-->
+                    <!--                            android:button="@drawable/radio_button_statistic"-->
+                    <!--                            />-->
+                    <!--                    </RadioGroup>-->
+
+                    <com.github.florent37.shapeofview.shapes.RoundRectView
+                        android:layout_width="120dp"
+                        android:layout_height="150dp"
+                        android:id="@+id/ThisBookImageView"
+                        android:layout_below="@id/YourBookName"
+                        android:layout_margin="15dp"
+                        app:shape_roundRect_borderColor="#F5F5F5"
+                        android:elevation="2dp"
+                        app:shape_roundRect_bottomRightRadius="10dp"
+                        app:shape_roundRect_bottomLeftRadius="10dp"
+                        app:shape_roundRect_topLeftRadius="10dp"
+                        app:shape_roundRect_topRightRadius="10dp"
+                        >
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="125dp"
+                            android:src="@drawable/ic_star__yellow"
+                            android:background="#4FC6C4C4"
+                            android:layout_height="155dp"
+                            android:id="@+id/ThisBookImage"
+                            android:contentDescription="@string/todo" />
+                    </com.github.florent37.shapeofview.shapes.RoundRectView>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="71dp"
+                        android:id="@+id/YourBookName"
+                        android:layout_marginTop="15dp"
+                        android:maxLength="50"
+                        android:textSize="20sp"
+                        android:textColor="@color/ItemColor"
+                        android:text="@string/NameBook"
+                        android:fontFamily="@font/opb"
+                        />
+
+                    <TextView
+                        android:id="@+id/WriterName"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="31dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="start"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="130dp"
+                        android:layout_below="@id/CollSub"
+                        android:minHeight="25dp"
+                        android:layout_marginStart="130dp"
+                        android:text="@string/NameUser"
+                        android:textColor="#5BA3A5"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/CollSub"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="160dp"
+                        android:layout_marginStart="140dp"
+                        android:layout_below="@id/dateText"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="15sp"
+                        android:textColor="#737373"
+                        android:text="Почитатили: 0"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="140dp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/dateText"
+                        android:textColor="#737373"
+                        android:text="Дата:"
+                        android:layout_marginTop="185dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:textSize="20sp"
+                        android:textColor="@color/ItemColor"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_below="@id/ThisBookImageView"
+                        android:text="@string/real"/>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/cardInformation"
+                >
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/apl"
+                    style="@style/Theme.Creator_"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout_page"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabIndicatorColor="@color/ItemColor" >
+                    </com.google.android.material.tabs.TabLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager_owner"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/apl"
+                    android:layout_height="1000dp">
+                </androidx.viewpager.widget.ViewPager>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

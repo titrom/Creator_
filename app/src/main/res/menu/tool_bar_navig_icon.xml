@@ -5,7 +5,7 @@
         android:id="@+id/search"
         android:title="@string/Search"
         android:contentDescription="@string/Search"
-        android:icon="@drawable/baseline_search_black_18dp"
+        android:icon="@drawable/ic_search"
 
         app:showAsAction="ifRoom"/>
 

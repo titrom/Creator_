@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:theme="@android:style/Theme.Black.NoTitleBar"
+    style="@style/Theme.Creator_"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    tools:context=".LoginActivity"
-    android:background="@color/backgroundLoginActivity">
+    tools:context=".Auth.LoginActivity"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:text="@string/hello"
-        android:textColor="@color/black"
+        android:textColor="@color/ItemColor"
 
         android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/emailPerfect"
@@ -38,23 +39,28 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/Email"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/boxStrokeColor"
+        android:textColorHint="@color/ItemColor"
         app:boxStrokeErrorColor="@color/Red"
-        app:boxStrokeWidth="2dp"
+        app:errorTextColor="@color/Red"
+        app:hintTextColor="@color/ItemColor"
+        app:boxStrokeWidth="1dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        app:hintTextColor="@color/black"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
+            android:textSize="20dp"
+            android:inputType="textEmailAddress"
+            android:background="@color/ItemColor"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
-            android:textColor="@color/black" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,46 +73,51 @@
         app:endIconMode="password_toggle"
         android:enabled="true"
         android:hint="@string/Password"
-        android:textColorHint="@color/black"
-        app:boxStrokeColor="@color/boxStrokeColor"
+        android:textColorHint="@color/ItemColor"
+        app:boxStrokeColor="@color/ItemColor"
         app:boxStrokeErrorColor="@color/Red"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="1dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        app:hintTextColor="@color/black"
+        app:hintTextColor="@color/ItemColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:errorTextColor="@color/Red"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailPerfectLog"
         app:layout_constraintVertical_bias="0.043">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditLogText"
+            android:background="@color/ItemColor"
             android:inputType="textPassword"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/osr"
-            android:textColor="@color/black" />
+            android:fontFamily="@font/osr" />
+
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/singButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-
-        android:backgroundTint="@color/buttonStroke"
+        android:layout_marginTop="256dp"
         android:fontFamily="@font/osr"
+        android:padding="5dp"
         android:text="@string/Sing"
-        android:textColor="@color/black"
+
+        android:textColor="@color/ItemColor"
         android:textSize="15sp"
+        android:textStyle="bold"
         app:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_layoutLog"
-        app:strokeColor="@color/button"
-        app:strokeWidth="3dp" />
+        app:layout_constraintTop_toBottomOf="@+id/password_layoutLog" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registrationButton"
@@ -115,18 +126,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:backgroundTint="@color/buttonStroke"
+        android:layout_marginBottom="57dp"
         android:fontFamily="@font/osr"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="@string/registration"
-        android:textColor="@color/black"
+        android:textColor="@color/ItemColor"
         android:textSize="15sp"
+        android:textStyle="italic"
         app:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/singButton"
-        app:strokeColor="@color/button"
-        app:strokeWidth="3dp"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

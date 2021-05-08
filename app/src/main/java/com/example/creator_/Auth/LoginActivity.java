@@ -1,30 +1,25 @@
-package com.example.creator_;
+package com.example.creator_.Auth;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.creator_.GlobalActivity;
+import com.example.creator_.R;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+
+import UserFirestore.UserClass;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG ="LoginUser";
@@ -33,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button Sing;
     private Button intentButtonRegistration;
     private boolean checkStartSing;
-    private int verInt;
+    private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private final FirebaseUser user=mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,47 +40,32 @@ public class LoginActivity extends AppCompatActivity {
         password=findViewById(R.id.passwordEditLogText);
         Sing=findViewById(R.id.singButton);
         intentButtonRegistration=findViewById(R.id.registrationButton);
-        Animation animation=  AnimationUtils.loadAnimation(this,R.anim.fade_in);
-        FirebaseAuth mAuth=FirebaseAuth.getInstance();
-
         checkStartSing=false;
         ErrorEditText();
-        Sing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String emailString=email.getText().toString();
-                String passwordString=password.getText().toString();
-                ErrorStartSing();
-
-                if (checkStartSing){
-
-                    mAuth.signInWithEmailAndPassword(emailString,passwordString).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                    Log.d(TAG,"GoodSing");
-                                    Intent intent=new Intent(LoginActivity.this,GlobalActivity.class);
-                                    startActivity(intent);
-                            }else { Toast.makeText(LoginActivity.this,"Неправильная почта или пароль",Toast.LENGTH_LONG).show();}
+        Sing.setOnClickListener(v -> {
+            String emailString=email.getText().toString();
+            String passwordString=password.getText().toString();
+            ErrorStartSing();
+            if (checkStartSing){
+                mAuth.signInWithEmailAndPassword(emailString,passwordString).addOnCompleteListener(LoginActivity.this, task -> {
+                    if (task.isSuccessful()){
+                        Log.d(TAG,"GoodSing");
+                        Intent intent=new Intent(LoginActivity.this, GlobalActivity.class);
+                        startActivity(intent);
+                        finish();
 
 
-                        }
-                    });
-
-                }
+                    }else { Toast.makeText(LoginActivity.this,"Неправильная почта или пароль",Toast.LENGTH_LONG).show();}
+                });
             }
         });
-        intentButtonRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,RegistrationActivity.class);
-                startActivity(intent);
-
-            }
+        intentButtonRegistration.setOnClickListener(v -> {
+            Intent intent=new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(intent);
         });
     }
 
-    public void  ErrorStartSing(){
+    private void  ErrorStartSing(){
         final TextInputLayout emailLogLayout=findViewById(R.id.emailPerfectLog);
         final TextInputLayout passwordLayoutLog=findViewById(R.id.password_layoutLog);
         if (emailLogLayout.getEditText().getText().toString().trim().isEmpty()) emailLogLayout.setError("Это поле надо заполнить");
@@ -94,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         checkStartSing = (!emailLogLayout.getEditText().getText().toString().trim().isEmpty()
                 && !passwordLayoutLog.getEditText().getText().toString().trim().isEmpty());
     }
-    public void ErrorEditText(){
+    private void ErrorEditText(){
         final TextInputLayout emailLogLayout=findViewById(R.id.emailPerfectLog);
         final TextInputLayout passwordLayoutLog=findViewById(R.id.password_layoutLog);
         emailLogLayout.getEditText().addTextChangedListener(new TextWatcher() {

@@ -1,24 +1,46 @@
 <resources>
+
     <string name="app_name">Творец</string>
     <string name="Nickname">Псевдоним</string>
+    <string name="NameUser"><u>Автор</u></string>
     <string name="Email">Почта</string>
+    <string name="Post">Опубликовать</string>
+    <string name="Draft">Черновик</string>
     <string name="RegistrationClose">Готово</string>
     <string name="Password">Пароль</string>
     <string name="Sing">Войти</string>
     <string name="registration">Зарегистрироваться</string>
+    <string name="menu_refresh">menu_refresh</string>
     <string name="PasswordRepeat">Повторите пароль</string>
     <string name="errorPassword">Пороли не совпадают</string>
     <string name="registrHello">Регистрация</string>
     <string name="Search">Поиск</string>
+    <string name="SearchArchive">Поиск: архив</string>
     <string name="Writer">Библиотека</string>
     <string name="Music">Музыка</string>
     <string name="Art">Галерея</string>
     <string name="Card">Book</string>
     <string name="hello">Вход</string>
     <string name="atelier">Студии</string>
-    <string name="todo">TODO</string>
-    <string name="Exp">Уровень:</string>
+    <string name="real">Читать</string>
+    <string name="Exp">Опыт Творца:</string>
+    <string name="NameBook">Название книги</string>
+    <string name="AddFile">Вставьте файл</string>
+    <string name="Close">Отмена</string>
+    <string name="Complete">Готово</string>
+    <string name="description">Описание книги</string>
+    <string name="out">Выход</string>
+    <string name="WantSome">Хотите выйти?</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
+    <string name="NewBook">Новая книга</string>
+    <string name="Book">Книга</string>
+    <string name="ToolMenuButton">ToolMenuButton</string>
 
+    <string name="MyLibrary">Мои книги</string>
+    <string name="MyMusic">Моя музыка</string>
+    <string name="MyArt">Мои рисунки</string>
+    <string name="todo">TODO</string>
 
 
 </resources>
