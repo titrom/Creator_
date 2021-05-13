@@ -117,7 +117,7 @@ public class AddBookActivity extends AppCompatActivity {
                     .setShowVideos(false)
                     .setShowFiles(true)
                     .setSkipZeroSizeFiles(true)
-                    .setSuffixes("pdf")
+                    .setSuffixes("txt")
                     .build());
             startActivityForResult(intent, FILE_REQUEST_CODE);
         });
@@ -153,21 +153,19 @@ public class AddBookActivity extends AppCompatActivity {
                                 }).addOnSuccessListener(taskSnapshot -> {
                                 });
                                 for (MediaFile i:list)
-                                    if (i.getMimeType().equals("application/pdf")) {
-                                        if (i.getSize() != 0) {
-                                            StorageReference FileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".pdf");
-                                            H += 1;
-                                            Uri uri = i.getUri();
-                                            UploadTask uploadTask = FileRef.putFile(uri);
-                                            uploadTask.addOnFailureListener(e -> {
-                                            }).addOnSuccessListener(taskSnapshot -> {
-                                                Intent intent=new Intent(AddBookActivity.this, ArchivivesActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            });
-                                        } else {
-                                            Toast.makeText(AddBookActivity.this, "Файл " + i.getName() + ".pdf пустой, не будет сохранён", Toast.LENGTH_LONG).show();
-                                        }
+                                    if (i.getSize() != 0) {
+                                        StorageReference FileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".txt");
+                                        H += 1;
+                                        Uri uri = i.getUri();
+                                        UploadTask uploadTask = FileRef.putFile(uri);
+                                        uploadTask.addOnFailureListener(e -> {
+                                        }).addOnSuccessListener(taskSnapshot -> {
+                                            Intent intent=new Intent(AddBookActivity.this, ArchivivesActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        });
+                                    } else {
+                                        Toast.makeText(AddBookActivity.this, "Файл " + i.getName() + ".pdf пустой, не будет сохранён", Toast.LENGTH_LONG).show();
                                     }
 
                                 docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
@@ -272,6 +270,8 @@ public class AddBookActivity extends AppCompatActivity {
         checkErrorStart = (!inputLayoutDescriptionBook.getEditText().getText().toString().trim().isEmpty()
                 && !inputLayoutNameBookEdit.getEditText().getText().toString().trim().isEmpty());
     }
+
+
     private void ErrorControl(){
         Objects.requireNonNull(inputLayoutNameBookEdit.getEditText()).addTextChangedListener(new TextWatcher() {
             @Override

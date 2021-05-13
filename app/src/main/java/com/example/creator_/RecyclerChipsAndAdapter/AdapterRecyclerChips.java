@@ -18,10 +18,10 @@ public class AdapterRecyclerChips extends RecyclerView.Adapter<AdapterRecyclerCh
     public interface OnClickCloseChips{
         void onChipsClickCloseIcon(ChipRecycler cp,int Position);
     }
-    private List<ChipRecycler> listChips;
+    private final List<ChipRecycler> listChips;
     private final OnClickCloseChips clickCloseChips;
-    private Context context;
-    private LayoutInflater layoutInflater;
+    private final Context context;
+    private final LayoutInflater layoutInflater;
 
     public AdapterRecyclerChips(List<ChipRecycler> listProfBut, Context context,OnClickCloseChips closeChips) {
         this.listChips= listProfBut;
@@ -41,15 +41,10 @@ public class AdapterRecyclerChips extends RecyclerView.Adapter<AdapterRecyclerCh
     public void onBindViewHolder(@NonNull ChipsHolder holder, int position) {
         ChipRecycler chipR=listChips.get(position);
         holder.chip.setText(chipR.getTextChip());
-        if ("application/pdf".equals(chipR.getTypeFile())) {
-            holder.chip.setChipIconResource(R.drawable.ic_action_add_file_pdf);
-        }
-        holder.chip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.chipGroup.removeView(v);
-                clickCloseChips.onChipsClickCloseIcon(chipR,position);
-            }
+        holder.chip.setChipIconResource(R.drawable.ic_action_add_file_txt);
+        holder.chip.setOnCloseIconClickListener(v -> {
+            holder.chipGroup.removeView(v);
+            clickCloseChips.onChipsClickCloseIcon(chipR,position);
         });
     }
     @Override

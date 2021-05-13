@@ -45,8 +45,10 @@ import static com.example.creator_.R.*;
 public class ProfileFragment extends Fragment{
     private ImageButton buttonImageUser;
     private final int GALLERY_REQUEST = 2;
+    private RecyclerView rv;
     private TextView xpPoint;
     private TextView levelTv;
+    private TextView nameText;
     private LinearProgressIndicator LineXp;
     private SwipeRefreshLayout swipeRefreshLayout;
     private final static String  SAMPLE_CROPPED_IMG_NAME = "SampleCropImg";
@@ -57,52 +59,31 @@ public class ProfileFragment extends Fragment{
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(layout.profile_fragmet,container,false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(layout.profile_fragment,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LineXp= requireView().findViewById(id.Xp_progress);
-        xpPoint= requireView().findViewById(id.expBar);
-        levelTv= requireView().findViewById(id.Level);
-        ArrayList<ButtonProfileRecycler> bPRlist = new ArrayList<>();
-        bPRlist.add(new ButtonProfileRecycler("Мой Архив", drawable.ic_action_name_archive));
-        bPRlist.add(new ButtonProfileRecycler("Статистика", drawable.ic_action_name_statistic));
-        bPRlist.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
-        bPRlist.add(new ButtonProfileRecycler("Выйти", drawable.ic_action_exit));
-        RecyclerView rv = view.findViewById(id.list_button1);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterRecyclerProfileButton.OnClickListenerBPR onClickListenerBPR= (bPR, position) -> {
-            Intent intentArchivesAndStatistics;
-            if (position==0){
-                intentArchivesAndStatistics=new Intent(view.getContext(), ArchivivesActivity.class);
-                startActivity(intentArchivesAndStatistics);
-            }else if (position==1){
-                intentArchivesAndStatistics=new Intent(view.getContext(), StatisticsActivity.class);
-                startActivity(intentArchivesAndStatistics);
-            }else if (position==3){
-                new MaterialAlertDialogBuilder(view.getContext())
-                        .setTitle(getResources().getString(string.out))
-                        .setMessage(getResources().getString(string.WantSome))
-                        .setNegativeButton(getResources().getString(string.No), (dialog, which) -> dialog.cancel()).setPositiveButton(getResources().getString(string.Yes), (dialog, which) -> {
-                            FirebaseAuth.getInstance().signOut();
-                            Intent intent=new Intent(view.getContext(), LoginActivity.class);
-                            startActivity(intent); }).show();
-            }
+        init();
+        update();
+        profileButton();
+        buttonImageUser.setOnClickListener(v -> {
+            Intent galUserImage=new Intent(Intent.ACTION_PICK);
+            galUserImage.setType("image/*");
+            startActivityForResult(galUserImage,GALLERY_REQUEST);
+        });
+    }
 
-        };
-        AdapterRecyclerProfileButton adapterRPB= new AdapterRecyclerProfileButton(bPRlist,view.getContext(),onClickListenerBPR);
-        rv.setAdapter(adapterRPB);
-        buttonImageUser=view.findViewById(id.buttonImageUser);
-        TextView nameText = view.findViewById(id.nameTextView);
+
+    private void update(){
         if (user!=null){
-            String nickname= user.getDisplayName();
+            String nickname = user.getDisplayName();
             nameText.setText(nickname);
             XpUpdate();
             LoadImageProfile();
-            swipeRefreshLayout=view.findViewById(R.id.restartSwipe);
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
                 XpUpdate();
@@ -110,22 +91,72 @@ public class ProfileFragment extends Fragment{
             });
             swipeRefreshLayout.setColorSchemeResources(color.ItemColor);
         }
-        buttonImageUser.setOnClickListener(v -> {
-            Intent galUserImage=new Intent(Intent.ACTION_PICK);
-            galUserImage.setType("image/*");
-            startActivityForResult(galUserImage,GALLERY_REQUEST);
-        });
     }
+
+
+    private void profileButton(){
+        ArrayList<ButtonProfileRecycler> bPRlist = new ArrayList<>();
+        bPRlist.add(new ButtonProfileRecycler("Мой Архив",
+                drawable.ic_action_name_archive));
+        bPRlist.add(new ButtonProfileRecycler("Статистика",
+                drawable.ic_action_name_statistic));
+        bPRlist.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
+        bPRlist.add(new ButtonProfileRecycler("Выйти", drawable.ic_action_exit));
+
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        AdapterRecyclerProfileButton.OnClickListenerBPR onClickListenerBPR= (bPR, position) -> {
+            Intent intentArchivesAndStatistics;
+            if (position==0){
+                intentArchivesAndStatistics=
+                        new Intent(requireView().getContext(), ArchivivesActivity.class);
+                startActivity(intentArchivesAndStatistics);
+            }else if (position==1){
+                intentArchivesAndStatistics=
+                        new Intent(requireView().getContext(), StatisticsActivity.class);
+                startActivity(intentArchivesAndStatistics);
+            }else if (position==3){
+                new MaterialAlertDialogBuilder(requireView().getContext())
+                        .setTitle(getResources().getString(string.out))
+                        .setMessage(getResources().getString(string.WantSome))
+                        .setNegativeButton(getResources().getString(string.No), (dialog, which) ->
+                                dialog.cancel()).setPositiveButton(getResources()
+                        .getString(string.Yes), (dialog, which) -> { FirebaseAuth.getInstance()
+                        .signOut();
+                    Intent intent=new Intent(requireView().getContext(), LoginActivity.class);
+                    startActivity(intent); }).show();
+            }
+        };
+        AdapterRecyclerProfileButton adapterRPB=
+                new AdapterRecyclerProfileButton(bPRlist, requireView().getContext(),
+                        onClickListenerBPR);
+        rv.setAdapter(adapterRPB);
+    }
+
+
     private void LoadImageProfile(){
         if (user!=null){
             Log.d(TAG,"good");
-
             StorageReference storageRef=storage.getReference();
-            storageRef.child(user.getUid()+"/"+"Avatar"+".jpg").getDownloadUrl().addOnSuccessListener(uri -> Picasso.with(getContext()).load(uri).into(buttonImageUser)).addOnFailureListener(e -> {
+            storageRef.child(user.getUid()+"/"+"Avatar"+".jpg").getDownloadUrl()
+                    .addOnSuccessListener(uri -> Picasso.with(getContext()).
+                            load(uri).into(buttonImageUser)).addOnFailureListener(e -> {
             });
-
         }
     }
+
+
+    private void init(){
+        xpPoint = requireView().findViewById(id.expBar);
+        LineXp = requireView().findViewById(id.Xp_progress);
+        nameText = requireView().findViewById(id.nameTextView);
+        buttonImageUser=requireView().findViewById(id.buttonImageUser);
+        rv = requireView().findViewById(id.list_button1);
+        LineXp = requireView().findViewById(id.Xp_progress);
+        xpPoint = requireView().findViewById(id.expBar);
+        levelTv = requireView().findViewById(id.Level);
+        swipeRefreshLayout=requireView().findViewById(R.id.restartSwipe);
+    }
+
 
     private void newImageUser(final Uri uri){
         if (user!=null){
@@ -138,6 +169,8 @@ public class ProfileFragment extends Fragment{
         }
 
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,37 +192,50 @@ public class ProfileFragment extends Fragment{
             }
          }
     }
+
+
     private void Start_uCrop(Uri uri){
         String destinationFileName = SAMPLE_CROPPED_IMG_NAME;
         destinationFileName +=".jpg";
-        UCrop uCrop=UCrop.of(uri,Uri.fromFile(new File(requireContext().getCacheDir(),destinationFileName)));
+        UCrop uCrop=UCrop.of(uri,Uri.fromFile
+                (new File(requireContext().getCacheDir(),destinationFileName)));
         uCrop.withAspectRatio(1f,1f);
         uCrop.withOptions(getUCropOptions());
         uCrop.start(requireContext(),ProfileFragment.this);
     }
+
+
     private UCrop.Options getUCropOptions(){
         UCrop.Options options=new UCrop.Options();
         //options.setStatusBarColor(bar);
         options.setCircleDimmedLayer(true);
-        options.withMaxResultSize(requireView().getWidth()/3, requireView().getHeight()/3);
+        options.withMaxResultSize
+                (requireView().getWidth()/3, requireView().getHeight()/3);
         //options.setToolbarColor(bar);
         return options;
     }
+
+
     @SuppressLint("SetTextI18n")
     private void XpUpdate(){
         if (user!=null){
             LineXp= requireView().findViewById(id.Xp_progress);
             xpPoint= requireView().findViewById(id.expBar);
             levelTv= requireView().findViewById(id.Level);
-            DocumentReference docRef= db.collection("UserProfile").document(user.getUid());
+            DocumentReference docRef= db.collection("UserProfile")
+                    .document(user.getUid());
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (Objects.requireNonNull(document).exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        int levelUser=Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(document.getData()).put("level", 0)).toString());
-                        int xpUser=Integer.parseInt(Objects.requireNonNull(document.getData().put("xpUser", 0)).toString());
-                        int xpMax=Integer.parseInt(Objects.requireNonNull(document.getData().put("xpMax", 0)).toString());
+                        int levelUser=Integer.parseInt(Objects.requireNonNull
+                                (Objects.requireNonNull(document.getData())
+                                        .put("level", 0)).toString());
+                        int xpUser=Integer.parseInt(Objects.requireNonNull(document.getData()
+                                .put("xpUser", 0)).toString());
+                        int xpMax=Integer.parseInt(Objects.requireNonNull(document.getData()
+                                .put("xpMax", 0)).toString());
                         if (xpUser<xpMax){
                             LineXp.setProgress(xpUser);
                             LineXp.setMax(xpMax);
@@ -198,13 +244,22 @@ public class ProfileFragment extends Fragment{
                         }
                         if (xpUser>xpMax){
                             while (xpUser>xpMax){
-                                docRef.update("xpUser",xpUser-xpMax).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                                docRef.update("xpUser",xpUser-xpMax)
+                                        .addOnSuccessListener(aVoid ->
+                                        Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                        .addOnFailureListener(e ->
+                                                Log.w(TAG, "Error updating document", e));
                                 xpMax+=200*(levelUser+1);
 
-                                docRef.update("xpMax",xpMax).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                                docRef.update("xpMax",xpMax).addOnSuccessListener(aVoid ->
+                                        Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                        .addOnFailureListener(e ->
+                                                Log.w(TAG, "Error updating document", e));
                                 LineXp.setMax(xpMax);
                                 levelUser+=1;
-                                int xpUserNew=Integer.parseInt(Objects.requireNonNull(document.getData().put("xpUser", 0)).toString());
+                                int xpUserNew=Integer
+                                        .parseInt(Objects.requireNonNull
+                                                (document.getData().put("xpUser", 0)).toString());
                                 levelTv.setText("Уровень: "+levelUser);
                                 xpPoint.setText(""+xpUserNew+"/"+xpMax+"Xp");
                                 levelTv.setText("Уровень: "+levelUser);
@@ -217,7 +272,10 @@ public class ProfileFragment extends Fragment{
                             levelTv.setText("Уровень: "+levelUser);
                         }
                         swipeRefreshLayout.setRefreshing(false);
-                        docRef.update("level",levelUser).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                        docRef.update("level",levelUser).addOnSuccessListener(aVoid ->
+                                Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                .addOnFailureListener(e ->
+                                        Log.w(TAG, "Error updating document", e));
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -228,6 +286,8 @@ public class ProfileFragment extends Fragment{
             });
         }
     }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == id.menu_refresh) {

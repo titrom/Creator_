@@ -11,26 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-        android:background="#ECECEC"
+        android:background="#EEEEEE"
         android:elevation="1dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="#ECECEC"
+            android:background="#EEEEEE"
+            android:padding="5dp"
             android:layout_height="wrap_content">
             <com.github.florent37.shapeofview.shapes.RoundRectView
                 android:layout_width="wrap_content"
                 android:id="@+id/bb"
-                android:layout_margin="2dp"
+                android:elevation="4dp"
+                app:shape_roundRect_borderWidth="2dp"
                 app:shape_roundRect_bottomLeftRadius="10dp"
                 app:shape_roundRect_bottomRightRadius="10dp"
                 app:shape_roundRect_topLeftRadius="10dp"
                 app:shape_roundRect_topRightRadius="10dp"
-                app:shape_roundRect_borderColor="@android:color/black"
+                app:shape_roundRect_borderColor="#C6C4C4"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:id="@+id/r1"
                     android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/circleView"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="260dp"
+                        android:text="Подписчиков: 0"
+                        />
                     <com.github.florent37.shapeofview.shapes.CircleView
                         android:id="@+id/circleView"
                         android:layout_width="160dp"
@@ -59,7 +71,7 @@
                     <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginStart="170dp"
                         android:progress="0"
                         android:max="100"
@@ -90,20 +102,8 @@
                         android:fontFamily="@font/osr"
                         android:layout_alignParentEnd="true"
                         android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/nameTextView"
-                        android:layout_marginStart="170dp"
-                        android:fontFamily="@font/opb"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/Exp"
-                        />
                 </RelativeLayout>
-
             </com.github.florent37.shapeofview.shapes.RoundRectView>
-
             <com.github.florent37.shapeofview.shapes.RoundRectView
                 android:layout_margin="5dp"
                 app:shape_roundRect_bottomLeftRadius="10dp"
@@ -111,25 +111,21 @@
                 app:shape_roundRect_topLeftRadius="10dp"
                 app:shape_roundRect_topRightRadius="10dp"
                 app:shape_roundRect_borderWidth="2dp"
-                app:shape_roundRect_borderColor="@color/grey"
+                app:shape_roundRect_borderColor="#C6C4C4"
                 android:elevation="5dp"
-                android:outlineSpotShadowColor="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_below="@id/bb"
                 android:layout_height="wrap_content">
-                    <androidx.recyclerview.widget.RecyclerView
-                        style="@style/Theme.Creator_"
-                        android:smoothScrollbar="false"
-                        android:id="@+id/list_button1"
-                        android:scrollbars="none"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                <androidx.recyclerview.widget.RecyclerView
+                    style="@style/Theme.Creator_"
+                    android:smoothScrollbar="false"
+                    android:id="@+id/list_button1"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
-
-
         </RelativeLayout>
-
     </ScrollView>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
