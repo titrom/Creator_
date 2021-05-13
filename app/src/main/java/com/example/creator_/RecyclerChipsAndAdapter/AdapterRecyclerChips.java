@@ -41,7 +41,7 @@ public class AdapterRecyclerChips extends RecyclerView.Adapter<AdapterRecyclerCh
     public void onBindViewHolder(@NonNull ChipsHolder holder, int position) {
         ChipRecycler chipR=listChips.get(position);
         holder.chip.setText(chipR.getTextChip());
-        holder.chip.setChipIconResource(R.drawable.ic_action_add_file_txt);
+        holder.chip.setChipIconResource(R.drawable.ic_action_add_file_pdf);
         holder.chip.setOnCloseIconClickListener(v -> {
             holder.chipGroup.removeView(v);
             clickCloseChips.onChipsClickCloseIcon(chipR,position);

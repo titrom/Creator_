@@ -117,7 +117,7 @@ public class AddBookActivity extends AppCompatActivity {
                     .setShowVideos(false)
                     .setShowFiles(true)
                     .setSkipZeroSizeFiles(true)
-                    .setSuffixes("txt")
+                    .setSuffixes("pdf")
                     .build());
             startActivityForResult(intent, FILE_REQUEST_CODE);
         });
@@ -154,7 +154,7 @@ public class AddBookActivity extends AppCompatActivity {
                                 });
                                 for (MediaFile i:list)
                                     if (i.getSize() != 0) {
-                                        StorageReference FileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".txt");
+                                        StorageReference FileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".pdf");
                                         H += 1;
                                         Uri uri = i.getUri();
                                         UploadTask uploadTask = FileRef.putFile(uri);

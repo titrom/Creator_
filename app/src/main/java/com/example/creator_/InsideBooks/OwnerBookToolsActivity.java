@@ -33,6 +33,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,9 +68,17 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
             String idBook=arg.get("idBook").toString();
             information(idBook);
             read.setOnClickListener(v -> {
-                Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
-                intent.putExtra("idBook",idBook);
-                startActivity(intent);
+                try {
+                    StorageReference  reference = storageRef
+                            .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава0" + ".pdf");
+                    File localFile = File.createTempFile("Глава0", "pdf");
+                    Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
+                    intent.putExtra("idBook",idBook);
+                    startActivity(intent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             });
 
 
