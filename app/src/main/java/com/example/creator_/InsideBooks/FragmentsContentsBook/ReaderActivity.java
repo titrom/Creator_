@@ -34,6 +34,7 @@ public class ReaderActivity extends AppCompatActivity {
         Bundle arg = getIntent().getExtras();
         if (arg != null && user != null){
             String idBook = arg.get("idBook").toString();
+            File file = null;
         }
     }
     private void init(){

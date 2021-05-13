@@ -64,7 +64,6 @@ public class AddBookActivity extends AppCompatActivity {
     private final FirebaseUser user= mAuth.getCurrentUser();
     private final FirebaseStorage storage=FirebaseStorage.getInstance();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
-//    private final int bar=getColor(R.color.bar);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +137,7 @@ public class AddBookActivity extends AppCompatActivity {
                     if (Objects.requireNonNull(snapshot).exists()){
                         ArrayList<String> listBook= (ArrayList<String>) Objects.requireNonNull(snapshot.getData()).put("listIdBook",null);
                         Timestamp timestamp= new Timestamp(Calendar.getInstance().getTime());
-                        BookClass book=new BookClass(timestamp,description,nameBook,user.getUid(),privacy,0, new ArrayList<>());
+                        BookClass book=new BookClass(timestamp,description,nameBook,user.getUid(),privacy,0, new ArrayList<>(),list.size());
                         Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
                         int xpUser=Integer.parseInt(Objects.requireNonNull(snapshot.getData().put("xpUser", 0)).toString());
 

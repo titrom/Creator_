@@ -14,8 +14,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.creator_.InsideBooks.FragmentsContentsBook.AdapterInformation;
 import com.example.creator_.InsideBooks.FragmentsContentsBook.ChapterFragment;
@@ -35,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 public class OwnerBookToolsActivity extends AppCompatActivity{
+    private static final String TAG = "OwnerBookActivity";
+
     private ImageView imageView;
     private TabLayout tabLayout;
     private ViewPager2 pager;
@@ -71,11 +76,19 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                 try {
                     StorageReference  reference = storageRef
                             .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава0" + ".pdf");
-                    File localFile = File.createTempFile("Глава0", "pdf");
-                    Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
-                    intent.putExtra("idBook",idBook);
-                    startActivity(intent);
+                    File localFile = File.createTempFile("Chapter",".pdf");
+                    reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+
+//                        Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
+//                        intent.putExtra("idBook",idBook);
+//                        startActivity(intent);
+                        Toast.makeText(OwnerBookToolsActivity.this, localFile.getName(),Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(e -> {
+                        Log.w(TAG, e);
+                    });
+
                 } catch (IOException e) {
+
                     e.printStackTrace();
                 }
 
