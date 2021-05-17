@@ -72,26 +72,36 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         if (arg!=null && user!=null){
             String idBook=arg.get("idBook").toString();
             information(idBook);
+            ArrayList<String> filename = new ArrayList<>();
             read.setOnClickListener(v -> {
-                try {
-                    StorageReference  reference = storageRef
-                            .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава0" + ".pdf");
-                    File localFile = File.createTempFile("Chapter",".pdf");
-                    reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                db.collection("Book").document(idBook).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (Objects.requireNonNull(snapshot).exists()){
 
-//                        Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
-//                        intent.putExtra("idBook",idBook);
-//                        startActivity(intent);
-                        Toast.makeText(OwnerBookToolsActivity.this, localFile.getName(),Toast.LENGTH_SHORT).show();
-                    }).addOnFailureListener(e -> {
-                        Log.w(TAG, e);
-                    });
-
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }
-
+//                                    int coolChapter = (int) Objects.requireNonNull(snapshot.getData()).put("collChapter",0);
+                            try {
+                                for (int i=0;i<=1;i++){
+                                    StorageReference  reference = storageRef
+                                            .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава" + i + ".pdf");
+                                    File localFile = File.createTempFile("Chapter",".pdf");
+                                    reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                                        filename.add(localFile.getPath());
+                                        Toast.makeText(OwnerBookToolsActivity.this, localFile.getName(),Toast.LENGTH_SHORT).show();
+                                    }).addOnFailureListener(e -> {
+                                        Log.w(TAG, e);
+                                    });
+                                }
+                                Intent intent = new Intent(OwnerBookToolsActivity.this, ReaderActivity.class);
+                                intent.putExtra("idBook",idBook);
+                                intent.putExtra("filename", filename);
+                                startActivity(intent);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
             });
 
 

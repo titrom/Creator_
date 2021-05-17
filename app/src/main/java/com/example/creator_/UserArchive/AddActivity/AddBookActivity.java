@@ -82,7 +82,7 @@ public class AddBookActivity extends AppCompatActivity {
                 ErrorStartCheck();
                 if (uriImageBookLoad != null && !list.isEmpty() && checkErrorStart) {
                     new MaterialAlertDialogBuilder(AddBookActivity.this).setTitle("Публикация")
-                            .setMessage("Опубликовать или оставить ка черновик?")
+                            .setMessage("Опубликовать или оставить как черновик?")
                             .setNegativeButton(R.string.Draft, (dialog, which) -> {
                                 AddBook(list, uriImageBookLoad,false);
                                 dialog.cancel();

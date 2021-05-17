@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.creator_.R;
 
@@ -18,6 +19,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ReaderActivity extends AppCompatActivity {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -34,7 +36,8 @@ public class ReaderActivity extends AppCompatActivity {
         Bundle arg = getIntent().getExtras();
         if (arg != null && user != null){
             String idBook = arg.get("idBook").toString();
-            File file = null;
+            ArrayList<String> filename = (ArrayList<String>) arg.get("filename");
+            Toast.makeText(ReaderActivity.this, filename.get(0), Toast.LENGTH_SHORT).show();
         }
     }
     private void init(){
