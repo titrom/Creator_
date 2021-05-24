@@ -5,5 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InsideBooks.FragmentsContentsBook.ReaderActivity">
+    tools:context=".PlayClass.ReaderActivity">
+    <com.github.barteksc.pdfviewer.PDFView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pdf_view"/>
 </LinearLayout>

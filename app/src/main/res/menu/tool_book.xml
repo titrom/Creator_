@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:iconTint="@color/ItemColor"
+        android:icon="@drawable/edit"
+        android:id="@+id/edit"
+        android:title="@string/edit"
+        tools:targetApi="o" />
+    <item
+        android:iconTint="@color/ItemColor"
+        android:id="@+id/add_chapter"
+        android:title="@string/add_chapter"
+        android:icon="@drawable/ic_action_add"
+        tools:targetApi="o" />
+    <item
+        app:showAsAction="withText"
+        android:iconTint="@color/ItemColor"
+        android:id="@+id/delete"
+        android:title="@string/delete_book"
+        android:icon="@drawable/ic_stat_name_delete"
+        tools:targetApi="o" />
+</menu>

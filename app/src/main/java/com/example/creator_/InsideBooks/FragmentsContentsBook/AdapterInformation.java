@@ -14,11 +14,7 @@ public class AdapterInformation extends FragmentStateAdapter {
     public AdapterInformation(@NonNull FragmentActivity fragmentActivity,ArrayList<Fragment> fragments) {
         super(fragmentActivity);
         this.fragments=fragments;
-
     }
-
-
-
 
     @NonNull
     @Override

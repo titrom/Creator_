@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">Творец</string>
     <string name="Nickname">Псевдоним</string>
     <string name="NameUser"><u>Автор</u></string>
@@ -36,6 +35,9 @@
     <string name="NewBook">Новая книга</string>
     <string name="Book">Книга</string>
     <string name="ToolMenuButton">ToolMenuButton</string>
+    <string name="edit">Редактировать</string>
+    <string name="add_chapter">Добавить главы</string>
+    <string name="delete_book">Удалить книгу</string>
 
     <string name="MyLibrary">Мои книги</string>
     <string name="MyMusic">Моя музыка</string>

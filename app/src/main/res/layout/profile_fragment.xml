@@ -11,18 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-        android:background="#EEEEEE"
+        android:background="#F5F5F5"
         android:elevation="1dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="#EEEEEE"
             android:padding="5dp"
+            android:background="#F5F5F5"
             android:layout_height="wrap_content">
             <com.github.florent37.shapeofview.shapes.RoundRectView
                 android:layout_width="wrap_content"
                 android:id="@+id/bb"
                 android:elevation="4dp"
-                app:shape_roundRect_borderWidth="2dp"
                 app:shape_roundRect_bottomLeftRadius="10dp"
                 app:shape_roundRect_bottomRightRadius="10dp"
                 app:shape_roundRect_topLeftRadius="10dp"
@@ -38,15 +37,16 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/circleView"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="1dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginStart="25dp"
-                        android:layout_marginEnd="260dp"
+                        android:layout_marginEnd="220dp"
                         android:text="Подписчиков: 0"
                         />
                     <com.github.florent37.shapeofview.shapes.CircleView
                         android:id="@+id/circleView"
                         android:layout_width="160dp"
                         android:layout_height="110dp"
+                        android:layout_marginTop="8dp"
                         android:elevation="2dp"
                         >
                         <ImageButton
@@ -110,7 +110,6 @@
                 app:shape_roundRect_bottomRightRadius="10dp"
                 app:shape_roundRect_topLeftRadius="10dp"
                 app:shape_roundRect_topRightRadius="10dp"
-                app:shape_roundRect_borderWidth="2dp"
                 app:shape_roundRect_borderColor="#C6C4C4"
                 android:elevation="5dp"
                 android:layout_width="match_parent"

@@ -126,6 +126,8 @@ public class AddBookActivity extends AppCompatActivity {
             startActivityForResult(galUserImage,GALLERY_REQUEST);
         });
     }
+
+
     private void AddBook(ArrayList<MediaFile> list,Uri uriBookImage,boolean privacy){
         String nameBook= Objects.requireNonNull(inputLayoutNameBookEdit.getEditText()).getText().toString();
         String description= Objects.requireNonNull(inputLayoutDescriptionBook.getEditText()).getText().toString();
@@ -182,6 +184,8 @@ public class AddBookActivity extends AppCompatActivity {
             });
         }
     }
+
+
     @Override
     public void onBackPressed() {
         if (back_pressed+2000> currentTimeMillis()) {
@@ -194,6 +198,8 @@ public class AddBookActivity extends AppCompatActivity {
         }
         back_pressed= currentTimeMillis();
     }
+
+
     private void Start_uCrop(Uri uri){
         Random random=new Random();
 
@@ -211,6 +217,8 @@ public class AddBookActivity extends AppCompatActivity {
 
 
     }
+
+
     private UCrop.Options getUCropOptions(){
         UCrop.Options options=new UCrop.Options();
         //options.setStatusBarColor(bar);
@@ -218,6 +226,8 @@ public class AddBookActivity extends AppCompatActivity {
         //options.setToolbarColor(bar);
         return options;
     }
+
+
     private void LoadCoverArtBook(Uri uri){
         Picasso.with(this).load(uri).into(coverArt);
     }
@@ -261,6 +271,8 @@ public class AddBookActivity extends AppCompatActivity {
 
         }
     }
+
+
     private void ErrorStartCheck(){
         if (Objects.requireNonNull(inputLayoutNameBookEdit.getEditText()).getText().toString().trim().isEmpty()) inputLayoutNameBookEdit.setError("Это поле надо заполнить");
         else inputLayoutNameBookEdit.setError(null);

@@ -6,8 +6,9 @@
     android:id="@+id/rr"
     android:layout_height="wrap_content"
     tools:context=".InsideBooks.OwnerBookToolsActivity">
+
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/ToolbarBook"
+        android:id="@+id/toolBarBook"
         android:elevation="3dp"
         app:title="@string/Book"
         app:navigationIcon="@drawable/ic_back_item"
@@ -17,10 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         />
+    <View
+        android:id="@+id/view"
+        android:layout_alignParentEnd="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
     <ScrollView
         android:background="#EEEEEE"
         android:id="@+id/r2"
-        android:layout_below="@id/ToolbarBook"
+        android:layout_below="@id/toolBarBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -32,12 +38,9 @@
                 android:background="#00FFFFFF"
                 android:id="@+id/cardInformation"
                 android:layout_height="wrap_content">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-
                     <com.github.florent37.shapeofview.shapes.RoundRectView
                         android:layout_width="120dp"
                         android:layout_height="150dp"
@@ -54,7 +57,6 @@
                         <ImageView
                             android:layout_gravity="center"
                             android:layout_width="125dp"
-                            android:src="@drawable/ic_star__yellow"
                             android:background="#4FC6C4C4"
                             android:layout_height="155dp"
                             android:id="@+id/ThisBookImage"
@@ -79,7 +81,6 @@
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="31dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="start"
@@ -87,7 +88,7 @@
                         android:layout_marginTop="130dp"
                         android:layout_below="@id/CollSub"
                         android:minHeight="25dp"
-                        android:layout_marginStart="130dp"
+                        android:layout_marginStart="160dp"
                         android:text="@string/NameUser"
                         android:textColor="#5BA3A5"
                         android:textSize="15sp" />
@@ -98,9 +99,8 @@
                         android:id="@+id/CollSub"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="160dp"
-                        android:layout_marginStart="140dp"
+                        android:layout_marginStart="160dp"
                         android:layout_below="@id/dateText"
-                        android:layout_marginEnd="5dp"
                         android:textSize="15sp"
                         android:textColor="#737373"
                         android:text="Почитатили: 0"
@@ -108,8 +108,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="140dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="160dp"
                         android:id="@+id/dateText"
                         android:textColor="#737373"
                         android:text="Дата:"
@@ -132,19 +131,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/cardInformation"
-                >
+                android:elevation="5dp"
+                android:layout_below="@id/cardInformation">
                 <com.google.android.material.appbar.AppBarLayout
                     android:layout_width="match_parent"
                     android:id="@+id/apl"
                     style="@style/Theme.Creator_"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_height="wrap_content">
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_layout_page"
+                        app:tabRippleColor="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:tabIndicatorColor="@color/ItemColor" >
+                        app:tabIndicatorColor="@color/ItemColor">
                     </com.google.android.material.tabs.TabLayout>
                 </com.google.android.material.appbar.AppBarLayout>
                 <androidx.viewpager2.widget.ViewPager2
@@ -153,7 +152,6 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     />
-
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

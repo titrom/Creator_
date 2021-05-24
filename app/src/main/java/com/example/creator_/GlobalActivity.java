@@ -34,12 +34,11 @@ public class GlobalActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(profileFragment).show(fragmentBar).commit();break;
-                    case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(fragmentBar).hide(profileFragment).commit();break;
-                    case R.id.home:getSupportFragmentManager().beginTransaction().hide(fragmentBar).show(profileFragment).commit();break;
+                    case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(profileFragment).show(fragmentBar).commit(); return true;
+                    case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(fragmentBar).hide(profileFragment).commit(); return true;
+                    case R.id.home:getSupportFragmentManager().beginTransaction().hide(fragmentBar).show(profileFragment).commit(); return true;
                     default: return false;
                 }
-                return false;
             }
         });
 

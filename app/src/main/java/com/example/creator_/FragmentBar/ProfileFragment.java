@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -44,6 +46,7 @@ import static com.example.creator_.R.*;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ProfileFragment extends Fragment{
     private ImageButton buttonImageUser;
+
     private final int GALLERY_REQUEST = 2;
     private RecyclerView rv;
     private TextView xpPoint;

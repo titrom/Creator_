@@ -27,25 +27,5 @@ public class FragmentBar extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        TabLayout tabLayout;
-//        tabLayout=view.findViewById(R.id.location);
-//        TabItem library=view.findViewById(R.id.Library);
-//        tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(Tab tab) {
-//            }
-//
-//            @Override
-//            public void onTabUnselected(Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(Tab tab) {
-//
-//            }
-//        });
-
-
     }
 }

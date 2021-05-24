@@ -21,15 +21,10 @@
         android:id="@+id/bottomNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:backgroundTint="@color/ItemColor"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="6dp"
-        style="@style/Theme.Creator_"
-        app:itemIconSize="25dp"
-        app:menu="@menu/buton_navigation_item" />
+        app:itemRippleColor="@color/white"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/buton_navigation_item"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
     android:elevation="5dp"
-
+    android:background="#F5F5F5"
     style="@style/Theme.Creator_"
     app:shape_roundRect_bottomLeftRadius="20dp"
     app:shape_roundRect_bottomRightRadius="30dp"

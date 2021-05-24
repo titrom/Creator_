@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Creator_">
-        <activity android:name=".InsideBooks.FragmentsContentsBook.ReaderActivity"></activity>
+        <activity android:name=".PlayClass.ReaderActivity"></activity>
         <activity android:name=".InsideBooks.OwnerBookToolsActivity" />
         <activity android:name=".UserArchive.AddActivity.AddBookActivity" />
         <activity

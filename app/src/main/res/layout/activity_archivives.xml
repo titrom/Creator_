@@ -6,53 +6,43 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5"
     tools:context=".UserArchive.ArchivivesActivity">
+
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:id="@+id/search"
+        app:shape_roundRect_borderColor="#E5E5E5"
+        app:shape_roundRect_topRightRadius="15dp"
+        app:shape_roundRect_topLeftRadius="15dp"
+        app:shape_roundRect_bottomRightRadius="15dp"
+        app:shape_roundRect_bottomLeftRadius="15dp"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            style="@style/Theme.Creator_"
+            android:id="@+id/barArchive"
+            >
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/searchArchive"
+                app:titleTextColor="@color/ItemColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/SearchArchive"
+                app:menu="@menu/tool_bar_navig_icon"
+                />
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F5F5F5"
         android:id="@+id/ArchiveFragment"
-        android:layout_below="@+id/barArchive"/>
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        style="@style/Theme.Creator_"
-        android:id="@+id/barArchive"
-        >
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/searchArchive"
-            android:layout_marginRight="22dp"
-            android:layout_marginTop="12dp"
-            app:titleTextColor="@color/ItemColor"
-            android:layout_marginLeft="22dp"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/SearchArchive"
-            app:menu="@menu/tool_bar_navig_icon"
-            />
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            app:tabMode="fixed"-->
-<!--            android:id="@+id/Archives"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            >-->
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/MyLibrary"-->
-<!--                android:text="@string/MyLibrary"/>-->
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:id="@+id/MyMusic"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/MyMusic"/>-->
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/MyArt"-->
-<!--                android:text="@string/MyArt"-->
-<!--                />-->
-<!--        </com.google.android.material.tabs.TabLayout>-->
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_below="@+id/search"/>
+
 
 
 </RelativeLayout>
