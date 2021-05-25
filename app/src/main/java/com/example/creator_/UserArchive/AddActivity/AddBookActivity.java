@@ -4,6 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
@@ -38,7 +42,6 @@ import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -50,9 +53,12 @@ import static java.lang.System.currentTimeMillis;
 
 public class AddBookActivity extends AppCompatActivity {
     private final static String  SAMPLE_CROPPED_IMG_NAME = "SampleCropImg";
-    private final int GALLERY_REQUEST = 2;
-    private final int  FILE_REQUEST_CODE=3;
+    private static final int GALLERY_REQUEST = 2;
+    private static final int  FILE_REQUEST_CODE=3;
     private int H;
+    private ProgressDialog pd;
+    private int progress;
+    private StorageReference imageRef;
     private ImageButton coverArt;
     private Uri uriImageBookLoad;
     private static long back_pressed;
@@ -77,6 +83,7 @@ public class AddBookActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
         tabLayout.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.trueButton) {
                 ErrorStartCheck();
@@ -111,7 +118,7 @@ public class AddBookActivity extends AppCompatActivity {
             intent.putExtra(FilePickerActivity.CONFIGS, new Configurations.Builder()
                     .setCheckPermission(true)
                     .enableImageCapture(true)
-                    .setMaxSelection(3)
+                    .setMaxSelection(5)
                     .setShowImages(false)
                     .setShowVideos(false)
                     .setShowFiles(true)
@@ -141,40 +148,69 @@ public class AddBookActivity extends AppCompatActivity {
                         Timestamp timestamp= new Timestamp(Calendar.getInstance().getTime());
                         BookClass book=new BookClass(timestamp,description,nameBook,user.getUid(),privacy,0, new ArrayList<>(),list.size());
                         Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
-                        int xpUser=Integer.parseInt(Objects.requireNonNull(snapshot.getData().put("xpUser", 0)).toString());
-
                         db.collection("Book").add(book).addOnSuccessListener(documentReference -> {
                             Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                             StorageReference storageRef=storage.getReference();
                             if (listBook != null) {
                                 listBook.add(documentReference.getId());
-                                StorageReference ImageRef=storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId()+ "/" + "coverArt" + ".jpg");
-                                UploadTask uploadTaskImageBook=ImageRef.putFile(uriBookImage);
+                                imageRef =storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId()+ "/" + "coverArt" + ".jpg");
+                                UploadTask uploadTaskImageBook= imageRef.putFile(uriBookImage);
                                 uploadTaskImageBook.addOnFailureListener(e -> {
                                 }).addOnSuccessListener(taskSnapshot -> {
                                 });
-                                for (MediaFile i:list)
+
+                                ArrayList<UploadTask> arrayList = new ArrayList<>();
+                                for (MediaFile i:list){
                                     if (i.getSize() != 0) {
-                                        StorageReference FileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".pdf");
-                                        H += 1;
+                                        StorageReference fileRef = storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId() + "/" + "Глава" + H + ".pdf");
                                         Uri uri = i.getUri();
-                                        UploadTask uploadTask = FileRef.putFile(uri);
-                                        uploadTask.addOnFailureListener(e -> {
-                                        }).addOnSuccessListener(taskSnapshot -> {
-                                            Intent intent=new Intent(AddBookActivity.this, ArchivivesActivity.class);
+                                        UploadTask uploadTask = fileRef.putFile(uri);
+                                        arrayList.add(uploadTask);
+                                        H++;
+                                    } else Toast.makeText(AddBookActivity.this, "Файл " + i.getName() + ".pdf пустой, не будет сохранён", Toast.LENGTH_LONG).show();
+                                }
+                                pd = new ProgressDialog(AddBookActivity.this);
+                                pd.setTitle("Создания книги");
+                                pd.setMax(100);
+                                pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+                                for (UploadTask i: arrayList){
+                                    pd.setButton(Dialog.BUTTON_POSITIVE, "Отмена", (dialog, which) -> {
+                                        StopFunc(documentReference.getId(), i, pd);
+                                        onStop();
+                                    });
+                                    i.addOnProgressListener(snapshot1 -> {
+                                        int progressYou = (int) (100*snapshot1.getBytesTransferred()/snapshot1.getTotalByteCount());
+                                        if (progress==0){
+                                            progress+=progressYou;
+                                        }else {
+                                            progress += (progressYou-progress);
+                                        }
+                                        pd.setMessage("Дождитесь окончания загрузки");
+                                        pd.incrementProgressBy(progress/arrayList.size());
+
+                                        if (progress==0) pd.show();
+
+                                    }).addOnSuccessListener(taskSnapshot -> {
+                                        Log.d(TAG,"Ok");
+
+                                        if (pd.getProgress()==100) {
+                                            pd.cancel();
+                                            Toast.makeText(AddBookActivity.this,"Загрузка завершина",Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(AddBookActivity.this,ArchivivesActivity.class);
                                             startActivity(intent);
                                             finish();
-                                        });
-                                    } else {
-                                        Toast.makeText(AddBookActivity.this, "Файл " + i.getName() + ".pdf пустой, не будет сохранён", Toast.LENGTH_LONG).show();
-                                    }
-
-                                docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                                        }
+                                    }).addOnFailureListener(e -> {
+                                        Toast.makeText(AddBookActivity.this,"Не удалось загрузить файл",Toast.LENGTH_LONG).show();
+                                    });
+                                }
+                                Log.d(TAG,String.valueOf(pd.getProgress()));
+                                docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> {
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                }).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
                             }
-
                         }).addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
-                        docRef.update("xpUser",xpUser+15).addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!")).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
-
                     }else {
                         Log.d(TAG, "No such document");
                     }
@@ -184,7 +220,22 @@ public class AddBookActivity extends AppCompatActivity {
             });
         }
     }
-
+    private void StopFunc(String id,UploadTask i, ProgressDialog pd){
+        pd.cancel();
+        i.cancel();
+        StorageReference storageRef1=storage.getReference();
+        StorageReference fileRef = storageRef1.child(user.getUid()+ "/" + "Book/" + id);
+        fileRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+        db.collection("Book").document(id).delete()
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+        imageRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+        Intent intent = new Intent(AddBookActivity.this,ArchivivesActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void onBackPressed() {

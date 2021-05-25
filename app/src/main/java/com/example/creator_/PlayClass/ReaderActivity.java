@@ -51,7 +51,7 @@ public class ReaderActivity extends AppCompatActivity {
                                 (Objects.requireNonNull(snapshot.getData()).put("collChapter", 0))
                                 .toString());
                         File file = new File(getExternalFilesDir(null)
-                                +"/Books/"+idBook+"/"+"Глава"+(collChapter-pageIndex)+".pdf");
+                                +"/Books/"+idBook+"/Глава1.pdf");
                         pdfView.fromFile(file).swipeHorizontal(true).pageSnap(true).autoSpacing(true)
                                 .pageFling(true).pageFitPolicy(FitPolicy.BOTH).load();
 

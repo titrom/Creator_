@@ -53,10 +53,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:inputType="textEmailAddress"
             android:background="@color/ItemColor"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"

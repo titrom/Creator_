@@ -72,10 +72,8 @@ public class MyLibraryFragment extends Fragment {
             if (task.isSuccessful()){
                 DocumentSnapshot snapshot=task.getResult();
                 if (Objects.requireNonNull(snapshot).exists()){
-                    ArrayList<String> listBook= (ArrayList<String>) snapshot.getData().put("listIdBook","");
-                    if (Objects.requireNonNull(listBook).size()!=0){
-                        swipeRefreshLayout.setRefreshing(true);
-                    }
+                    ArrayList<String> listBook= (ArrayList<String>) Objects.requireNonNull(snapshot.getData()).put("listIdBook","");
+                    swipeRefreshLayout.setRefreshing(Objects.requireNonNull(listBook).size() != 0);
                 }
             }
         });
@@ -111,38 +109,41 @@ public class MyLibraryFragment extends Fragment {
                     if (Objects.requireNonNull(snapshot).exists()){
                         Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
                         ArrayList<String> listBook=(ArrayList<String>) snapshot.getData().put("listIdBook","");
-                        for (String i: Objects.requireNonNull(listBook)) {
-                            CollectionReference Book=db.collection("Book");
-                            Book.whereEqualTo("userId",user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                                for ( int f=1;f<=queryDocumentSnapshots.size();f++){
-                                    DocumentSnapshot lastVisible=queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-f);
-                                    storageRef.child(user.getUid() + "/" + "Book/" + lastVisible.getId()+ "/" + "coverArt" +".jpg").getDownloadUrl().addOnSuccessListener(uri -> {
-                                        if (i.equals(lastVisible.getId())){
-                                            String nameBook= (String) Objects.requireNonNull(lastVisible.getData()).put("nameBook","");
-                                            Timestamp timestamp= (Timestamp) lastVisible.getData().put("dateBook",null);
-                                            boolean privacy=(boolean) lastVisible.getData().put("privacyLevel",false);
-                                            myBC.add(new MyBookClass(uri,nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(),privacy));
-                                            Collections.sort(myBC, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
-                                            AdapterRecyclerMyBook.OnClickBookRec oCBR= (mBC, position) -> {
-                                                if(!userClickBookItem) {
-                                                    userClickBookItem = true;
-                                                    Intent intent = new Intent(getContext(), OwnerBookToolsActivity.class);
-                                                    intent.putExtra("idBook", listBook.get(position));
-                                                    startActivity(intent);
-                                                }
-                                            };
-                                            AdapterRecyclerMyBook adapterRecyclerMyBook=new AdapterRecyclerMyBook(myBC,getContext(),oCBR);
-                                            rv.setAdapter(adapterRecyclerMyBook);
-                                            swipeRefreshLayout.setRefreshing(false);
+                        if (Objects.requireNonNull(listBook).size()!=0){
+                            for (String i: Objects.requireNonNull(listBook)) {
+                                CollectionReference Book=db.collection("Book");
+                                Book.whereEqualTo("userId",user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                                    for ( int f=1;f<=queryDocumentSnapshots.size();f++){
+                                        DocumentSnapshot lastVisible=queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-f);
+                                        storageRef.child(user.getUid() + "/" + "Book/" + lastVisible.getId()+ "/" + "coverArt" +".jpg").getDownloadUrl().addOnSuccessListener(uri -> {
+                                            if (i.equals(lastVisible.getId())){
+                                                String nameBook= (String) Objects.requireNonNull(lastVisible.getData()).put("nameBook","");
+                                                Timestamp timestamp= (Timestamp) lastVisible.getData().put("dateBook",null);
+                                                boolean privacy=(boolean) lastVisible.getData().put("privacyLevel",false);
+                                                myBC.add(new MyBookClass(uri,nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(),privacy));
+                                                Collections.sort(myBC, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
+                                                AdapterRecyclerMyBook.OnClickBookRec oCBR= (mBC, position) -> {
+                                                    if(!userClickBookItem) {
+                                                        userClickBookItem = true;
+                                                        Intent intent = new Intent(getContext(), OwnerBookToolsActivity.class);
+                                                        intent.putExtra("idBook", listBook.get(position));
+                                                        startActivity(intent);
+                                                    }
+                                                };
+                                                AdapterRecyclerMyBook adapterRecyclerMyBook=new AdapterRecyclerMyBook(myBC,getContext(),oCBR);
+                                                rv.setAdapter(adapterRecyclerMyBook);
+                                                swipeRefreshLayout.setRefreshing(false);
+                                            }
+                                        }).addOnFailureListener(e -> {
 
-                                        }
-
-                                    }).addOnFailureListener(e -> {
-
-                                    });
-                                }
-                            });
+                                        });
+                                    }
+                                });
+                            }
+                        }else {
+                            swipeRefreshLayout.setRefreshing(false);
                         }
+
                     }else {
                         Log.d(TAG, "No such document");
                     }

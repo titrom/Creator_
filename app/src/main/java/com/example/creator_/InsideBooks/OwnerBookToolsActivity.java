@@ -1,13 +1,21 @@
 package com.example.creator_.InsideBooks;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -26,10 +34,14 @@ import com.example.creator_.InsideBooks.FragmentsContentsBook.ChapterFragment;
 import com.example.creator_.InsideBooks.FragmentsContentsBook.DescriptionFragment;
 import com.example.creator_.PlayClass.ReaderActivity;
 import com.example.creator_.R;
+import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
+import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
+import com.example.creator_.UserArchive.AddActivity.AddBookActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +49,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.jaiselrahman.filepicker.activity.FilePickerActivity;
+import com.jaiselrahman.filepicker.config.Configurations;
+import com.jaiselrahman.filepicker.model.MediaFile;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -51,8 +66,11 @@ import static com.example.creator_.R.menu.tool_book;
 public class OwnerBookToolsActivity extends AppCompatActivity{
     private static final String TAG = "OwnerBookActivity";
 
+    private String idBook;
+
     private File bookDir;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private View view;
     private ImageView imageView;
     private TabLayout tabLayout;
@@ -64,61 +82,71 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
     private MaterialButton read;
     private MaterialToolbar toolbar;
 
+    //Dialogs
+    private MaterialButton close, complete;
+
+    //EditDialog
+    private TextInputLayout inputNameBook, inputDescriptionBook;
+
+    //AddChapterDialog
+    private MaterialButton addFile;
+    private RecyclerView rv;
+    private ArrayList<MediaFile> list= new ArrayList<>();
+
+    private static final int  FILE_REQUEST_CODE=3;
+
     private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private final FirebaseUser user= mAuth.getCurrentUser();
+    private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     private final FirebaseStorage storage=FirebaseStorage.getInstance();
     private final StorageReference storageRef=storage.getReference();
-    private final FirebaseFirestore db=FirebaseFirestore.getInstance();
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_book_tools_activity);
+        Bundle arg=getIntent().getExtras();
+        if (arg!=null && user!=null) idBook=arg.get("idBook").toString();
         init();
         viewPager2();
-        Bundle arg=getIntent().getExtras();
-        if (arg!=null && user!=null){
-            String idBook=arg.get("idBook").toString();
-            information(idBook);
-            createDirectory(idBook);
-            toolbar.setNavigationOnClickListener(v -> finish());
-            toolbar.setOnMenuItemClickListener(item -> {
-                if (item.getItemId()==R.id.ToolMenuButton){
-                    MenuBuilder menuBuilder =new MenuBuilder(this);
-                    MenuInflater inflater = new MenuInflater(this);
-                    inflater.inflate(tool_book, menuBuilder);
-                    MenuPopupHelper optionsMenu = new MenuPopupHelper(this, menuBuilder, view);
-                    optionsMenu.setForceShowIcon(true);
-                    menuBuilder.setCallback(new MenuBuilder.Callback() {
-                        @Override
-                        public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem items) {
-                            switch (items.getItemId()){
-                                case R.id.edit: Toast.makeText(OwnerBookToolsActivity.this,"Диогоговое окно с изменениями для книги", Toast.LENGTH_SHORT).show();
-                                return true;
-                                case R.id.add_chapter: Toast.makeText(OwnerBookToolsActivity.this,"Диогоговое окно добовления новых глав", Toast.LENGTH_SHORT).show();
-                                return true;
-                                case R.id.delete: Toast.makeText(OwnerBookToolsActivity.this,"Диогоговое окно удаления книги", Toast.LENGTH_SHORT).show();
-                                return true;
-                                default: return false;
-                            }
-                        }
+        update();
+        createDirectory(idBook);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId()==R.id.ToolMenuButton) showMenu();
+            return false;
+        });
+        read.setOnClickListener(v -> onRead(idBook));
+    }
 
-                        @Override
-                        public void onMenuModeChange(@NonNull MenuBuilder menu) { }
-                    });
-                    optionsMenu.show();
-                }
-                return false;
+
+    private void init(){
+        read = findViewById(R.id.read);
+        bookDate = findViewById(R.id.dateText);
+        collSub = findViewById(R.id.CollSub);
+        nameWriter = findViewById(R.id.WriterName);
+        nameBook = findViewById(R.id.YourBookName);
+        imageView = findViewById(R.id.ThisBookImage);
+        tabLayout = findViewById(R.id.tab_layout_page);
+        pager = findViewById(R.id.viewpager_owner);
+        toolbar = findViewById(R.id.toolBarBook);
+        view = findViewById(R.id.view);
+        swipeRefreshLayout = findViewById(R.id.update);
+    }
+
+
+    private void update(){
+        if (user != null){
+            information(idBook);
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+                information(idBook);
             });
-            read.setOnClickListener(v -> onRead(idBook));
+            swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(tool_book, menu);
-        return true;
-    }
 
     private void createDirectory(String idBook){
         bookDir = new File(getExternalFilesDir(null)+"/Books/"+idBook);
@@ -144,6 +172,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                             StorageReference  reference = storageRef
                                     .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава" + (i-1) + ".pdf");
                             reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                                Log.d(TAG,"OkDownload");
                             }).addOnFailureListener(e -> {
                             });
                         }else {
@@ -184,23 +213,10 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                             .getDownloadUrl().addOnSuccessListener(uri ->
                             Picasso.with(this).load(uri).into(imageView))
                             .addOnFailureListener(e -> {});
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
-    }
-
-
-    private void init(){
-        read = findViewById(R.id.read);
-        bookDate = findViewById(R.id.dateText);
-        collSub = findViewById(R.id.CollSub);
-        nameWriter = findViewById(R.id.WriterName);
-        nameBook = findViewById(R.id.YourBookName);
-        imageView = findViewById(R.id.ThisBookImage);
-        tabLayout = findViewById(R.id.tab_layout_page);
-        pager = findViewById(R.id.viewpager_owner);
-        toolbar = findViewById(R.id.toolBarBook);
-        view = findViewById(R.id.view);
     }
 
 
@@ -220,5 +236,137 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                 tab.setText("Главы");
             }
         }).attach();
+    }
+
+
+    private void dialogEdit(Dialog dialog){
+        inputNameBook = dialog.findViewById(R.id.NameBook);
+        inputDescriptionBook = dialog.findViewById(R.id.description);
+        close = dialog.findViewById(R.id.close);
+        complete = dialog.findViewById(R.id.complete);
+        close.setOnClickListener(v -> dialog.cancel());
+        complete.setOnClickListener(v -> {
+            if (!Objects.requireNonNull(inputNameBook.getEditText()).getText().toString().trim().isEmpty()){
+                db.collection("Book").document(idBook).update("nameBook",
+                        Objects.requireNonNull(inputNameBook.getEditText()).getText().toString())
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                        .addOnFailureListener(e ->Log.w(TAG, "Error updating document", e));
+                swipeRefreshLayout.setRefreshing(true);
+                information(idBook);
+                dialog.cancel();
+            }
+            if (!Objects.requireNonNull(inputDescriptionBook.getEditText()).getText().toString().trim().isEmpty()){
+                db.collection("Book").document(idBook).update("description",
+                        Objects.requireNonNull(inputDescriptionBook.getEditText()).getText().toString())
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                        .addOnFailureListener(e ->Log.w(TAG, "Error updating document", e));
+                swipeRefreshLayout.setRefreshing(true);
+                information(idBook);
+                dialog.cancel();
+            }
+            if (Objects.requireNonNull(inputDescriptionBook.getEditText()).getText().toString().trim().isEmpty()
+            && Objects.requireNonNull(inputNameBook.getEditText()).getText().toString().trim().isEmpty())
+                Toast.makeText(OwnerBookToolsActivity.this,"Нет изменений",Toast.LENGTH_LONG).show();
+        });
+    }
+
+
+    private void dialogAdd(Dialog dialog){
+        addFile = dialog.findViewById(R.id.addFile);
+        rv = dialog.findViewById(R.id.RecyclerFiles);
+        close = dialog.findViewById(R.id.close1);
+        complete = dialog.findViewById(R.id.complete1);
+        addFile.setOnClickListener(v -> {
+            Intent intent = new Intent(OwnerBookToolsActivity.this, FilePickerActivity.class);
+            intent.putExtra(FilePickerActivity.CONFIGS, new Configurations.Builder()
+                    .setCheckPermission(true)
+                    .enableImageCapture(true)
+                    .setMaxSelection(5)
+                    .setShowImages(false)
+                    .setShowVideos(false)
+                    .setShowFiles(true)
+                    .setSkipZeroSizeFiles(true)
+                    .setSuffixes("pdf")
+                    .build());
+            startActivityForResult(intent, FILE_REQUEST_CODE);
+        });
+        close.setOnClickListener(v -> dialog.cancel());
+        complete.setOnClickListener(v -> {
+
+        });
+    }
+
+
+    @SuppressLint("RestrictedApi")
+    private void showMenu(){
+        Dialog dialogEdit = new Dialog(OwnerBookToolsActivity.this);
+        dialogEdit.setContentView(R.layout.dialog_edit_book);
+
+
+        Dialog dialogAddChapter = new Dialog(OwnerBookToolsActivity.this);
+        dialogAddChapter.setContentView(R.layout.dialog_add_chapter);
+
+
+        MenuBuilder menuBuilder =new MenuBuilder(this);
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(tool_book, menuBuilder);
+        MenuPopupHelper optionsMenu = new MenuPopupHelper(this, menuBuilder, view);
+        optionsMenu.setForceShowIcon(true);
+
+        menuBuilder.setCallback(new MenuBuilder.Callback() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem items) {
+                switch (items.getItemId()){
+                    case R.id.edit: {
+                        dialogEdit(dialogEdit);
+                        dialogEdit.show();
+                    }
+                    return true;
+                    case R.id.add_chapter: {
+                        dialogAdd(dialogAddChapter);
+                        dialogAddChapter.show();
+                    }
+                        return true;
+                    case R.id.delete: Toast.makeText(OwnerBookToolsActivity.this,"Диогоговое окно удаления книги", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default: return false;
+                }
+            }
+            @Override
+            public void onMenuModeChange(@NonNull MenuBuilder menu) { }
+        });
+
+        optionsMenu.show();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==FILE_REQUEST_CODE && data!=null){
+            ArrayList<ChipRecycler> chipRecyclerArrayList = new ArrayList<>();
+            list = data.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES);
+            rv.setLayoutManager(new LinearLayoutManager(OwnerBookToolsActivity.this));
+            AdapterRecyclerChips.OnClickCloseChips clickCloseChips= (cp, Position) -> {
+            };
+            for (MediaFile i:list) {
+                chipRecyclerArrayList.add(new ChipRecycler(i.getName(),i.getMimeType()));
+                Log.w(TAG,i.getMimeType());
+            }
+            AdapterRecyclerChips adapterRecyclerChips=new AdapterRecyclerChips(chipRecyclerArrayList,OwnerBookToolsActivity.this,clickCloseChips);
+            rv.setAdapter(adapterRecyclerChips);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_refresh) {
+            Log.i(TAG, "Refresh menu item selected");
+            swipeRefreshLayout.setRefreshing(true);
+            information(idBook);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

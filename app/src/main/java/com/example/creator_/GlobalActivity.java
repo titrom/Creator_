@@ -3,17 +3,15 @@ package com.example.creator_;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.creator_.FragmentBar.FragmentBar;
+import com.example.creator_.FragmentBar.TopFragment;
 import com.example.creator_.FragmentBar.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class GlobalActivity extends AppCompatActivity{
@@ -25,18 +23,18 @@ public class GlobalActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global);
-        FragmentBar fragmentBar=new FragmentBar();
+        TopFragment topFragment =new TopFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment,profileFragment).hide(profileFragment).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment,fragmentBar).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment, topFragment).commit();
         barNavigation=findViewById(R.id.bottomNavigationBar);
         barNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(profileFragment).show(fragmentBar).commit(); return true;
-                    case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(fragmentBar).hide(profileFragment).commit(); return true;
-                    case R.id.home:getSupportFragmentManager().beginTransaction().hide(fragmentBar).show(profileFragment).commit(); return true;
+                    case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(profileFragment).show(topFragment).commit(); return true;
+                    case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(topFragment).hide(profileFragment).commit(); return true;
+                    case R.id.home:getSupportFragmentManager().beginTransaction().hide(topFragment).show(profileFragment).commit(); return true;
                     default: return false;
                 }
             }

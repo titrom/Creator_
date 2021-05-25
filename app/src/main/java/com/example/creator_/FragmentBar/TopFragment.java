@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import static com.google.android.material.tabs.TabLayout.*;
 
-public class FragmentBar extends Fragment {
+public class TopFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
