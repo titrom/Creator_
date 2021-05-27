@@ -32,7 +32,6 @@ public class ReaderActivity extends AppCompatActivity {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseUser user = mAuth.getCurrentUser();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private int pageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class ReaderActivity extends AppCompatActivity {
         init();
         Bundle arg = getIntent().getExtras();
         if (arg != null && user != null){
-            pageIndex = 0;
             String idBook = arg.get("idBook").toString();
             db.collection("Book").document(idBook).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
@@ -53,7 +51,7 @@ public class ReaderActivity extends AppCompatActivity {
                         File file = new File(getExternalFilesDir(null)
                                 +"/Books/"+idBook+"/Глава1.pdf");
                         pdfView.fromFile(file).swipeHorizontal(true).pageSnap(true).autoSpacing(true)
-                                .pageFling(true).pageFitPolicy(FitPolicy.BOTH).load();
+                                .pageFling(true).pageFitPolicy(FitPolicy.WIDTH).load();
 
                     }
                 }

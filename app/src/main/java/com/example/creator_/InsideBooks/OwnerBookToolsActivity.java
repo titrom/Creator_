@@ -5,23 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +32,6 @@ import com.example.creator_.PlayClass.ReaderActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
-import com.example.creator_.UserArchive.AddActivity.AddBookActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
@@ -171,9 +166,8 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                         if (!localFile.exists()){
                             StorageReference  reference = storageRef
                                     .child(user.getUid()+ "/" + "Book/" + idBook + "/" + "Глава" + (i-1) + ".pdf");
-                            reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                                Log.d(TAG,"OkDownload");
-                            }).addOnFailureListener(e -> {
+                            reference.getFile(localFile).addOnSuccessListener(taskSnapshot -> Log.d(TAG,"OkDownload"))
+                                    .addOnFailureListener(e -> {
                             });
                         }else {
                             if (i == collChapter){

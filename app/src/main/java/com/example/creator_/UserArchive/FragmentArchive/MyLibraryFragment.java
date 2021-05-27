@@ -82,7 +82,6 @@ public class MyLibraryFragment extends Fragment {
         buttonAddBook.setOnClickListener(v -> {
             Intent intent=new Intent(view.getContext(), AddBookActivity.class);
             startActivity(intent);
-            requireActivity().finish();
         });
 
     }

@@ -1,5 +1,6 @@
 package com.example.creator_.UserArchive.AddActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
 import com.example.creator_.UserArchive.ArchivivesActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -33,6 +36,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jaiselrahman.filepicker.activity.FilePickerActivity;
@@ -48,6 +52,8 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
 import UserFirestore.BookClass;
+
+import static java.lang.String.valueOf;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -55,9 +61,12 @@ public class AddBookActivity extends AppCompatActivity {
     private final static String  SAMPLE_CROPPED_IMG_NAME = "SampleCropImg";
     private static final int GALLERY_REQUEST = 2;
     private static final int  FILE_REQUEST_CODE=3;
-    private int H;
+    private int H = 0;
     private ProgressDialog pd;
     private int progress;
+    private String id;
+    private boolean service =false;
+    private boolean stop = false;
     private StorageReference imageRef;
     private ImageButton coverArt;
     private Uri uriImageBookLoad;
@@ -74,19 +83,16 @@ public class AddBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-        H=0;
         checkErrorStart=false;
         coverArt=findViewById(R.id.bookImage);
         MaterialToolbar tabLayout = findViewById(R.id.check_bar);
-        tabLayout.setNavigationOnClickListener(v -> {
-            Intent intent=new Intent(AddBookActivity.this, ArchivivesActivity.class);
-            startActivity(intent);
-            finish();
-        });
+        tabLayout.setNavigationOnClickListener(v -> finish());
 
         tabLayout.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.trueButton) {
                 ErrorStartCheck();
+                stop=false;
+                service =false;
                 if (uriImageBookLoad != null && !list.isEmpty() && checkErrorStart) {
                     new MaterialAlertDialogBuilder(AddBookActivity.this).setTitle("Публикация")
                             .setMessage("Опубликовать или оставить как черновик?")
@@ -152,6 +158,7 @@ public class AddBookActivity extends AppCompatActivity {
                             Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                             StorageReference storageRef=storage.getReference();
                             if (listBook != null) {
+                                id = documentReference.getId();
                                 listBook.add(documentReference.getId());
                                 imageRef =storageRef.child(user.getUid()+ "/" + "Book/" + documentReference.getId()+ "/" + "coverArt" + ".jpg");
                                 UploadTask uploadTaskImageBook= imageRef.putFile(uriBookImage);
@@ -169,16 +176,18 @@ public class AddBookActivity extends AppCompatActivity {
                                         H++;
                                     } else Toast.makeText(AddBookActivity.this, "Файл " + i.getName() + ".pdf пустой, не будет сохранён", Toast.LENGTH_LONG).show();
                                 }
+                                ProgressDialog cancelDialog=new ProgressDialog(AddBookActivity.this);
+                                cancelDialog.setCancelable(false);
+                                cancelDialog.setCanceledOnTouchOutside(false);
+                                cancelDialog.setTitle("Отмена");
+                                cancelDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                 pd = new ProgressDialog(AddBookActivity.this);
                                 pd.setTitle("Создания книги");
                                 pd.setMax(100);
+                                pd.setCanceledOnTouchOutside(false);
+                                pd.setCancelable(false);
                                 pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-
                                 for (UploadTask i: arrayList){
-                                    pd.setButton(Dialog.BUTTON_POSITIVE, "Отмена", (dialog, which) -> {
-                                        StopFunc(documentReference.getId(), i, pd);
-                                        onStop();
-                                    });
                                     i.addOnProgressListener(snapshot1 -> {
                                         int progressYou = (int) (100*snapshot1.getBytesTransferred()/snapshot1.getTotalByteCount());
                                         if (progress==0){
@@ -186,26 +195,70 @@ public class AddBookActivity extends AppCompatActivity {
                                         }else {
                                             progress += (progressYou-progress);
                                         }
+                                        pd.setButton(Dialog.BUTTON_POSITIVE,"Свернуть",(dialog, which) -> {
+                                            service=true;
+                                            pd.cancel();
+                                            Toast.makeText(AddBookActivity.this,"Дождитесь оповищения окончания загрузки. Не закрывайте приложение",Toast.LENGTH_LONG).show();
+                                            finish();
+                                        });
+                                        pd.setButton(Dialog.BUTTON_NEGATIVE, "Отмена", (dialog, which) -> {
+                                            cancelDialog.show();
+                                            snapshot1.getTask().cancel();
+                                            stop=true;
+                                            StorageReference storageRef1=storage.getReference();
+                                            for (int j = 0;j<arrayList.size();j++){
+                                                StorageReference fileRef = storageRef1.child(user.getUid()+ "/" + "Book/" + id+"/"+ "Глава" + j + ".pdf");
+                                                fileRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                                                        .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                                            }
+                                            imageRef.delete().addOnSuccessListener(aVoid ->Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                                                    .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                                            db.collection("Book").document(id).delete()
+                                                    .addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                                                    .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                                            listBook.remove(id);
+                                            docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }).addOnFailureListener(e -> {
+                                                int errorCode = ((StorageException) e).getErrorCode();
+                                                String errorMessage = e.getMessage();
+                                                Log.w(TAG, String.valueOf(errorCode));
+                                                Log.w(TAG, errorMessage);
+                                            });
+                                            H=0;
+                                            pd.cancel();
+                                            Toast.makeText(AddBookActivity.this,"Загрузка прервона",Toast.LENGTH_LONG).show();
+                                        });
                                         pd.setMessage("Дождитесь окончания загрузки");
                                         pd.incrementProgressBy(progress/arrayList.size());
 
-                                        if (progress==0) pd.show();
+                                        if (progress==0&&id!=null&&!service&&!stop) pd.show();
+
 
                                     }).addOnSuccessListener(taskSnapshot -> {
                                         Log.d(TAG,"Ok");
-
-                                        if (pd.getProgress()==100) {
+                                        if (pd.getProgress()==100&&!stop) {
                                             pd.cancel();
-                                            Toast.makeText(AddBookActivity.this,"Загрузка завершина",Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(AddBookActivity.this,ArchivivesActivity.class);
-                                            startActivity(intent);
+                                            Toast.makeText(AddBookActivity.this,"Загрузка завершина.",Toast.LENGTH_LONG).show();
                                             finish();
+                                        }
+                                        if (stop){
+                                            taskSnapshot.getTask().cancel();
+                                            StorageReference storageRef1=storage.getReference();
+                                            for (int j = 0;j<arrayList.size();j++){
+                                                imageRef.delete().addOnSuccessListener(aVoid ->Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                                                        .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                                                StorageReference fileRef = storageRef1.child(user.getUid()+ "/" + "Book/" + id+"/"+ "Глава" + j + ".pdf");
+                                                fileRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
+                                                        .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                                            }cancelDialog.cancel();
                                         }
                                     }).addOnFailureListener(e -> {
                                         Toast.makeText(AddBookActivity.this,"Не удалось загрузить файл",Toast.LENGTH_LONG).show();
+
                                     });
                                 }
-                                Log.d(TAG,String.valueOf(pd.getProgress()));
+                                Log.d(TAG, valueOf(pd.getProgress()));
                                 docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> {
                                     Log.d(TAG, "DocumentSnapshot successfully updated!");
                                 }).addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
@@ -220,28 +273,9 @@ public class AddBookActivity extends AppCompatActivity {
             });
         }
     }
-    private void StopFunc(String id,UploadTask i, ProgressDialog pd){
-        pd.cancel();
-        i.cancel();
-        StorageReference storageRef1=storage.getReference();
-        StorageReference fileRef = storageRef1.child(user.getUid()+ "/" + "Book/" + id);
-        fileRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
-                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
-        db.collection("Book").document(id).delete()
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
-                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
-        imageRef.delete().addOnSuccessListener(aVoid -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
-                .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
-        Intent intent = new Intent(AddBookActivity.this,ArchivivesActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
         if (back_pressed+2000> currentTimeMillis()) {
-            Intent intent=new Intent(AddBookActivity.this, ArchivivesActivity.class);
-            startActivity(intent);
             finish();
         }
         else {
@@ -249,8 +283,6 @@ public class AddBookActivity extends AppCompatActivity {
         }
         back_pressed= currentTimeMillis();
     }
-
-
     private void Start_uCrop(Uri uri){
         Random random=new Random();
 
