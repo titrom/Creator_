@@ -43,7 +43,7 @@ public class ReaderActivity extends AppCompatActivity {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot.exists()){
                         HashMap<String,Integer> chapterAndPage = (HashMap<String, Integer>) snapshot.getData().put(idBook,null);
-                        Toast.makeText(ReaderActivity.this,String.valueOf(chapterAndPage.get("page")),Toast.LENGTH_LONG).show();
+                        
                         File file = new File(getExternalFilesDir(null)+"/Books/"+idBook+"/Глава1.pdf");
                         pdfView.fromFile(file).defaultPage(0).swipeHorizontal(true).pageSnap(true).autoSpacing(true)
                                 .pageFling(true).pageFitPolicy(FitPolicy.WIDTH).load();
