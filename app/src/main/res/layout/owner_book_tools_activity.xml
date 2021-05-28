@@ -117,6 +117,41 @@
                             android:text="Дата:"
                             android:layout_marginTop="185dp"
                             />
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/progress_download"
+                            android:layout_marginTop="20dp"
+                            android:visibility="invisible"
+                            app:trackThickness="5dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="130dp"
+                            android:layout_below="@id/ThisBookImageView"/>
+                        <TextView
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="80dp"
+                            android:textSize="20sp"
+                            android:textColor="#8603484A"
+                            android:layout_marginTop="10dp"
+                            android:visibility="invisible"
+                            android:text="0%"
+                            android:id="@+id/percentView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ThisBookImageView"
+                            />
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_below="@id/ThisBookImageView"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="40dp"
+                            android:layout_width="40dp"
+                            android:id="@+id/stopDownload"
+                            android:gravity="start"
+                            android:visibility="invisible"
+                            app:iconTint="@color/ItemColor"
+                            app:icon="@drawable/ic_action_clear"
+                            android:layout_height="wrap_content"/>
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

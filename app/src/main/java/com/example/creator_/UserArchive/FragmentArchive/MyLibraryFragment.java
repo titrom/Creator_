@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,8 @@ import com.example.creator_.InsideBooks.OwnerBookToolsActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerMyBook.AdapterRecyclerMyBook;
 import com.example.creator_.RecyclerMyBook.MyBookClass;
+import com.example.creator_.UserArchive.ArchivivesActivity;
+import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -115,21 +120,21 @@ public class MyLibraryFragment extends Fragment {
                                     for ( int f=1;f<=queryDocumentSnapshots.size();f++){
                                         DocumentSnapshot lastVisible=queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-f);
                                         storageRef.child(user.getUid() + "/" + "Book/" + lastVisible.getId()+ "/" + "coverArt" +".jpg").getDownloadUrl().addOnSuccessListener(uri -> {
-                                            if (i.equals(lastVisible.getId())){
-                                                String nameBook= (String) Objects.requireNonNull(lastVisible.getData()).put("nameBook","");
-                                                Timestamp timestamp= (Timestamp) lastVisible.getData().put("dateBook",null);
-                                                boolean privacy=(boolean) lastVisible.getData().put("privacyLevel",false);
-                                                myBC.add(new MyBookClass(uri,nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(),privacy));
+                                            if (i.equals(lastVisible.getId())) {
+                                                String nameBook = (String) Objects.requireNonNull(lastVisible.getData()).put("nameBook", "");
+                                                Timestamp timestamp = (Timestamp) lastVisible.getData().put("dateBook", null);
+                                                boolean privacy = (boolean) lastVisible.getData().put("privacyLevel", false);
+                                                myBC.add(new MyBookClass(uri, nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(), privacy));
                                                 Collections.sort(myBC, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
-                                                AdapterRecyclerMyBook.OnClickBookRec oCBR= (mBC, position) -> {
-                                                    if(!userClickBookItem) {
+                                                AdapterRecyclerMyBook.OnClickBookRec oCBR = (mBC, position) -> {
+                                                    if (!userClickBookItem) {
                                                         userClickBookItem = true;
                                                         Intent intent = new Intent(getContext(), OwnerBookToolsActivity.class);
                                                         intent.putExtra("idBook", listBook.get(position));
                                                         startActivity(intent);
                                                     }
                                                 };
-                                                AdapterRecyclerMyBook adapterRecyclerMyBook=new AdapterRecyclerMyBook(myBC,getContext(),oCBR);
+                                                AdapterRecyclerMyBook adapterRecyclerMyBook = new AdapterRecyclerMyBook(myBC, getContext(), oCBR);
                                                 rv.setAdapter(adapterRecyclerMyBook);
                                                 swipeRefreshLayout.setRefreshing(false);
                                             }
@@ -140,6 +145,7 @@ public class MyLibraryFragment extends Fragment {
                                 });
                             }
                         }else {
+
                             swipeRefreshLayout.setRefreshing(false);
                         }
 
@@ -152,5 +158,4 @@ public class MyLibraryFragment extends Fragment {
             });
         }
     }
-
 }

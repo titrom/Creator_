@@ -5,13 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:text="@string/edit"
         android:textSize="30sp"
         android:fontFamily="@font/osr"
-        android:gravity="center"
         />
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:layout_marginTop="10dp"
+        android:layout_width="140dp"
+        android:layout_gravity="center"
+        android:layout_height="170dp"
+        android:id="@+id/reciclerrr"
+        android:elevation="2dp"
+        app:shape_roundRect_bottomRightRadius="10dp"
+        app:shape_roundRect_bottomLeftRadius="10dp"
+        app:shape_roundRect_topLeftRadius="10dp"
+        app:shape_roundRect_topRightRadius="10dp"
+        >
+        <ImageButton
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="180dp"
+            android:id="@+id/updateBookImage"
+            android:src="@drawable/ic_action_name_pluss"
+            android:contentDescription="@string/todo" />
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="15dp"
         android:id="@+id/NameBook"
@@ -28,7 +47,6 @@
             android:textSize="20sp"
             android:maxLength="50"
             android:maxHeight="100dp"
-            android:minWidth="350dp"
             android:background="@color/ItemColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +64,7 @@
         app:hintTextColor="@color/ItemColor"
         app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
+        android:minWidth="350dp"
         android:id="@+id/description"
         app:hintAnimationEnabled="true"
         app:endIconMode="clear_text"
@@ -53,14 +72,13 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:minWidth="600dp"
-            android:maxHeight="200dp"
+            android:maxHeight="150dp"
             android:maxLength="1000"
             android:background="@color/ItemColor"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
-        android:gravity="start"
+        android:gravity="center"
         android:layout_marginTop="22dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"

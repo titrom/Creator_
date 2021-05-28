@@ -17,5 +17,6 @@
     <color name="buttonStroke">#8A8E21D3</color>
     <color name="MyCardColor">#94A537B8</color>
     <color name="yellow">#F7FF00</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

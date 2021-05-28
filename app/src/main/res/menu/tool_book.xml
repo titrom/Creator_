@@ -14,11 +14,18 @@
         android:title="@string/add_chapter"
         android:icon="@drawable/ic_action_add"
         tools:targetApi="o" />
-    <item
-        app:showAsAction="withText"
-        android:iconTint="@color/ItemColor"
-        android:id="@+id/delete"
-        android:title="@string/delete_book"
-        android:icon="@drawable/ic_stat_name_delete"
-        tools:targetApi="o" />
+
+<!--    <item-->
+<!--        android:iconTint="@color/ItemColor"-->
+<!--        android:id="@+id/post"-->
+<!--        android:title="@string/Post"-->
+<!--        android:icon="@drawable/post"-->
+<!--        tools:targetApi="o" />-->
+<!--    <item-->
+<!--        app:showAsAction="withText"-->
+<!--        android:iconTint="@color/ItemColor"-->
+<!--        android:id="@+id/delete"-->
+<!--        android:title="@string/delete_book"-->
+<!--        android:icon="@drawable/ic_stat_name_delete"-->
+<!--        tools:targetApi="o" />-->
 </menu>

@@ -220,10 +220,6 @@ public class AddBookActivity extends AppCompatActivity {
                                             docRef.update("listIdBook",listBook).addOnSuccessListener(aVoid -> {
                                                 Log.d(TAG, "DocumentSnapshot successfully updated!");
                                             }).addOnFailureListener(e -> {
-                                                int errorCode = ((StorageException) e).getErrorCode();
-                                                String errorMessage = e.getMessage();
-                                                Log.w(TAG, String.valueOf(errorCode));
-                                                Log.w(TAG, errorMessage);
                                             });
                                             H=0;
                                             pd.cancel();
@@ -273,6 +269,8 @@ public class AddBookActivity extends AppCompatActivity {
             });
         }
     }
+
+
     @Override
     public void onBackPressed() {
         if (back_pressed+2000> currentTimeMillis()) {
@@ -283,6 +281,8 @@ public class AddBookActivity extends AppCompatActivity {
         }
         back_pressed= currentTimeMillis();
     }
+
+
     private void Start_uCrop(Uri uri){
         Random random=new Random();
 
