@@ -43,10 +43,10 @@
         app:boxStrokeErrorColor="@color/Red"
         app:errorTextColor="@color/Red"
         app:hintTextColor="@color/ItemColor"
-        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -55,7 +55,6 @@
             android:id="@+id/emailEditText"
             android:textSize="20sp"
             android:inputType="textEmailAddress"
-            android:background="@color/ItemColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
@@ -64,6 +63,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layoutLog"
+        android:background="@color/transparent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,9 +73,8 @@
         android:enabled="true"
         android:hint="@string/Password"
         android:textColorHint="@color/ItemColor"
-        app:boxStrokeColor="@color/ItemColor"
         app:boxStrokeErrorColor="@color/Red"
-        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
         app:hintTextColor="@color/ItemColor"
@@ -88,7 +87,6 @@
         app:layout_constraintVertical_bias="0.043">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditLogText"
-            android:background="@color/ItemColor"
             android:inputType="textPassword"
             android:textSize="20dp"
             android:layout_width="match_parent"
@@ -103,11 +101,9 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
         android:fontFamily="@font/osr"
         android:padding="5dp"
         android:text="@string/Sing"
-
         android:textColor="@color/ItemColor"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -116,7 +112,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_layoutLog" />
+        app:layout_constraintTop_toBottomOf="@+id/password_layoutLog"
+        app:layout_constraintVertical_bias="0.865" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registrationButton"
@@ -125,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginBottom="44dp"
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:padding="10dp"

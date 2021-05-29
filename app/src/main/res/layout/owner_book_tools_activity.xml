@@ -7,11 +7,13 @@
     android:layout_height="wrap_content"
     tools:context=".InsideBooks.OwnerBookToolsActivity">
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rr">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolBarBook"
+            android:background="@color/white"
             android:elevation="3dp"
             app:title="@string/Book"
             app:navigationIcon="@drawable/ic_back_item"

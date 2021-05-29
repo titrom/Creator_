@@ -18,5 +18,6 @@
     <color name="MyCardColor">#94A537B8</color>
     <color name="yellow">#F7FF00</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="background">#F5F5F5</color>
 
 </resources>

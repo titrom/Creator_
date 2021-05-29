@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    style="@style/Theme.Creator_"
     android:layout_height="match_parent"
     tools:context=".UserArchive.AddActivity.AddBookActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.appbar.AppBarLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
@@ -47,9 +47,12 @@
             </com.github.florent37.shapeofview.shapes.RoundRectView>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:background="@color/transparent"
                 app:counterEnabled="true"
                 app:counterMaxLength="50"
                 android:enabled="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
                 android:id="@+id/nameBookInput"
                 android:hint="@string/NameBook"
                 android:textColorHint="@color/ItemColor"
@@ -65,7 +68,6 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:maxHeight="50dp"
-                    android:background="@color/ItemColor"
                     android:maxLength="50"
                     android:inputType="textPersonName"
                     android:layout_height="wrap_content"/>
@@ -93,8 +95,6 @@
                     android:layout_width="match_parent"
                     android:maxHeight="290dp"
                     android:maxLength="1000"
-                    android:background="@color/ItemColor"
-                    android:inputType="text"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton

@@ -25,7 +25,7 @@ public class GlobalActivity extends AppCompatActivity{
         setContentView(R.layout.activity_global);
         TopFragment topFragment =new TopFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment,profileFragment).hide(profileFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.profileFragment,profileFragment).hide(profileFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment, topFragment).commit();
         barNavigation=findViewById(R.id.bottomNavigationBar);
         barNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -35,6 +35,7 @@
         app:boxStrokeErrorColor="@color/Red"
         app:boxStrokeColor="@color/ItemColor"
         app:boxStrokeWidth="2dp"
+        android:background="@color/transparent"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
             android:inputType="textPersonName"
-            android:background="@color/ItemColor"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +77,6 @@
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
-            android:background="@color/ItemColor"
             android:fontFamily="@font/osr"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +93,7 @@
         android:hint="@string/Password"
         app:boxStrokeErrorColor="@color/Red"
         android:textColorHint="@color/ItemColor"
-
+        android:background="@color/transparent"
         app:boxStrokeWidth="2dp"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
@@ -109,7 +108,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
             android:inputType="textPassword"
-            android:background="@color/ItemColor"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,6 +127,7 @@
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Pass">
@@ -138,7 +137,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
-            android:background="@color/ItemColor"
             android:inputType="textPassword"
              />
     </com.google.android.material.textfield.TextInputLayout>
@@ -148,7 +146,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="196dp"
+        android:background="@color/white"
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:text="@string/RegistrationClose"
@@ -156,12 +154,12 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:elevation="10dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RepeatPassword"
+        app:layout_constraintVertical_bias="0.74"
         app:strokeWidth="30dp" />
 
 

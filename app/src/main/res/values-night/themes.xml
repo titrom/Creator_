@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="android:screenOrientation">portrait</item>
         <item name="colorPrimary">@color/ItemColor</item>
-        <item name="backgroundTint">@color/backgroundLoginActivity</item>
+
         <item name="tabIndicatorColor">@color/ItemColor</item>
         <item name="colorPrimaryVariant">@color/ItemColor</item>
         <item name="android:windowNoTitle">true</item>

@@ -11,17 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-        android:background="#F5F5F5"
         android:elevation="1dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="5dp"
-            android:background="#F5F5F5"
             android:layout_height="wrap_content">
             <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/bb"
-                android:elevation="4dp"
+                android:elevation="2dp"
                 app:shape_roundRect_bottomLeftRadius="10dp"
                 app:shape_roundRect_bottomRightRadius="10dp"
                 app:shape_roundRect_topLeftRadius="10dp"
@@ -29,6 +27,7 @@
                 app:shape_roundRect_borderColor="#C6C4C4"
                 android:layout_height="wrap_content">
                 <RelativeLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:id="@+id/r1"
                     android:layout_height="wrap_content">
@@ -111,14 +110,17 @@
                 app:shape_roundRect_topLeftRadius="10dp"
                 app:shape_roundRect_topRightRadius="10dp"
                 app:shape_roundRect_borderColor="#C6C4C4"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:layout_width="match_parent"
                 android:layout_below="@id/bb"
                 android:layout_height="wrap_content">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:background="@color/white"
+
                     style="@style/Theme.Creator_"
                     android:smoothScrollbar="false"
                     android:id="@+id/list_button1"
+                    android:elevation="3dp"
                     android:scrollbars="none"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

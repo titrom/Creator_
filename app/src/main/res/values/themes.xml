@@ -1,17 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 
-    <style name="Theme.Creator_" parent="Theme.MaterialComponents.Light.NoActionBar" >
+    <style name="Theme.Creator_" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:screenOrientation">portrait</item>
 
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/transparent</item>
         <item name="tabIndicatorColor">@color/ItemColor</item>
         <item name="trackColor">#4F03484A</item>
         <item name="colorPrimaryVariant">@color/ItemColor</item>
         <item name="itemTextColor">@color/black</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@color/white</item>
         <item name="android:textColorHint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="tabSelectedTextColor">@color/ItemColor</item>
@@ -19,12 +18,7 @@
         <item name="itemIconTint">@color/ItemColor</item>
         <item name="tabTextColor">@color/black</item>
         <item name="colorPrimary">@color/ItemColor</item>
-
-
-
-
-
-
+        <item name="boxStrokeColor">@color/ItemColor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ItemColor</item>
         <item name="colorSecondaryVariant">@color/ItemColor</item>
@@ -33,7 +27,4 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
-
-
 </resources>

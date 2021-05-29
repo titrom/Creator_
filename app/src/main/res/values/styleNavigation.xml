@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Creator_." parent="Theme.MaterialComponents">
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+        <item name="colorOnPrimary">@color/grey</item>
+        <item name="itemRippleColor">@color/ItemColor</item>
+        <item name="colorPrimary">@color/ItemColor</item>
+        <item name="android:background">@color/white</item>
+    </style>
+</resources>

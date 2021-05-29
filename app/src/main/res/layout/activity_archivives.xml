@@ -26,6 +26,7 @@
             android:id="@+id/barArchive"
             >
             <com.google.android.material.appbar.MaterialToolbar
+                android:background="@color/white"
                 android:id="@+id/searchArchive"
                 app:titleTextColor="@color/ItemColor"
                 android:layout_width="match_parent"

@@ -16,8 +16,11 @@
         >
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
+            android:elevation="5dp"
             android:layout_height="wrap_content">
             <com.google.android.material.appbar.MaterialToolbar
+                android:elevation="5dp"
+                android:background="@color/white"
                 android:id="@+id/topBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
