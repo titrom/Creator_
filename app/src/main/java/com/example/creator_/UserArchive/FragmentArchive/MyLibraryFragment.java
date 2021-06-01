@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.creator_.UserArchive.AddActivity.AddBookActivity;
-import com.example.creator_.InsideBooks.OwnerBookToolsActivity;
+import com.example.creator_.InsideBooks.FragmentsContentsBook.OwnerBookToolsActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerMyBook.AdapterRecyclerMyBook;
 import com.example.creator_.RecyclerMyBook.MyBookClass;
-import com.example.creator_.UserArchive.ArchivivesActivity;
-import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -46,19 +42,25 @@ public class MyLibraryFragment extends Fragment {
     private final StorageReference storageRef=storage.getReference();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     private boolean userClickBookItem;
-
+    protected boolean created = false;
     @Override
     public void onStart() {
         super.onStart();
         userClickBookItem = false;
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.archive_my_library_fragment,container,false);
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (created){
+        swipeRefreshLayout.setRefreshing(true);
+        LoadListMyBook();
+        }
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -69,7 +71,6 @@ public class MyLibraryFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
             LoadListMyBook();
-
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
         DocumentReference docRef=db.collection("UserProfile").document(Objects.requireNonNull(user).getUid());
@@ -100,7 +101,26 @@ public class MyLibraryFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    protected void getBookList(ArrayList<MyBookClass> list){
+        if (created){
+            list.addAll(myBC);
+            Log.d(TAG,"OK");
+        }
+    }
+    protected void  setBookList(ArrayList<MyBookClass> list){
+        Log.d(TAG,list.get(0).getNameBook());
+        Collections.sort(list, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
+        AdapterRecyclerMyBook.OnClickBookRec oCBR = (list1, position) -> {
+            if (!userClickBookItem) {
+                userClickBookItem = true;
+                Intent intent = new Intent(getContext(), OwnerBookToolsActivity.class);
+                intent.putExtra("idBook", list.get(position).getIdBook());
+                startActivity(intent);
+            }
+        };
+        AdapterRecyclerMyBook adapterRecyclerMyBook = new AdapterRecyclerMyBook(list, getContext(), oCBR);
+        rv.setAdapter(adapterRecyclerMyBook);
+    }
     private void LoadListMyBook(){
         rv.setAdapter(null);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -112,7 +132,7 @@ public class MyLibraryFragment extends Fragment {
                     DocumentSnapshot snapshot=task.getResult();
                     if (Objects.requireNonNull(snapshot).exists()){
                         Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
-                        ArrayList<String> listBook=(ArrayList<String>) snapshot.getData().put("listIdBook","");
+                        ArrayList<String> listBook=(ArrayList<String>) Objects.requireNonNull(snapshot.getData()).get("listIdBook");
                         if (Objects.requireNonNull(listBook).size()!=0){
                             for (String i: Objects.requireNonNull(listBook)) {
                                 CollectionReference Book=db.collection("Book");
@@ -121,10 +141,10 @@ public class MyLibraryFragment extends Fragment {
                                         DocumentSnapshot lastVisible=queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size()-f);
                                         storageRef.child(user.getUid() + "/" + "Book/" + lastVisible.getId()+ "/" + "coverArt" +".jpg").getDownloadUrl().addOnSuccessListener(uri -> {
                                             if (i.equals(lastVisible.getId())) {
-                                                String nameBook = (String) Objects.requireNonNull(lastVisible.getData()).put("nameBook", "");
-                                                Timestamp timestamp = (Timestamp) lastVisible.getData().put("dateBook", null);
-                                                boolean privacy = (boolean) lastVisible.getData().put("privacyLevel", false);
-                                                myBC.add(new MyBookClass(uri, nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(), privacy));
+                                                String nameBook = (String) Objects.requireNonNull(lastVisible.getData()).get("nameBook");
+                                                Timestamp timestamp = (Timestamp) lastVisible.getData().get("dateBook");
+                                                boolean privacy = (boolean) lastVisible.getData().get("privacyLevel");
+                                                myBC.add(new MyBookClass(uri, nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(), privacy,lastVisible.getId()));
                                                 Collections.sort(myBC, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
                                                 AdapterRecyclerMyBook.OnClickBookRec oCBR = (mBC, position) -> {
                                                     if (!userClickBookItem) {
@@ -137,6 +157,7 @@ public class MyLibraryFragment extends Fragment {
                                                 AdapterRecyclerMyBook adapterRecyclerMyBook = new AdapterRecyclerMyBook(myBC, getContext(), oCBR);
                                                 rv.setAdapter(adapterRecyclerMyBook);
                                                 swipeRefreshLayout.setRefreshing(false);
+                                                created = true;
                                             }
                                         }).addOnFailureListener(e -> {
 

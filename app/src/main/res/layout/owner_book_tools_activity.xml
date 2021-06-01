@@ -5,7 +5,7 @@
     android:id="@+id/update"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".InsideBooks.OwnerBookToolsActivity">
+    tools:context=".InsideBooks.FragmentsContentsBook.OwnerBookToolsActivity">
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/toolBarBook"
             android:background="@color/white"
             android:elevation="3dp"
-            app:title="@string/Book"
+            app:title="@string/book"
             app:navigationIcon="@drawable/ic_back_item"
             app:navigationIconTint="@color/ItemColor"
             app:menu="@menu/title_book_item"
@@ -77,7 +77,7 @@
                             android:maxLength="50"
                             android:textSize="20sp"
                             android:textColor="@color/ItemColor"
-                            android:text="@string/NameBook"
+                            android:text="@string/name_book"
                             android:fontFamily="@font/opb"
                             />
 
@@ -94,7 +94,7 @@
                             android:layout_below="@id/CollSub"
                             android:minHeight="25dp"
                             android:layout_marginStart="160dp"
-                            android:text="@string/NameUser"
+                            android:text="@string/name_user"
                             android:textColor="#5BA3A5"
                             android:textSize="15sp" />
 
@@ -187,6 +187,7 @@
                         </com.google.android.material.tabs.TabLayout>
                     </com.google.android.material.appbar.AppBarLayout>
                     <androidx.viewpager2.widget.ViewPager2
+                        android:background="@color/white"
                         android:id="@+id/viewpager_owner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

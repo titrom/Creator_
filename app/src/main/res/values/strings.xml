@@ -1,48 +1,54 @@
 <resources>
     <string name="app_name">Творец</string>
-    <string name="Nickname">Псевдоним</string>
-    <string name="NameUser"><u>Автор</u></string>
-    <string name="Email">Почта</string>
-    <string name="Post">Опубликовать</string>
+    <string name="nickname">Псевдоним</string>
+    <string name="name_user"><u>Автор</u></string>
+    <string name="email">Почта</string>
+    <string name="post">Опубликовать</string>
     <string name="Draft">Черновик</string>
     <string name="RegistrationClose">Готово</string>
     <string name="Password">Пароль</string>
     <string name="Sing">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     <string name="menu_refresh">menu_refresh</string>
-    <string name="PasswordRepeat">Повторите пароль</string>
+    <string name="password_repeat">Повторите пароль</string>
     <string name="errorPassword">Пороли не совпадают</string>
-    <string name="registrHello">Регистрация</string>
-    <string name="Search">Поиск</string>
-    <string name="SearchArchive">Поиск: архив</string>
-    <string name="Writer">Библиотека</string>
-    <string name="Music">Музыка</string>
-    <string name="Art">Галерея</string>
-    <string name="Card">Book</string>
+    <string name="registration_hello">Регистрация</string>
+    <string name="search">Поиск</string>
+    <string name="search_archive">Поиск: архив</string>
+    <string name="writer">Библиотека</string>
+    <string name="music">Музыка</string>
+    <string name="art">Галерея</string>
+    <string name="card">Book</string>
     <string name="hello">Вход</string>
     <string name="atelier">Студии</string>
     <string name="real">Читать</string>
-    <string name="Exp">Опыт Творца:</string>
-    <string name="NameBook">Название книги</string>
-    <string name="AddFile">Вставить файл</string>
-    <string name="Close">Отмена</string>
-    <string name="Complete">Готово</string>
+    <string name="exp">Опыт Творца:</string>
+    <string name="name_book">Название книги</string>
+    <string name="add_file">Вставить файл</string>
+    <string name="close">Отмена</string>
+    <string name="complete">Готово</string>
     <string name="description">Описание книги</string>
     <string name="out">Выход</string>
-    <string name="WantSome">Хотите выйти?</string>
-    <string name="No">Нет</string>
-    <string name="Yes">Да</string>
-    <string name="NewBook">Новая книга</string>
-    <string name="Book">Книга</string>
-    <string name="ToolMenuButton">ToolMenuButton</string>
+    <string name="want_some">Хотите выйти?</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="new_book">Новая книга</string>
+    <string name="book">Книга</string>
+    <string name="tool_menu_button">ToolMenuButton</string>
     <string name="edit">Редактировать</string>
     <string name="add_chapter">Добавить главы</string>
     <string name="delete_book">Удалить книгу</string>
+    <string name="chapters">Главы</string>
 
-    <string name="MyLibrary">Мои книги</string>
-    <string name="MyMusic">Моя музыка</string>
-    <string name="MyArt">Мои рисунки</string>
+    <string name="my_library">Мои книги</string>
+    <string name="my_music">Моя музыка</string>
+    <string name="my_art">Мои рисунки</string>
     <string name="todo">TODO</string>
+
+    <string name="manual">Чтобы правильно добавить книгу, вам необходимо:
+        Написать название книги, описание книги,
+        прикрепите обложку и файлы глав книги в хронологическом порядке.
+        (Один файл одна глава).</string>
 
 
 </resources>

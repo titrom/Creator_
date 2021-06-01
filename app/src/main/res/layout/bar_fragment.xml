@@ -24,7 +24,7 @@
                 android:id="@+id/topBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/Search"
+                app:title="@string/search"
                 app:titleTextColor="@color/ItemColor"
                 app:titleMarginStart="15sp"
                 app:menu="@menu/tool_bar_navig_icon"

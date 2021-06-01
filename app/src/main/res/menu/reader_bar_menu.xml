@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/search"
-        android:title="@string/search"
-        android:contentDescription="@string/search"
-        android:icon="@drawable/ic_search"
 
+    <item
+        android:icon="@drawable/ic_action_add_file_doc"
+        android:id="@+id/chapters"
+        android:title="@string/chapters"
         app:showAsAction="ifRoom"/>
 
 </menu>

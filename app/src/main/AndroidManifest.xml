@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Creator_">
 
         <activity android:name=".PlayClass.ReaderActivity" />
-        <activity android:name=".InsideBooks.OwnerBookToolsActivity" />
+        <activity android:name=".InsideBooks.FragmentsContentsBook.OwnerBookToolsActivity" />
         <activity android:name=".UserArchive.AddActivity.AddBookActivity" />
         <activity
-            android:name=".UserArchive.ArchivivesActivity"
+            android:name=".UserArchive.FragmentArchive.ArchivivesActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".StatisticsActivity" />
         <activity

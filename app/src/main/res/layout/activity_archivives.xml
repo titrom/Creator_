@@ -4,46 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    tools:context=".UserArchive.ArchivivesActivity">
+    android:background="@color/background"
+    tools:context=".UserArchive.FragmentArchive.ArchivivesActivity">
 
     <com.github.florent37.shapeofview.shapes.RoundRectView
         android:id="@+id/search"
-        app:shape_roundRect_borderColor="#E5E5E5"
-        app:shape_roundRect_topRightRadius="15dp"
-        app:shape_roundRect_topLeftRadius="15dp"
-        app:shape_roundRect_bottomRightRadius="15dp"
-        app:shape_roundRect_bottomLeftRadius="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:shape_roundRect_borderColor="#E5E5E5"
+        app:shape_roundRect_bottomLeftRadius="15dp"
+        app:shape_roundRect_bottomRightRadius="15dp"
+        app:shape_roundRect_topLeftRadius="15dp"
+        app:shape_roundRect_topRightRadius="15dp">
+
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barArchive"
+            style="@style/Theme.Creator_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            style="@style/Theme.Creator_"
-            android:id="@+id/barArchive"
-            >
+            android:elevation="4dp">
+
             <com.google.android.material.appbar.MaterialToolbar
-                android:background="@color/white"
                 android:id="@+id/searchArchive"
-                app:titleTextColor="@color/ItemColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/SearchArchive"
+                android:background="@color/white"
                 app:menu="@menu/tool_bar_navig_icon"
-                />
+                app:title="@string/search_archive"
+                app:titleTextColor="@color/ItemColor" />
         </com.google.android.material.appbar.AppBarLayout>
 
+        <EditText
+            android:id="@+id/searchText"
+            style="@style/Theme.Creator_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="100dp"
+            android:background="@color/transparent"
+            android:elevation="5dp"
+            android:fontFamily="@font/osr"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:maxLength="50"
+            android:minHeight="50dp"
+            android:paddingStart="15dp"
+            android:rotationX="0"
+            android:textColorHint="#D3D3D3"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            tools:ignore="RtlSymmetry" />
+
     </com.github.florent37.shapeofview.shapes.RoundRectView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:id="@+id/stopSearch"
+        android:elevation="5dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="50dp"
+        style="@style/Theme.Creator_"
+        android:backgroundTint="@color/white"
+        app:borderWidth="0dp"
+        android:outlineSpotShadowColor="@color/white"
+        android:src="@drawable/ic_action_clear"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/todo" />
+
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/ArchiveFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F5F5"
-        android:id="@+id/ArchiveFragment"
-        android:layout_below="@+id/search"/>
-
-
-
+        android:layout_below="@+id/search"
+        android:background="#F5F5F5" />
 </RelativeLayout>

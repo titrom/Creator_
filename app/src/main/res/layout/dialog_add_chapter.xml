@@ -16,7 +16,7 @@
         android:layout_marginTop="15dp"
         android:minWidth="500dp"
         android:layout_width="match_parent"
-        android:text="@string/AddFile"
+        android:text="@string/add_file"
         android:id="@+id/addFile"
         android:gravity="center"
         android:fontFamily="@font/opb"
@@ -41,7 +41,7 @@
             android:layout_width="150dp"
             android:id="@+id/close1"
             android:gravity="start|center"
-            android:text="@string/Close"
+            android:text="@string/close"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_height="wrap_content"/>
         <com.google.android.material.button.MaterialButton
@@ -50,7 +50,7 @@
             android:gravity="end|center"
             android:textSize="15sp"
             android:id="@+id/complete1"
-            android:text="@string/Complete"
+            android:text="@string/complete"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

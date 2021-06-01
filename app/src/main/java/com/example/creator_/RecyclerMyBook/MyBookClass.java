@@ -6,12 +6,18 @@ public class MyBookClass {
     private final String NameBook;
     private final int Timestamp;
     private final boolean privacy;
+    private final String idBook;
 
-    public MyBookClass(Uri imageBook, String nameBook, int timestamp, boolean privacy) {
+    public MyBookClass(Uri imageBook, String nameBook, int timestamp, boolean privacy,String idBook) {
         ImageBook = imageBook;
         NameBook = nameBook;
         Timestamp = timestamp;
         this.privacy = privacy;
+        this.idBook = idBook;
+    }
+
+    public String getIdBook() {
+        return idBook;
     }
 
     public boolean isPrivacy() {

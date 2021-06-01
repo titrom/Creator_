@@ -23,6 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <ImageView
+                android:id="@+id/downloadIndex"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="10dp"
+                style="@style/Theme.Creator_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/NameBook"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/todo" />
             <com.github.florent37.shapeofview.shapes.RoundRectView
                 android:layout_width="120dp"
                 android:layout_margin="10dp"
@@ -48,7 +58,7 @@
                 android:layout_width="256dp"
                 android:maxLength="50"
                 android:maxLines="30"
-                android:text="@string/NameBook"
+                android:text="@string/name_book"
                 android:layout_height="130dp"
                 android:textColor="@color/ItemColor"
                 android:layout_alignParentStart="true"
@@ -60,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="141dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="30dp"
                 android:textColor="@color/grey"
                 android:fontFamily="@font/osr"
                 android:id="@+id/privacyText"

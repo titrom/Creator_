@@ -1,11 +1,11 @@
 package com.example.creator_.UserArchive.AddActivity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,13 +20,11 @@ import android.widget.Toast;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
-import com.example.creator_.UserArchive.ArchivivesActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import com.google.firebase.Timestamp;
@@ -36,7 +34,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jaiselrahman.filepicker.activity.FilePickerActivity;
@@ -70,6 +67,7 @@ public class AddBookActivity extends AppCompatActivity {
     private StorageReference imageRef;
     private ImageButton coverArt;
     private Uri uriImageBookLoad;
+    private FloatingActionButton manual;
     private static long back_pressed;
     private TextInputLayout inputLayoutNameBookEdit,inputLayoutDescriptionBook;
     private ArrayList<MediaFile> list= new ArrayList<>();
@@ -84,10 +82,17 @@ public class AddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         checkErrorStart=false;
-        coverArt=findViewById(R.id.bookImage);
+        init();
         MaterialToolbar tabLayout = findViewById(R.id.check_bar);
-        tabLayout.setNavigationOnClickListener(v -> finish());
+        AlertDialog manualDialog = new AlertDialog.Builder(AddBookActivity.this).setMessage(R.string.manual)
+                .setTitle("Мануал")
+                .setPositiveButton("Понятно",(dialog, which) -> {
+                    dialog.cancel();
+                }).create();
+        manualDialog.show();
+        manual.setOnClickListener(v -> manualDialog.show());
 
+        tabLayout.setNavigationOnClickListener(v -> finish());
         tabLayout.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.trueButton) {
                 ErrorStartCheck();
@@ -99,7 +104,7 @@ public class AddBookActivity extends AppCompatActivity {
                             .setNegativeButton(R.string.Draft, (dialog, which) -> {
                                 AddBook(list, uriImageBookLoad,false);
                                 dialog.cancel();
-                            }).setPositiveButton(R.string.Post, (dialog, which) -> {
+                            }).setPositiveButton(R.string.post, (dialog, which) -> {
                                 AddBook(list, uriImageBookLoad,true);
                                 dialog.cancel();
                             }).show();
@@ -140,6 +145,10 @@ public class AddBookActivity extends AppCompatActivity {
         });
     }
 
+    private void init(){
+        coverArt=findViewById(R.id.bookImage);
+        manual = findViewById(R.id.manual);
+    }
 
     private void AddBook(ArrayList<MediaFile> list,Uri uriBookImage,boolean privacy){
         String nameBook= Objects.requireNonNull(inputLayoutNameBookEdit.getEditText()).getText().toString();

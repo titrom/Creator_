@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".PlayClass.ReaderActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_reader"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/transparent"
+        android:background="@color/background"
+        android:elevation="0dp"
+        android:outlineSpotShadowColor="@color/white"
+        android:layout_height="50dp">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/reader_bar"
+            android:background="#B58F8F8F"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Глава 1"
+            app:navigationIconTint="@color/black"
+            app:navigationIcon="@drawable/ic_back_item"
+            app:titleTextColor="#000000"
+            app:menu="@menu/reader_bar_menu"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
     <com.github.barteksc.pdfviewer.PDFView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pdf_view"/>
-</LinearLayout>
+</RelativeLayout>

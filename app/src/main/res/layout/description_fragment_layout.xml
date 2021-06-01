@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/Theme.Creator_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="15dp"
+            android:id="@+id/descriptionOwner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="50sp"
-            android:text="@string/description"/>
-
-
-    </RelativeLayout>
-
-
+            android:hint="@string/description"
+            android:textColorHint="@color/ItemColor"
+            app:hintTextColor="@color/ItemColor"
+            app:boxStrokeWidth="0dp"
+            app:errorEnabled="true"
+            app:hintAnimationEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:maxLength="1000"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </ScrollView>

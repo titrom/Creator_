@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.example.creator_.UserArchive.ArchivivesActivity;
+import com.example.creator_.UserArchive.FragmentArchive.ArchivivesActivity;
 import com.example.creator_.Auth.LoginActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerButtonProfile.AdapterRecyclerProfileButton;
@@ -120,10 +119,10 @@ public class ProfileFragment extends Fragment{
             }else if (position==3){
                 new MaterialAlertDialogBuilder(requireView().getContext())
                         .setTitle(getResources().getString(string.out))
-                        .setMessage(getResources().getString(string.WantSome))
-                        .setNegativeButton(getResources().getString(string.No), (dialog, which) ->
+                        .setMessage(getResources().getString(string.want_some))
+                        .setNegativeButton(getResources().getString(string.no), (dialog, which) ->
                                 dialog.cancel()).setPositiveButton(getResources()
-                        .getString(string.Yes), (dialog, which) -> { FirebaseAuth.getInstance()
+                        .getString(string.yes), (dialog, which) -> { FirebaseAuth.getInstance()
                         .signOut();
                     Intent intent=new Intent(requireView().getContext(), LoginActivity.class);
                     startActivity(intent); }).show();

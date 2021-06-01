@@ -1,4 +1,4 @@
-package com.example.creator_.InsideBooks;
+package com.example.creator_.InsideBooks.FragmentsContentsBook;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +12,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,16 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.creator_.InsideBooks.FragmentsContentsBook.AdapterInformation;
-import com.example.creator_.InsideBooks.FragmentsContentsBook.ChapterFragment;
-import com.example.creator_.InsideBooks.FragmentsContentsBook.DescriptionFragment;
 import com.example.creator_.PlayClass.ReaderActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
-import com.example.creator_.UserArchive.AddActivity.AddBookActivity;
-import com.example.creator_.UserArchive.ArchivivesActivity;
-import com.example.creator_.UserArchive.FragmentArchive.MyLibraryFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -50,15 +42,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jaiselrahman.filepicker.activity.FilePickerActivity;
@@ -82,6 +68,9 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
     private static final String TAG = "OwnerBookActivity";
 
     private String idBook;
+    private boolean aBoolean= false;
+    private DescriptionFragment descriptionFragment = new DescriptionFragment();
+    private ChapterFragment chapterFragment = new ChapterFragment();
 
     private File bookDir;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -136,10 +125,14 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_book_tools_activity);
         Bundle arg=getIntent().getExtras();
-        if (arg!=null && user!=null) idBook=arg.get("idBook").toString();
+        if (arg!=null && user!=null) {
+            idBook=arg.get("idBook").toString();
+            aBoolean =true;
+        }
         init();
-        viewPager2();
+        swipeRefreshLayout.setRefreshing(true);
         update();
+        viewPager2();
         createDirectory(idBook);
         toolbar.setNavigationOnClickListener(v -> finish());
         toolbar.setOnMenuItemClickListener(item -> {
@@ -148,8 +141,6 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         });
         read.setOnClickListener(v -> onRead(idBook));
     }
-
-
     private void init(){
         read = findViewById(R.id.read);
         bookDate = findViewById(R.id.dateText);
@@ -167,13 +158,16 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         stopDownloadButton = findViewById(R.id.stopDownload);
     }
 
-
     private void update(){
-        if (user != null){
+        if (user != null && aBoolean){
             information(idBook);
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
                 information(idBook);
+                descriptionFragment.dsrUpdate();
+                if (chapterFragment.create){
+                    chapterFragment.updateChapter();
+                }
             });
             swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
         }
@@ -190,6 +184,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
     }
 
 
+    @SuppressLint("NewApi")
     private void onRead(String idBook){
         db.collection("Book").document(idBook).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
@@ -197,13 +192,15 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                 if (Objects.requireNonNull(snapshot).exists()){
                     int collChapter = Integer.parseInt(Objects.requireNonNull
                             (Objects.requireNonNull(snapshot.getData())
-                                    .put("collChapter", 0)).toString());
+                                    .get("collChapter")).toString());
                     ArrayList<File> fileList= new ArrayList<>();
                     for (int i=1;i<=collChapter;i++){
                         File localFile = new File(bookDir+ "/" + "Глава"+ i + ".pdf");
                         if (!localFile.exists()){
                             fileList.add(localFile);
-                            progressIndicator.setMax(100*fileList.size());
+
+                            progressIndicator.setMin(0);
+                            progressIndicator.setMax(100);
                             progressIndicator.setVisibility(View.VISIBLE);
                             stopDownloadButton.setVisibility(View.VISIBLE);
                             percent.setVisibility(View.VISIBLE);
@@ -215,11 +212,11 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                                 if (progressDownloadFileBook==0){
                                     progressDownloadFileBook+=youProgress;
                                 }else {
-                                    progressDownloadFileBook += (youProgress-progress);
+                                    progressDownloadFileBook += (youProgress-progressDownloadFileBook);
                                 }
-                                Log.d(TAG,String.valueOf(progressDownloadFileBook));
-                                progressIndicator.setProgress(progressDownloadFileBook/fileList.size());
-                                percent.setText((progressIndicator.getProgress()/fileList.size())+"%");
+                                progressIndicator.incrementProgressBy(progressDownloadFileBook/fileList.size());
+                                percent.setText(progressIndicator.getProgress()+"%");
+                                Log.d(TAG,String.valueOf(youProgress));
                                 stopDownloadButton.setOnClickListener(v -> {
                                     stopDownload =true;
                                     progressDownloadFileBook=0;
@@ -235,13 +232,14 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                                 });
                             }).addOnSuccessListener(taskSnapshot -> {
                                 Log.d(TAG,"OkDownload");
+
                                 if (stopDownload){
                                     taskSnapshot.getTask().cancel();
                                     for (File j:fileList){
                                         j.delete();
                                     }
                                 }
-                                if (progressIndicator.getProgress()==100*fileList.size()){
+                                if (progressIndicator.getProgress()==100){
                                     progressIndicator.setProgress(0);
                                     progressDownloadFileBook=0;
                                     progressIndicator.setVisibility(View.INVISIBLE);
@@ -273,14 +271,14 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                     SpannableString writerName=new SpannableString(user.getDisplayName());
                     writerName.setSpan(new UnderlineSpan(),0,writerName.length(),0);
                     String subCollString="Почитатили: "+
-                            Objects.requireNonNull(snapshot.getData()).put("subColl",0);
-                    Timestamp timestamp= (Timestamp) snapshot.getData().put("dateBook",0);
+                            Objects.requireNonNull(snapshot.getData()).get("subColl");
+                    Timestamp timestamp= (Timestamp) snapshot.getData().get("dateBook");
                     @SuppressLint("SimpleDateFormat")
                     DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
                     bookDate.setText(df.format
                             (Objects.requireNonNull(timestamp).toDate()));
                     nameBook.setText((String) Objects.requireNonNull
-                            (snapshot.getData()).put("nameBook",""));
+                            (snapshot.getData()).get("nameBook"));
                     nameWriter.setText(writerName);
                     collSub.setText(subCollString);
                     storageRef.child
@@ -301,8 +299,8 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Подробно");
         arrayList.add("Главы");
-        fragments.add(new DescriptionFragment());
-        fragments.add(new ChapterFragment());
+        fragments.add(descriptionFragment);
+        fragments.add(chapterFragment);
         FragmentStateAdapter adapter=new AdapterInformation(OwnerBookToolsActivity.this,fragments);
         pager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, pager, (tab, position) -> {
@@ -417,7 +415,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                         cancelDialog.setTitle("Отмена");
                         cancelDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                         pd = new ProgressDialog(OwnerBookToolsActivity.this);
-                        pd.setTitle("Создания книги");
+                        pd.setTitle("Добавление глав");
                         pd.setMax(100);
                         pd.setCanceledOnTouchOutside(false);
                         pd.setCancelable(false);
@@ -497,7 +495,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         MenuInflater inflater = new MenuInflater(this);
         inflater.inflate(tool_book, menuBuilder);
         if (!privacy){
-            menuBuilder.add(0,3,0,R.string.Post).setIcon(R.drawable.post);
+            menuBuilder.add(0,3,0,R.string.post).setIcon(R.drawable.post);
         }
         MenuPopupHelper optionsMenu = new MenuPopupHelper(this, menuBuilder, view);
         optionsMenu.setForceShowIcon(true);
@@ -518,9 +516,9 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                     }return true;
                     case 3:{
                         new MaterialAlertDialogBuilder(OwnerBookToolsActivity.this).setTitle("Опубликовать").setMessage("Хотите опубликовать книгу")
-                                .setNegativeButton(R.string.No, (dialog1, which) -> {
+                                .setNegativeButton(R.string.no, (dialog1, which) -> {
                                     dialog1.cancel();
-                                }).setPositiveButton(R.string.Yes, (dialog1, which) -> {
+                                }).setPositiveButton(R.string.yes, (dialog1, which) -> {
                                     db.collection("Book").document(idBook).update("privacyLevel",true)
                                             .addOnSuccessListener(aVoid -> Log.d(TAG,"Good Update !!!"))
                                             .addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
@@ -607,6 +605,12 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
 
 
     }
+    protected String StringIdBook(){
+        if (aBoolean && idBook!= null){
+            return idBook;
+        }
+        return null;
+    }
 
 
     private UCrop.Options getUCropOptions(){
@@ -617,13 +621,15 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         return options;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_refresh) {
             Log.i(TAG, "Refresh menu item selected");
             swipeRefreshLayout.setRefreshing(true);
             information(idBook);
+            if (chapterFragment.create){
+                chapterFragment.updateChapter();
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);

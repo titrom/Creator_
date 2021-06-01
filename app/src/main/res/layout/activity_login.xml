@@ -38,7 +38,7 @@
         android:layout_marginTop="200dp"
         android:layout_marginEnd="30dp"
         android:enabled="true"
-        android:hint="@string/Email"
+        android:hint="@string/email"
         android:textColorHint="@color/ItemColor"
         app:boxStrokeErrorColor="@color/Red"
         app:errorTextColor="@color/Red"
