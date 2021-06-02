@@ -1,4 +1,4 @@
-package com.example.creator_.InsideBooks.FragmentsContentsBook;
+package com.example.creator_.InsideBooks.FragmentsContentsBook.UserLib;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,12 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class ChapterFragment extends Fragment {
@@ -39,9 +36,7 @@ public class ChapterFragment extends Fragment {
     private ArrayList<ChapterClass> ccList = new ArrayList<>();;
     private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private final FirebaseUser user= mAuth.getCurrentUser();
-    private final FirebaseFirestore db=FirebaseFirestore.getInstance();
-    private final FirebaseStorage storage=FirebaseStorage.getInstance();
-    private final StorageReference storageRef=storage.getReference();
+    private final FirebaseFirestore db=FirebaseFirestore.getInstance();;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.creator_.InsideBooks.FragmentsContentsBook;
+package com.example.creator_.InsideBooks.FragmentsContentsBook.UserLib;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.creator_.InsideBooks.FragmentsContentsBook.AdapterInformation;
 import com.example.creator_.PlayClass.ReaderActivity;
 import com.example.creator_.R;
 import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;

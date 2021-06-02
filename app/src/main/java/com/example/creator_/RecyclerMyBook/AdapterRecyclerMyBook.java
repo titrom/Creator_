@@ -30,8 +30,6 @@ public class AdapterRecyclerMyBook extends RecyclerView.Adapter<AdapterRecyclerM
     private final Context context;
     private LayoutInflater layoutInflater;
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
-    private final FirebaseStorage storage=FirebaseStorage.getInstance();
-    private final StorageReference storageRef=storage.getReference();
     public AdapterRecyclerMyBook(List<MyBookClass> listMyBook, Context context, OnClickBookRec bookRec) {
         this.listMyBook = listMyBook;
         this.context = context;

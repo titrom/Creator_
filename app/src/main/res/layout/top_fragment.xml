@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/updateTop"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shape_roundRect_borderColor="#E5E5E5"
+            app:shape_roundRect_topRightRadius="15dp"
+            app:shape_roundRect_topLeftRadius="15dp"
+            app:shape_roundRect_bottomRightRadius="15dp"
+            app:shape_roundRect_bottomLeftRadius="15dp"
+            android:layout_margin="5dp"
+            android:elevation="5dp"
+            >
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:elevation="5dp"
+                android:layout_height="wrap_content">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:elevation="5dp"
+                    android:background="@color/white"
+                    android:id="@+id/topBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/search"
+                    app:titleTextColor="@color/ItemColor"
+                    app:titleMarginStart="15sp"
+                    app:menu="@menu/tool_bar_navig_icon"
+                    />
+            </com.google.android.material.appbar.AppBarLayout>
+
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/containerTop"
+            />
+    </LinearLayout>
+
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -39,6 +39,7 @@
     <string name="add_chapter">Добавить главы</string>
     <string name="delete_book">Удалить книгу</string>
     <string name="chapters">Главы</string>
+    <string name="TopNew">Новинки</string>
 
     <string name="my_library">Мои книги</string>
     <string name="my_music">Моя музыка</string>
