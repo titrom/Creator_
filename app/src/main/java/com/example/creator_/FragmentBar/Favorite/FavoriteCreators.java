@@ -82,33 +82,34 @@ public class FavoriteCreators extends Fragment {
                 if (task.isSuccessful()){
                     DocumentSnapshot snapshot = task.getResult();
                     if (Objects.requireNonNull(snapshot).exists()){
-                        ArrayList<String> myWriterId = (ArrayList<String>) Objects.requireNonNull(snapshot.getData())
-                                .get("myWriterId");
-                        for (String i : Objects.requireNonNull(myWriterId)){
-                            StorageReference avatarRef = storageRef.child(i  + "/Avatar.jpg");
-                            avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                                db.collection("UserProfile").document(i).get().addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()){
-                                        DocumentSnapshot document = task1.getResult();
-                                        if (Objects.requireNonNull(document).exists()){
-                                            fUCs.add(new FavoriteUserClass(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("nickname")).toString()
-                                                    ,uri,i));
-                                            oCFU = (fUC, position) -> {
-                                                Intent intent = new Intent(getContext(), ProfileInfActivity.class);
-                                                intent.putExtra("userId",fUC.getIdUser());
-                                                startActivity(intent);
-                                            };
-                                            AdapterFavoriteUser adapterFU = new AdapterFavoriteUser(fUCs,oCFU,getContext());
-                                            favoriteUser.setAdapter(adapterFU);
-                                            create = true;
+                        if (Objects.requireNonNull(snapshot.getData()).get("myWriterId")!=null){
+                            ArrayList<String> myWriterId = (ArrayList<String>) Objects.requireNonNull(snapshot.getData())
+                                    .get("myWriterId");
+                            for (String i : Objects.requireNonNull(myWriterId)){
+                                StorageReference avatarRef = storageRef.child(i  + "/Avatar.jpg");
+                                avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                    db.collection("UserProfile").document(i).get().addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()){
+                                            DocumentSnapshot document = task1.getResult();
+                                            if (Objects.requireNonNull(document).exists()){
+                                                fUCs.add(new FavoriteUserClass(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("nickname")).toString()
+                                                        ,uri,i));
+                                                oCFU = (fUC, position) -> {
+                                                    Intent intent = new Intent(getContext(), ProfileInfActivity.class);
+                                                    intent.putExtra("userId",fUC.getIdUser());
+                                                    startActivity(intent);
+                                                };
+                                                AdapterFavoriteUser adapterFU = new AdapterFavoriteUser(fUCs,oCFU,getContext());
+                                                favoriteUser.setAdapter(adapterFU);
+                                                create = true;
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
-                            }).addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
+                                }).addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
+                            }
+
                         }
-
-
                     }
                 }
             });

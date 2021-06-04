@@ -61,9 +61,10 @@ public class SettingsActivity extends AppCompatActivity {
                             .setView(inputEditTextUpdate)
                             .setPositiveButton(R.string.yes , (dialog, which) -> {
                                 if (!inputEditTextUpdate.getText().toString().trim().isEmpty()&& user!=null){
+                                    FirebaseUser firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
                                     UserProfileChangeRequest profileChangeRequest =new UserProfileChangeRequest.Builder()
                                             .setDisplayName(inputEditTextUpdate.getText().toString()).build();
-                                    user.updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
+                                    Objects.requireNonNull(firebaseUser).updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
                                                 if (task.isSuccessful()){
                                                     Toast.makeText(SettingsActivity.this,"Псевдоним обнавлён",Toast.LENGTH_LONG).show();
                                                 }});
@@ -83,7 +84,8 @@ public class SettingsActivity extends AppCompatActivity {
                             .setView(inputEditTextUpdate)
                             .setPositiveButton(R.string.yes , (dialog, which) -> {
                                 if (!inputEditTextUpdate.getText().toString().trim().isEmpty()&& user!=null){
-                                    user.updateEmail(inputEditTextUpdate.getText().toString())
+                                    FirebaseUser firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
+                                    Objects.requireNonNull(firebaseUser).updateEmail(inputEditTextUpdate.getText().toString())
                                             .addOnCompleteListener(task -> {
                                                 if (task.isSuccessful()){
                                                     Toast.makeText(SettingsActivity.this,"Почта обнавлёна",Toast.LENGTH_LONG).show();
@@ -103,7 +105,8 @@ public class SettingsActivity extends AppCompatActivity {
                             .setView(inputEditTextUpdate)
                             .setPositiveButton(R.string.yes , (dialog, which) -> {
                                 if (!inputEditTextUpdate.getText().toString().trim().isEmpty()&& user!=null){
-                                    user.updatePassword(inputEditTextUpdate.getText().toString())
+                                    FirebaseUser firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
+                                    Objects.requireNonNull(firebaseUser).updatePassword(inputEditTextUpdate.getText().toString())
                                             .addOnCompleteListener(task -> {
                                                 if (task.isSuccessful()){
                                                     Toast.makeText(SettingsActivity.this,"Пороль обнавлён",Toast.LENGTH_LONG).show();
