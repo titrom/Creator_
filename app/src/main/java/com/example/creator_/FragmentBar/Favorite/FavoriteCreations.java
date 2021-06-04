@@ -35,8 +35,8 @@ public class FavoriteCreations extends Fragment {
     private RecyclerView favoriteBook;
     private AdapterRecyclerMyBook.OnClickBookRec oCBR;
     private final ArrayList<MyBookClass> myBC =  new ArrayList<>();
-    private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    private final FirebaseUser user= mAuth.getCurrentUser();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseUser user = mAuth.getCurrentUser();
     private final FirebaseStorage storage=FirebaseStorage.getInstance();
     private final StorageReference storageRef=storage.getReference();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
