@@ -1,8 +1,6 @@
-package com.example.creator_.FragmentBar.Top.AdapterBooks;
+package com.example.creator_.Adapters.AdapterBooks;
 
 import android.net.Uri;
-
-import java.sql.Timestamp;
 
 public class AllBooksClass {
     private final String nameBook;

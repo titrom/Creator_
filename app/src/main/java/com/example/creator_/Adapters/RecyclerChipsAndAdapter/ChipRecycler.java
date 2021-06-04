@@ -1,4 +1,4 @@
-package com.example.creator_.RecyclerChipsAndAdapter;
+package com.example.creator_.Adapters.RecyclerChipsAndAdapter;
 
 public class ChipRecycler {
     private String textChip;

@@ -17,7 +17,7 @@ import com.example.creator_.R;
 public class TopFragment extends Fragment {
     private final static String TAG = "TopFragment";
     protected SwipeRefreshLayout updateTop;
-    private final FragmentTopLibrary fragmentTopLib = new FragmentTopLibrary();;
+    private final FragmentTopLibrary fragmentTopLib = new FragmentTopLibrary();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

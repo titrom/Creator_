@@ -1,33 +1,17 @@
-package com.example.creator_.RecyclerButtonProfile;
+package com.example.creator_.Adapters.RecyclerButtonProfile;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.creator_.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.textview.MaterialTextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.annotation.Annotation;
 import java.util.List;
-
-import static com.example.creator_.R.color.grey;
 
 public class AdapterRecyclerProfileButton extends RecyclerView.Adapter<AdapterRecyclerProfileButton.ButtonRecyclerHolder> {
     public interface OnClickListenerBPR{

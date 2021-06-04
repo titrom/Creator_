@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.creator_.FragmentBar.Top.AdapterBooks.AdapterAllBooksRv;
-import com.example.creator_.FragmentBar.Top.AdapterBooks.AllBooksClass;
+import com.example.creator_.Adapters.AdapterBooks.AdapterAllBooksRv;
+import com.example.creator_.Adapters.AdapterBooks.AllBooksClass;
 import com.example.creator_.R;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -16,12 +16,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.creator_.InsideBooks.FragmentsContentsBook.AdapterInformation;
-import com.example.creator_.InsideBooks.FragmentsContentsBook.UserLib.ChapterFragment;
-import com.example.creator_.InsideBooks.FragmentsContentsBook.UserLib.DescriptionFragment;
-import com.example.creator_.PlayClass.ReaderActivity;
+import com.example.creator_.Adapters.AdapterViewPager2;
+import com.example.creator_.PlayActivities.ReaderActivity;
+import com.example.creator_.Profile.ProfileInfActivity;
 import com.example.creator_.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -32,6 +32,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,6 +53,8 @@ public class BookToolsActivity extends AppCompatActivity {
     private AlienDescriptionFragment descriptionFragment = new AlienDescriptionFragment();
     private AlienChapterFragment chapterFragment = new AlienChapterFragment();
 
+    private RadioButton subscribeBook;
+    private boolean sub = false;
     private File bookDir;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View view;
@@ -71,6 +74,7 @@ public class BookToolsActivity extends AppCompatActivity {
     private MaterialButton stopDownloadButton;
     private boolean stopDownload =false;
     private int progressDownloadFileBook;
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     private final FirebaseStorage storage=FirebaseStorage.getInstance();
     private final StorageReference storageRef=storage.getReference();
@@ -91,6 +95,65 @@ public class BookToolsActivity extends AppCompatActivity {
         createDirectory(idBook);
         toolbar.setNavigationOnClickListener(v -> finish());
         read.setOnClickListener(v -> onRead(idBook));
+        isSub();
+        subscribeBooks();
+        nameWriter.setOnClickListener(v -> {
+            Intent intent = new Intent(BookToolsActivity.this, ProfileInfActivity.class);
+            intent.putExtra("userId", userId);
+            startActivity(intent);
+        });
+    }
+
+
+    private void isSub(){
+        db.collection("UserProfile").document(user.getUid()).get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    DocumentSnapshot snapshot = task.getResult();
+                    if (Objects.requireNonNull(snapshot).exists()){
+                        if (Objects.requireNonNull(snapshot.getData()).get("subBook") != null){
+                            ArrayList<String> subBook = (ArrayList<String>) snapshot.getData().get("subBook");
+                            sub = Objects.requireNonNull(subBook).contains(idBook);
+                        }else {
+                            sub = false;
+                        }
+                        subscribeBook.setChecked(sub);
+                    }
+                }
+            });
+
+    }
+
+
+    private void subscribeBooks(){
+        subscribeBook.setOnClickListener(v -> {
+            if (sub){
+                sub = false;
+                subscribeBook.setChecked(sub);
+                db.collection("UserProfile").document(user.getUid()).update("subBook", FieldValue.arrayRemove(idBook))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good remove !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                db.collection("Book").document(idBook).update("subId", FieldValue.arrayRemove(user.getUid()))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good remove !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                db.collection("Book").document(idBook).update("subColl", FieldValue.increment(-1))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good remove !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+            }
+            else {
+                sub = true;
+                subscribeBook.setChecked(sub);
+                db.collection("UserProfile").document(user.getUid()).update("subBook", FieldValue.arrayUnion(idBook))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good Update !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                db.collection("Book").document(idBook).update("subId", FieldValue.arrayUnion(user.getUid()))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good Update !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                db.collection("Book").document(idBook).update("subColl", FieldValue.increment(1))
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Good Update !!!"))
+                        .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+            }
+        });
     }
     private void init(){
         read = findViewById(R.id.read);
@@ -107,6 +170,7 @@ public class BookToolsActivity extends AppCompatActivity {
         progressIndicator = findViewById(R.id.progress_download);
         percent = findViewById(R.id.percentView);
         stopDownloadButton = findViewById(R.id.stopDownload);
+        subscribeBook = findViewById(R.id.subscribeBook);
     }
 
     private void update(){
@@ -268,7 +332,7 @@ public class BookToolsActivity extends AppCompatActivity {
         arrayList.add("Главы");
         fragments.add(descriptionFragment);
         fragments.add(chapterFragment);
-        FragmentStateAdapter adapter=new AdapterInformation(BookToolsActivity.this,fragments);
+        FragmentStateAdapter adapter=new AdapterViewPager2(BookToolsActivity.this,fragments);
         pager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, pager, (tab, position) -> {
             if (position==0){

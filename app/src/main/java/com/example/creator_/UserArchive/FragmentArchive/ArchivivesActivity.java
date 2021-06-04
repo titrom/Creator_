@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.creator_.R;
-import com.example.creator_.RecyclerMyBook.MyBookClass;
+import com.example.creator_.Adapters.RecyclerMyBook.MyBookClass;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;

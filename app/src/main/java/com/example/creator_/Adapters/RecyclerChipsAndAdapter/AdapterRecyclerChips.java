@@ -1,4 +1,4 @@
-package com.example.creator_.RecyclerChipsAndAdapter;
+package com.example.creator_.Adapters.RecyclerChipsAndAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

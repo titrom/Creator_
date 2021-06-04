@@ -15,11 +15,6 @@ import com.example.creator_.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-
-import UserFirestore.UserClass;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG ="LoginUser";

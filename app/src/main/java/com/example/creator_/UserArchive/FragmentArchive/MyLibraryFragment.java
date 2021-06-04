@@ -16,8 +16,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.creator_.UserArchive.AddActivity.AddBookActivity;
 import com.example.creator_.InsideBooks.FragmentsContentsBook.UserLib.OwnerBookToolsActivity;
 import com.example.creator_.R;
-import com.example.creator_.RecyclerMyBook.AdapterRecyclerMyBook;
-import com.example.creator_.RecyclerMyBook.MyBookClass;
+import com.example.creator_.Adapters.RecyclerMyBook.AdapterRecyclerMyBook;
+import com.example.creator_.Adapters.RecyclerMyBook.MyBookClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -144,7 +144,7 @@ public class MyLibraryFragment extends Fragment {
                                                 String nameBook = (String) Objects.requireNonNull(lastVisible.getData()).get("nameBook");
                                                 Timestamp timestamp = (Timestamp) lastVisible.getData().get("dateBook");
                                                 boolean privacy = (boolean) lastVisible.getData().get("privacyLevel");
-                                                myBC.add(new MyBookClass(uri, nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(), privacy,lastVisible.getId()));
+                                                myBC.add(new MyBookClass(uri, nameBook, (int) Objects.requireNonNull(timestamp).getSeconds(), privacy,lastVisible.getId(),null));
                                                 Collections.sort(myBC, (o1, o2) -> Double.compare(o1.getTimestamp(), o2.getTimestamp()));
                                                 AdapterRecyclerMyBook.OnClickBookRec oCBR = (mBC, position) -> {
                                                     if (!userClickBookItem) {

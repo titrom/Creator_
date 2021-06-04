@@ -1,6 +1,4 @@
-package com.example.creator_.RecyclerButtonProfile;
-
-import android.view.PointerIcon;
+package com.example.creator_.Adapters.RecyclerButtonProfile;
 
 public class ButtonProfileRecycler {
     private String nameButton;

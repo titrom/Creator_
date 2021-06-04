@@ -1,14 +1,14 @@
 package com.example.creator_;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.creator_.FragmentBar.Favorite.FavoriteFragment;
 import com.example.creator_.FragmentBar.Top.TopFragment;
 import com.example.creator_.FragmentBar.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,26 +17,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class GlobalActivity extends AppCompatActivity{
     private BottomNavigationView barNavigation;
     private static long back_pressed;
-    ProfileFragment profileFragment=new ProfileFragment();;
+    private final  ProfileFragment profileFragment=new ProfileFragment();
+    private final TopFragment topFragment =new TopFragment();
+    private final FavoriteFragment favoriteFragment = new FavoriteFragment();
+    @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global);
-        TopFragment topFragment =new TopFragment();
-
+        getSupportFragmentManager().beginTransaction().add(R.id.favorite_fragment,favoriteFragment).hide(favoriteFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.profileFragment,profileFragment).hide(profileFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment, topFragment).commit();
         barNavigation=findViewById(R.id.bottomNavigationBar);
-        barNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(profileFragment).show(topFragment).commit(); return true;
-                    case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(topFragment).hide(profileFragment).commit(); return true;
-                    case R.id.home:getSupportFragmentManager().beginTransaction().hide(topFragment).show(profileFragment).commit(); return true;
-                    default: return false;
-                }
+        barNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(profileFragment).show(topFragment).commit(); return true;
+                case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(topFragment).hide(profileFragment).show(favoriteFragment).commit(); return true;
+                case R.id.home:getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(topFragment).show(profileFragment).commit(); return true;
+                default: return false;
             }
         });
 

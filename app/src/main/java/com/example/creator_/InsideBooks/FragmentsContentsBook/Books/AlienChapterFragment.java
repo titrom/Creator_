@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.creator_.InsideBooks.FragmentsContentsBook.RecyclerChapter.AdapterChapter;
 import com.example.creator_.InsideBooks.FragmentsContentsBook.RecyclerChapter.ChapterClass;
-import com.example.creator_.PlayClass.ReaderActivity;
+import com.example.creator_.PlayActivities.ReaderActivity;
 import com.example.creator_.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 

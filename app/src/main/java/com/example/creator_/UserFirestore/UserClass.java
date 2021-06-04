@@ -1,6 +1,4 @@
-package UserFirestore;
-
-import android.net.Uri;
+package com.example.creator_.UserFirestore;
 
 import java.util.ArrayList;
 
@@ -10,13 +8,19 @@ public class UserClass {
     private Number Level;
     private Number XpMax;
     private ArrayList<String> listIdBook;
+    private final ArrayList<String> subscribersId;
 
-    public UserClass(String nickname, Number xpUser, Number level, Number xpMax, ArrayList<String> listIdBook) {
+    public UserClass(String nickname, Number xpUser, Number level, Number xpMax, ArrayList<String> listIdBook, ArrayList<String> subscribersId) {
         this.nickname = nickname;
         XpUser = xpUser;
         Level = level;
         XpMax = xpMax;
         this.listIdBook = listIdBook;
+        this.subscribersId = subscribersId;
+    }
+
+    public ArrayList<String> getSubscribersId() {
+        return subscribersId;
     }
 
     public ArrayList<String> getListIdBook() {

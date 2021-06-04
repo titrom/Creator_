@@ -34,12 +34,14 @@
     <string name="yes">Да</string>
     <string name="new_book">Новая книга</string>
     <string name="book">Книга</string>
+    <string name="books">Книги</string>
     <string name="tool_menu_button">ToolMenuButton</string>
     <string name="edit">Редактировать</string>
     <string name="add_chapter">Добавить главы</string>
     <string name="delete_book">Удалить книгу</string>
     <string name="chapters">Главы</string>
     <string name="TopNew">Новинки</string>
+    <string name="subscribe">Подписаться</string>
 
     <string name="my_library">Мои книги</string>
     <string name="my_music">Моя музыка</string>

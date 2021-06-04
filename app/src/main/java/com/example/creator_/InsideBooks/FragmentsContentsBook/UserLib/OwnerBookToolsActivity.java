@@ -28,11 +28,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.creator_.InsideBooks.FragmentsContentsBook.AdapterInformation;
-import com.example.creator_.PlayClass.ReaderActivity;
+import com.example.creator_.Adapters.AdapterViewPager2;
+import com.example.creator_.PlayActivities.ReaderActivity;
 import com.example.creator_.R;
-import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
-import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
+import com.example.creator_.Adapters.RecyclerChipsAndAdapter.AdapterRecyclerChips;
+import com.example.creator_.Adapters.RecyclerChipsAndAdapter.ChipRecycler;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -302,7 +302,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
         arrayList.add("Главы");
         fragments.add(descriptionFragment);
         fragments.add(chapterFragment);
-        FragmentStateAdapter adapter=new AdapterInformation(OwnerBookToolsActivity.this,fragments);
+        FragmentStateAdapter adapter=new AdapterViewPager2(OwnerBookToolsActivity.this,fragments);
         pager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, pager, (tab, position) -> {
             if (position==0){
@@ -606,6 +606,8 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
 
 
     }
+
+
     protected String StringIdBook(){
         if (aBoolean && idBook!= null){
             return idBook;

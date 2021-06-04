@@ -23,8 +23,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.creator_.UserArchive.FragmentArchive.ArchivivesActivity;
 import com.example.creator_.Auth.LoginActivity;
 import com.example.creator_.R;
-import com.example.creator_.RecyclerButtonProfile.AdapterRecyclerProfileButton;
-import com.example.creator_.RecyclerButtonProfile.ButtonProfileRecycler;
+import com.example.creator_.Adapters.RecyclerButtonProfile.AdapterRecyclerProfileButton;
+import com.example.creator_.Adapters.RecyclerButtonProfile.ButtonProfileRecycler;
 import com.example.creator_.StatisticsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -84,11 +85,11 @@ public class ProfileFragment extends Fragment{
         if (user!=null){
             String nickname = user.getDisplayName();
             nameText.setText(nickname);
-            XpUpdate();
+            xpUpdate();
             LoadImageProfile();
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-                XpUpdate();
+                xpUpdate();
                 LoadImageProfile();
             });
             swipeRefreshLayout.setColorSchemeResources(color.ItemColor);
@@ -149,7 +150,6 @@ public class ProfileFragment extends Fragment{
 
     private void init(){
         xpPoint = requireView().findViewById(id.expBar);
-        LineXp = requireView().findViewById(id.Xp_progress);
         nameText = requireView().findViewById(id.nameTextView);
         buttonImageUser=requireView().findViewById(id.buttonImageUser);
         rv = requireView().findViewById(id.list_button1);
@@ -219,7 +219,7 @@ public class ProfileFragment extends Fragment{
 
 
     @SuppressLint("SetTextI18n")
-    private void XpUpdate(){
+    private void xpUpdate(){
         if (user!=null){
             LineXp= requireView().findViewById(id.Xp_progress);
             xpPoint= requireView().findViewById(id.expBar);
@@ -233,51 +233,61 @@ public class ProfileFragment extends Fragment{
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         int levelUser=Integer.parseInt(Objects.requireNonNull
                                 (Objects.requireNonNull(document.getData())
-                                        .put("level", 0)).toString());
+                                        .get("level")).toString());
                         int xpUser=Integer.parseInt(Objects.requireNonNull(document.getData()
-                                .put("xpUser", 0)).toString());
+                                .get("xpUser")).toString());
                         int xpMax=Integer.parseInt(Objects.requireNonNull(document.getData()
-                                .put("xpMax", 0)).toString());
-                        if (xpUser<xpMax){
-                            LineXp.setProgress(xpUser);
-                            LineXp.setMax(xpMax);
-                            xpPoint.setText(""+xpUser+"/"+xpMax+"Xp");
-                            levelTv.setText("Уровень: "+levelUser);
+                                .get("xpMax")).toString());
+                        if (xpUser<0&& xpMax>100){
+                            docRef.update("level", FieldValue.increment(-1))
+                                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Good Update !!!"))
+                                    .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                            docRef.update("xpMax", FieldValue.increment(-100))
+                                .addOnSuccessListener(aVoid -> Log.d(TAG, "Good Update !!!"))
+                                    .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                            docRef.update("xpUser",(xpMax-100)+xpUser)
+                                    .addOnSuccessListener(aVoid1 -> {
+                                        Log.d(TAG, "Good Update !!!");
+                                    })
+                                    .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+                            docRef.get().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()){
+                                    DocumentSnapshot snapshot = task1.getResult();
+                                    if (snapshot.exists()){
+                                        LineXp.setProgress(Integer.parseInt(snapshot.getData().get("xpUser").toString())/
+                                                Integer.parseInt(snapshot.getData().get("level").toString()));
+                                        LineXp.setMax(100);
+                                        levelTv.setText("Уровень: "+snapshot.getData().get("level").toString());
+                                        xpPoint.setText(snapshot.getData().get("xpUser").toString()
+                                                +"/"+snapshot.getData().get("xpMax").toString()+"Xp");
+                                    }
+                                }
+                            });
+
                         }
-                        if (xpUser>xpMax){
-                            while (xpUser>xpMax){
-                                docRef.update("xpUser",xpUser-xpMax)
-                                        .addOnSuccessListener(aVoid ->
-                                        Log.d(TAG, "DocumentSnapshot successfully updated!"))
-                                        .addOnFailureListener(e ->
-                                                Log.w(TAG, "Error updating document", e));
-                                xpMax+=200*(levelUser+1);
-
-                                docRef.update("xpMax",xpMax).addOnSuccessListener(aVoid ->
-                                        Log.d(TAG, "DocumentSnapshot successfully updated!"))
-                                        .addOnFailureListener(e ->
-                                                Log.w(TAG, "Error updating document", e));
-                                LineXp.setMax(xpMax);
-                                levelUser+=1;
-                                int xpUserNew=Integer
-                                        .parseInt(Objects.requireNonNull
-                                                (document.getData().put("xpUser", 0)).toString());
-                                levelTv.setText("Уровень: "+levelUser);
-                                xpPoint.setText(""+xpUserNew+"/"+xpMax+"Xp");
-                                levelTv.setText("Уровень: "+levelUser);
-                                XpUpdate();
-
-                            }
-                        }else {
+                        else if (xpUser>xpMax){
+                            docRef.update("xpUser",xpUser-xpMax)
+                                    .addOnSuccessListener(aVoid ->
+                                            Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                    .addOnFailureListener(e ->
+                                            Log.w(TAG, "Error updating document", e));
+                            docRef.update("xpMax",FieldValue.increment(100)).addOnSuccessListener(aVoid ->
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                    .addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                            docRef.update("level",FieldValue.increment(1)).addOnSuccessListener(aVoid ->
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                                    .addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+                            int xpUserNew=Integer
+                                    .parseInt(Objects.requireNonNull
+                                            (document.getData().get("xpUser")).toString());
                             levelTv.setText("Уровень: "+levelUser);
-                            xpPoint.setText(""+xpUser+"/"+xpMax+"Xp");
+                            xpPoint.setText(""+xpUserNew+"/"+xpMax+"Xp");
                             levelTv.setText("Уровень: "+levelUser);
+                            xpUpdate();
+
                         }
                         swipeRefreshLayout.setRefreshing(false);
-                        docRef.update("level",levelUser).addOnSuccessListener(aVoid ->
-                                Log.d(TAG, "DocumentSnapshot successfully updated!"))
-                                .addOnFailureListener(e ->
-                                        Log.w(TAG, "Error updating document", e));
+
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -285,6 +295,19 @@ public class ProfileFragment extends Fragment{
                     Log.d(TAG, "get failed with ", task.getException());
                 }
 
+            });
+            docRef.get().addOnCompleteListener(task1 -> {
+                if (task1.isSuccessful()){
+                    DocumentSnapshot snapshot = task1.getResult();
+                    if (snapshot.exists()){
+                        LineXp.setProgress(Integer.parseInt(snapshot.getData().get("xpUser").toString())/
+                                Integer.parseInt(snapshot.getData().get("level").toString()));
+                        LineXp.setMax(100);
+                        levelTv.setText("Уровень: "+snapshot.getData().get("level").toString());
+                        xpPoint.setText(snapshot.getData().get("xpUser").toString()
+                                +"/"+snapshot.getData().get("xpMax").toString()+"Xp");
+                    }
+                }
             });
         }
     }
@@ -295,7 +318,7 @@ public class ProfileFragment extends Fragment{
         if (item.getItemId() == id.menu_refresh) {
             Log.i(TAG, "Refresh menu item selected");
             swipeRefreshLayout.setRefreshing(true);
-            XpUpdate();
+            xpUpdate();
             LoadImageProfile();
             return true;
         }

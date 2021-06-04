@@ -1,4 +1,4 @@
-package com.example.creator_.InsideBooks.FragmentsContentsBook;
+package com.example.creator_.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -8,10 +8,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
 
-public class AdapterInformation extends FragmentStateAdapter {
+public class AdapterViewPager2 extends FragmentStateAdapter {
     private final ArrayList<Fragment> fragments;
 
-    public AdapterInformation(@NonNull FragmentActivity fragmentActivity,ArrayList<Fragment> fragments) {
+    public AdapterViewPager2(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragments) {
         super(fragmentActivity);
         this.fragments=fragments;
     }

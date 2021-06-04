@@ -18,8 +18,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.creator_.R;
-import com.example.creator_.RecyclerChipsAndAdapter.AdapterRecyclerChips;
-import com.example.creator_.RecyclerChipsAndAdapter.ChipRecycler;
+import com.example.creator_.Adapters.RecyclerChipsAndAdapter.AdapterRecyclerChips;
+import com.example.creator_.Adapters.RecyclerChipsAndAdapter.ChipRecycler;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -48,7 +48,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
-import UserFirestore.BookClass;
+import com.example.creator_.UserFirestore.BookClass;
 
 import static java.lang.String.valueOf;
 import static java.lang.System.currentTimeMillis;

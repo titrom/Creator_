@@ -1,6 +1,5 @@
 package com.example.creator_.Auth;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.creator_.GlobalActivity;
 import com.example.creator_.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
-import UserFirestore.UserClass;
+import com.example.creator_.UserFirestore.UserClass;
 
 public class RegistrationActivity extends AppCompatActivity {
     private final static String TAG="Registration";
@@ -88,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             user.updateProfile(userProfile).addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()){
                                     Log.d(TAG, "User profile updated.");
-                                    UserClass newUser=new UserClass( user.getDisplayName(),0,0,100,new ArrayList<>());
+                                    UserClass newUser=new UserClass( user.getDisplayName(),0,1,100,new ArrayList<>(), new ArrayList<>());
                                     db.collection("UserProfile").document(user.getUid()).set(newUser).addOnSuccessListener(aVoid -> {
                                         Log.d(TAG, "DocumentSnapshot successfully written!");
                                         FirebaseAuth.getInstance().signOut();
