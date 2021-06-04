@@ -1,4 +1,4 @@
-package com.example.creator_.FragmentBar;
+package com.example.creator_.FragmentBar.Profile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import com.example.creator_.Auth.LoginActivity;
 import com.example.creator_.R;
 import com.example.creator_.Adapters.RecyclerButtonProfile.AdapterRecyclerProfileButton;
 import com.example.creator_.Adapters.RecyclerButtonProfile.ButtonProfileRecycler;
-import com.example.creator_.StatisticsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +48,7 @@ public class ProfileFragment extends Fragment{
 
     private final int GALLERY_REQUEST = 2;
     private RecyclerView rv;
+    private TextView subColl;
     private TextView xpPoint;
     private TextView levelTv;
     private TextView nameText;
@@ -83,13 +83,11 @@ public class ProfileFragment extends Fragment{
 
     private void update(){
         if (user!=null){
-            String nickname = user.getDisplayName();
-            nameText.setText(nickname);
-            xpUpdate();
+            infUpdate();
             LoadImageProfile();
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-                xpUpdate();
+                infUpdate();
                 LoadImageProfile();
             });
             swipeRefreshLayout.setColorSchemeResources(color.ItemColor);
@@ -98,26 +96,24 @@ public class ProfileFragment extends Fragment{
 
 
     private void profileButton(){
-        ArrayList<ButtonProfileRecycler> bPRlist = new ArrayList<>();
-        bPRlist.add(new ButtonProfileRecycler("Мой Архив",
+        ArrayList<ButtonProfileRecycler> bPRList = new ArrayList<>();
+        bPRList.add(new ButtonProfileRecycler("Мой Архив",
                 drawable.ic_action_name_archive));
-        bPRlist.add(new ButtonProfileRecycler("Статистика",
-                drawable.ic_action_name_statistic));
-        bPRlist.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
-        bPRlist.add(new ButtonProfileRecycler("Выйти", drawable.ic_action_exit));
+//        bPRlist.add(new ButtonProfileRecycler("Статистика",
+//                drawable.ic_action_name_statistic));
+        bPRList.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
+        bPRList.add(new ButtonProfileRecycler("Выйти", drawable.ic_action_exit));
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterRecyclerProfileButton.OnClickListenerBPR onClickListenerBPR= (bPR, position) -> {
-            Intent intentArchivesAndStatistics;
+
             if (position==0){
-                intentArchivesAndStatistics=
-                        new Intent(requireView().getContext(), ArchivivesActivity.class);
-                startActivity(intentArchivesAndStatistics);
+                Intent intent = new Intent(requireView().getContext(), ArchivivesActivity.class);
+                startActivity(intent);
             }else if (position==1){
-                intentArchivesAndStatistics=
-                        new Intent(requireView().getContext(), StatisticsActivity.class);
-                startActivity(intentArchivesAndStatistics);
-            }else if (position==3){
+                Intent intent = new Intent(requireView().getContext(),SettingsActivity.class);
+                startActivity(intent);
+            }else if (position==2){
                 new MaterialAlertDialogBuilder(requireView().getContext())
                         .setTitle(getResources().getString(string.out))
                         .setMessage(getResources().getString(string.want_some))
@@ -125,12 +121,12 @@ public class ProfileFragment extends Fragment{
                                 dialog.cancel()).setPositiveButton(getResources()
                         .getString(string.yes), (dialog, which) -> { FirebaseAuth.getInstance()
                         .signOut();
-                    Intent intent=new Intent(requireView().getContext(), LoginActivity.class);
-                    startActivity(intent); }).show();
+                        Intent intent = new Intent(requireView().getContext(), LoginActivity.class);
+                        startActivity(intent);}).show();
             }
         };
         AdapterRecyclerProfileButton adapterRPB=
-                new AdapterRecyclerProfileButton(bPRlist, requireView().getContext(),
+                new AdapterRecyclerProfileButton(bPRList, requireView().getContext(),
                         onClickListenerBPR);
         rv.setAdapter(adapterRPB);
     }
@@ -156,6 +152,7 @@ public class ProfileFragment extends Fragment{
         LineXp = requireView().findViewById(id.Xp_progress);
         xpPoint = requireView().findViewById(id.expBar);
         levelTv = requireView().findViewById(id.Level);
+        subColl = requireView().findViewById(id.subColl);
         swipeRefreshLayout=requireView().findViewById(R.id.restartSwipe);
     }
 
@@ -219,11 +216,8 @@ public class ProfileFragment extends Fragment{
 
 
     @SuppressLint("SetTextI18n")
-    private void xpUpdate(){
+    private void infUpdate(){
         if (user!=null){
-            LineXp= requireView().findViewById(id.Xp_progress);
-            xpPoint= requireView().findViewById(id.expBar);
-            levelTv= requireView().findViewById(id.Level);
             DocumentReference docRef= db.collection("UserProfile")
                     .document(user.getUid());
             docRef.get().addOnCompleteListener(task -> {
@@ -283,7 +277,7 @@ public class ProfileFragment extends Fragment{
                             levelTv.setText("Уровень: "+levelUser);
                             xpPoint.setText(""+xpUserNew+"/"+xpMax+"Xp");
                             levelTv.setText("Уровень: "+levelUser);
-                            xpUpdate();
+                            infUpdate();
 
                         }
                         swipeRefreshLayout.setRefreshing(false);
@@ -299,13 +293,15 @@ public class ProfileFragment extends Fragment{
             docRef.get().addOnCompleteListener(task1 -> {
                 if (task1.isSuccessful()){
                     DocumentSnapshot snapshot = task1.getResult();
-                    if (snapshot.exists()){
-                        LineXp.setProgress(Integer.parseInt(snapshot.getData().get("xpUser").toString())/
-                                Integer.parseInt(snapshot.getData().get("level").toString()));
+                    if (Objects.requireNonNull(snapshot).exists()){
+                        nameText.setText(Objects.requireNonNull(Objects.requireNonNull(snapshot.getData()).get("nickname")).toString());
+                        subColl.setText("Подписчиков: " + ((ArrayList<String>) Objects.requireNonNull(Objects.requireNonNull(snapshot.getData()).get("subscribersId"))).size() );
+                        LineXp.setProgress(Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(snapshot.getData()).get("xpUser")).toString())/
+                                Integer.parseInt(Objects.requireNonNull(snapshot.getData().get("level")).toString()));
                         LineXp.setMax(100);
-                        levelTv.setText("Уровень: "+snapshot.getData().get("level").toString());
-                        xpPoint.setText(snapshot.getData().get("xpUser").toString()
-                                +"/"+snapshot.getData().get("xpMax").toString()+"Xp");
+                        levelTv.setText("Уровень: "+ Objects.requireNonNull(snapshot.getData().get("level")).toString());
+                        xpPoint.setText(Objects.requireNonNull(snapshot.getData().get("xpUser")).toString()
+                                +"/"+ Objects.requireNonNull(snapshot.getData().get("xpMax")).toString()+"Xp");
                     }
                 }
             });
@@ -318,7 +314,7 @@ public class ProfileFragment extends Fragment{
         if (item.getItemId() == id.menu_refresh) {
             Log.i(TAG, "Refresh menu item selected");
             swipeRefreshLayout.setRefreshing(true);
-            xpUpdate();
+            infUpdate();
             LoadImageProfile();
             return true;
         }

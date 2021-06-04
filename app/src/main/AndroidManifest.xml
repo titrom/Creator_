@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Creator_">
-        <activity android:name=".Profile.ProfileInfActivity"></activity>
+        <activity android:name=".FragmentBar.Profile.SettingsActivity"></activity>
+        <activity android:name=".Profile.ProfileInfActivity" />
         <activity android:name=".InsideBooks.FragmentsContentsBook.Books.BookToolsActivity" />
         <activity android:name=".PlayActivities.ReaderActivity" />
         <activity android:name=".InsideBooks.FragmentsContentsBook.UserLib.OwnerBookToolsActivity" />
@@ -19,18 +20,18 @@
         <activity
             android:name=".UserArchive.FragmentArchive.ArchivivesActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".FragmentBar.Profile.StatisticsActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".GlobalActivity"
+            android:name=".FragmentBar.GlobalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Creator_" />
         <activity android:name=".Auth.RegistrationActivity" />
         <activity android:name=".Auth.LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Auth.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

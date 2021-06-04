@@ -1,6 +1,9 @@
 package com.example.creator_.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,9 +12,11 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-import com.example.creator_.GlobalActivity;
+import com.example.creator_.FragmentBar.GlobalActivity;
 import com.example.creator_.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,10 +27,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button Sing;
     private Button intentButtonRegistration;
+    private TextView updatePassword;
     private boolean checkStartSing;
+    private EditText inputEditTextEmailUpdatePassword;
     private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    private final FirebaseUser user=mAuth.getCurrentUser();
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         email=findViewById(R.id.emailEditText);
         password=findViewById(R.id.passwordEditLogText);
         Sing=findViewById(R.id.singButton);
+        updatePassword = findViewById(R.id.updatePassword);
         intentButtonRegistration=findViewById(R.id.registrationButton);
         checkStartSing=false;
         ErrorEditText();
@@ -57,6 +65,28 @@ public class LoginActivity extends AppCompatActivity {
         intentButtonRegistration.setOnClickListener(v -> {
             Intent intent=new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(intent);
+        });
+
+        updatePassword.setOnClickListener(v -> {
+            inputEditTextEmailUpdatePassword = new EditText(LoginActivity.this);
+            inputEditTextEmailUpdatePassword.setPadding(15,0,15,0);
+            inputEditTextEmailUpdatePassword.setTextSize(20);
+            inputEditTextEmailUpdatePassword.setHint("Введите вашу почту");
+            inputEditTextEmailUpdatePassword.setBackgroundResource(R.color.white);
+            new MaterialAlertDialogBuilder(LoginActivity.this).setTitle("Востановить пароль")
+                    .setMessage(" ")
+                    .setView(inputEditTextEmailUpdatePassword)
+                    .setPositiveButton(R.string.complete , (dialog, which) -> {
+                        if (!inputEditTextEmailUpdatePassword.getText().toString().trim().isEmpty()){
+                            mAuth.sendPasswordResetEmail(inputEditTextEmailUpdatePassword.getText().toString())
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()){
+                                            Toast.makeText(LoginActivity.this,"Для востоновления пароля проверти вашу почту.",Toast.LENGTH_LONG).show();
+                                            dialog.cancel();
+                                        }
+                                    });
+                        }
+                    } ).setNegativeButton(R.string.close, (dialog, which) -> dialog.cancel()).show();
         });
     }
 

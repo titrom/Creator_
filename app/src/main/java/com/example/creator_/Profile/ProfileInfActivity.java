@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProfileInfActivity extends AppCompatActivity {
     private final static String TAG = "ProfileInfActivity";
@@ -64,9 +65,9 @@ public class ProfileInfActivity extends AppCompatActivity {
         db.collection("UserProfile").document(userId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 DocumentSnapshot snapshot = task.getResult();
-                if (snapshot.exists()){
-                    ArrayList<String> subscribersId = (ArrayList<String>) snapshot.getData().get("subscribersId");
-                    if (subscribersId.contains(user.getUid())){
+                if (Objects.requireNonNull(snapshot).exists()){
+                    ArrayList<String> subscribersId = (ArrayList<String>) Objects.requireNonNull(snapshot.getData()).get("subscribersId");
+                    if (Objects.requireNonNull(subscribersId).contains(user.getUid())){
                         isSubscribe =true;
                         subscribe.setText("Вы подписаны");
                         subscribe.setIconResource(R.drawable.ic_done);
@@ -84,8 +85,8 @@ public class ProfileInfActivity extends AppCompatActivity {
         db.collection("UserProfile").document(user.getUid()).get().addOnCompleteListener(task -> {
            if (task.isSuccessful()){
                DocumentSnapshot snapshot = task.getResult();
-               if (snapshot.exists()){
-                   if (snapshot.getData().get("myWriterId") == null){
+               if (Objects.requireNonNull(snapshot).exists()){
+                   if (Objects.requireNonNull(snapshot.getData()).get("myWriterId") == null){
                        db.collection("UserProfile").document(user.getUid())
                                .update("myWriterId",new ArrayList<String>())
                                .addOnSuccessListener(aVoid -> Log.d(TAG,"Good Update !!!"))
@@ -127,19 +128,19 @@ public class ProfileInfActivity extends AppCompatActivity {
     }
     @SuppressLint("SetTextI18n")
     private void information(){
-        StorageReference avatar = storageRef.child(userId + "/" + "Avatar.jpg");
+        StorageReference avatar = storageRef.child(userId  + "/Avatar.jpg");
         avatar.getDownloadUrl().addOnSuccessListener(uri -> Picasso.with(this).load(uri).into(imageUser))
                 .addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
         db.collection("UserProfile").document(userId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 DocumentSnapshot snapshot = task.getResult();
-                if (snapshot.exists()){
-                    nickname.setText(snapshot.getData().get("nickname").toString());
-                    level.setText("Уровень:"+snapshot.getData().get("level").toString());
-                    xp_progress.setText(snapshot.getData().get("xpUser").toString()
+                if (Objects.requireNonNull(snapshot).exists()){
+                    nickname.setText(Objects.requireNonNull(Objects.requireNonNull(snapshot.getData()).get("nickname")).toString());
+                    level.setText("Уровень:"+ Objects.requireNonNull(snapshot.getData().get("level")).toString());
+                    xp_progress.setText(Objects.requireNonNull(snapshot.getData().get("xpUser")).toString()
                     + "/" + snapshot.getData().get("xpMax")+"XP");
-                    subColl.setText("Подписчиков: " + ((ArrayList<String>) snapshot.getData().get("subscribersId")).size());
-                    expBar.setProgress(Integer.parseInt(snapshot.getData().get("xpUser").toString()));
+                    subColl.setText("Подписчиков: " + ((ArrayList<String>) Objects.requireNonNull(snapshot.getData().get("subscribersId"))).size());
+                    expBar.setProgress(Integer.parseInt(Objects.requireNonNull(snapshot.getData().get("xpUser")).toString()));
 
                 }
             }

@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/books"
-            android:textSize="25sp"
-            android:paddingStart="9dp"
-            android:fontFamily="@font/osr"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/favoriteBook">
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
-</ScrollView>
+        android:layout_height="wrap_content"
+        android:text="@string/books"
+        android:textSize="25sp"
+        android:paddingStart="9dp"
+        android:fontFamily="@font/osr"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/favoriteBook"/>
+
+</LinearLayout>

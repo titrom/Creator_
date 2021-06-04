@@ -1,11 +1,11 @@
-package com.example.creator_;
+package com.example.creator_.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.creator_.Auth.LoginActivity;
+import com.example.creator_.FragmentBar.GlobalActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
         if (user!=null){
-            intent=new Intent(MainActivity.this,GlobalActivity.class);
+            intent=new Intent(MainActivity.this, GlobalActivity.class);
 
         }else {
             intent=new Intent(MainActivity.this, LoginActivity.class);

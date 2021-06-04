@@ -52,7 +52,7 @@ public class FavoriteCreations extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         favoriteBook = view.findViewById(R.id.favoriteBook);
-        myFavoriteBook();
+        favoriteBook.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
 
@@ -63,17 +63,14 @@ public class FavoriteCreations extends Fragment {
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG,"onPause");
+        myBC.clear();
     }
 
     protected void myFavoriteBook(){
-        favoriteBook.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (myBC.size()!=0){
-            myBC.clear();
-            favoriteBook.setAdapter(null);
-        }
+
         if (user!=null){
             db.collection("UserProfile").document(user.getUid()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
@@ -93,24 +90,26 @@ public class FavoriteCreations extends Fragment {
                                                         (int) ((Timestamp) Objects.requireNonNull(document.getData().get("dateBook"))).getSeconds(),
                                                         (boolean) document.getData().get("privacyLevel"), i,
                                                         document.getData().get("userId").toString()));
+                                                oCBR = (mBC, position) -> {
+                                                    Intent intent = new Intent(getContext(), BookToolsActivity.class);
+                                                    intent.putExtra("idBook", mBC.getIdBook());
+                                                    intent.putExtra("userId",mBC.getUserId());
+                                                    startActivity(intent);
+                                                };
+                                                AdapterRecyclerMyBook adapterRecyclerMyBook = new AdapterRecyclerMyBook(myBC,getContext(),oCBR);
+                                                favoriteBook.setAdapter(adapterRecyclerMyBook);
+                                                create = true;
                                             }).addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
                                         }
                                     }
                                 });
                             }
-                            oCBR = (mBC, position) -> {
-                                Intent intent = new Intent(getContext(), BookToolsActivity.class);
-                                intent.putExtra("idBook", mBC.getIdBook());
-                                intent.putExtra("userId",mBC.getUserId());
-                                startActivity(intent);
-                            };
-                            AdapterRecyclerMyBook adapterRecyclerMyBook = new AdapterRecyclerMyBook(myBC,getContext(),oCBR);
-                            favoriteBook.setAdapter(adapterRecyclerMyBook);
+
                         }
                     }
                 }
             });
-        }
 
+        }
     }
 }

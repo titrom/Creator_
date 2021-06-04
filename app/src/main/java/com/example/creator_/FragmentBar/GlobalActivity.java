@@ -1,16 +1,19 @@
-package com.example.creator_;
+package com.example.creator_.FragmentBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainerView;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.creator_.FragmentBar.Favorite.FavoriteFragment;
 import com.example.creator_.FragmentBar.Top.TopFragment;
-import com.example.creator_.FragmentBar.ProfileFragment;
+import com.example.creator_.FragmentBar.Profile.ProfileFragment;
+import com.example.creator_.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -20,21 +23,32 @@ public class GlobalActivity extends AppCompatActivity{
     private final  ProfileFragment profileFragment=new ProfileFragment();
     private final TopFragment topFragment =new TopFragment();
     private final FavoriteFragment favoriteFragment = new FavoriteFragment();
+    private FragmentContainerView favoriteContainer;
     @SuppressLint("NonConstantResourceId")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global);
-        getSupportFragmentManager().beginTransaction().add(R.id.favorite_fragment,favoriteFragment).hide(favoriteFragment).commit();
+        favoriteContainer = findViewById(R.id.favorite_fragment);
+        getSupportFragmentManager().beginTransaction().add(favoriteContainer.getId(),favoriteFragment).hide(favoriteFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.profileFragment,profileFragment).hide(profileFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.conteinerFragment, topFragment).commit();
         barNavigation=findViewById(R.id.bottomNavigationBar);
         barNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
-                case R.id.topHot: getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(profileFragment).show(topFragment).commit(); return true;
-                case R.id.favorite: getSupportFragmentManager().beginTransaction().hide(topFragment).hide(profileFragment).show(favoriteFragment).commit(); return true;
-                case R.id.home:getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(topFragment).show(profileFragment).commit(); return true;
+                case R.id.topHot: {
+                    favoriteContainer.setVisibility(View.INVISIBLE);
+                    getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(profileFragment).show(topFragment).commit();
+                } return true;
+                case R.id.favorite: {
+                    favoriteContainer.setVisibility(View.VISIBLE);
+                    getSupportFragmentManager().beginTransaction().hide(topFragment).hide(profileFragment).show(favoriteFragment).commit();
+                } return true;
+                case R.id.home:{
+                    favoriteContainer.setVisibility(View.INVISIBLE);
+                    getSupportFragmentManager().beginTransaction().hide(favoriteFragment).hide(topFragment).show(profileFragment).commit();
+                } return true;
                 default: return false;
             }
         });

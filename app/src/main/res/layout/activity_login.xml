@@ -135,5 +135,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/updatePassword"
+        android:layout_width="111dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:fontFamily="@font/osr"
+        android:text="@string/updatePassword"
+        android:textColor="#07C3C8"
+        android:textSize="12sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_layoutLog" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

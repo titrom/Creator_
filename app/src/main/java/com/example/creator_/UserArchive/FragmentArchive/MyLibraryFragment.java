@@ -43,16 +43,22 @@ public class MyLibraryFragment extends Fragment {
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     private boolean userClickBookItem;
     protected boolean created = false;
+
+
     @Override
     public void onStart() {
         super.onStart();
         userClickBookItem = false;
     }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.archive_my_library_fragment,container,false);
     }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -61,6 +67,8 @@ public class MyLibraryFragment extends Fragment {
         LoadListMyBook();
         }
     }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -91,6 +99,8 @@ public class MyLibraryFragment extends Fragment {
         });
 
     }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_refresh) {
@@ -101,6 +111,8 @@ public class MyLibraryFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
     protected void getBookList(ArrayList<MyBookClass> list){
         if (created){
             list.addAll(myBC);

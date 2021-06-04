@@ -27,9 +27,8 @@ public class FavoriteFragment extends Fragment {
     private final static String TAG = "FavoriteFragment";
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
-    protected SwipeRefreshLayout swipe;
-    private final FavoriteCreations favoriteCreations = new FavoriteCreations();
-    private final  FavoriteCreators favoriteCreators = new FavoriteCreators();
+    private FavoriteCreations favoriteCreations;
+    private  FavoriteCreators favoriteCreators;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,12 +40,10 @@ public class FavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         setViewPager2();
-        if (favoriteCreations.create){
-            favoriteCreations.myFavoriteBook();
-        }
-
     }
     private void setViewPager2(){
+        favoriteCreations = new FavoriteCreations();
+        favoriteCreators = new FavoriteCreators();
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Творения");
@@ -62,10 +59,10 @@ public class FavoriteFragment extends Fragment {
                 tab.setText("Творцы");
             }
         }).attach();
+
     }
     private void init(View view){
         viewPager2 = view.findViewById(R.id.viewpager2);
         tabLayout = view.findViewById(R.id.tab_layout_favorite);
-        swipe = view.findViewById(R.id.swipe);
     }
 }

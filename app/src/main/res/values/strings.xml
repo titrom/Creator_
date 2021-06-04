@@ -43,6 +43,7 @@
     <string name="TopNew">Новинки</string>
     <string name="subscribe">Подписаться</string>
 
+    <string name="updatePassword"><u>Забыли пароль ?</u></string>
     <string name="my_library">Мои книги</string>
     <string name="my_music">Моя музыка</string>
     <string name="my_art">Мои рисунки</string>

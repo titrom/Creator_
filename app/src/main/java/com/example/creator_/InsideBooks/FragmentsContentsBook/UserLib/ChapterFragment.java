@@ -33,7 +33,7 @@ public class ChapterFragment extends Fragment {
     private File bookDir;
     private int i;
     protected  boolean create = false;
-    private ArrayList<ChapterClass> ccList = new ArrayList<>();;
+    private final ArrayList<ChapterClass> ccList = new ArrayList<>();;
     private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
     private final FirebaseUser user= mAuth.getCurrentUser();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();;
