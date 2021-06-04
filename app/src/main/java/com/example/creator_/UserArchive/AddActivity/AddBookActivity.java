@@ -297,12 +297,12 @@ public class AddBookActivity extends AppCompatActivity {
 
         String destinationFileName = SAMPLE_CROPPED_IMG_NAME+random.nextDouble();
         destinationFileName +=".jpg";
-        LinkedList<String> b= new LinkedList<>();
-        b.add(destinationFileName);
+        LinkedList<String> ref= new LinkedList<>();
+        ref.add(destinationFileName);
         Log.d(TAG,destinationFileName);
         Log.d(TAG,uri.toString());
 
-        UCrop uCrop=UCrop.of(uri,Uri.fromFile(new File(this.getCacheDir(),b.getLast())));
+        UCrop uCrop=UCrop.of(uri,Uri.fromFile(new File(this.getCacheDir(),ref.getLast())));
         uCrop.withAspectRatio(7f,9f);
         uCrop.withOptions(getUCropOptions());
         uCrop.start(this);
