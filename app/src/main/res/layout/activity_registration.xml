@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:theme="@android:style/Theme.Black.NoTitleBar"
     tools:context=".Auth.RegistrationActivity">
 
     <TextView
+        android:textColor="@color/text_color"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:text="@string/registration_hello"
-        android:textColor="@color/ItemColor"
         android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/NicknameLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +24,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NicknameLayout"
-        app:hintTextColor="@color/ItemColor"
+        app:hintTextColor="@color/itemColor"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,11 +33,10 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/nickname"
-        android:textColorHint="@color/ItemColor"
-        app:boxStrokeErrorColor="@color/Red"
-        app:boxStrokeColor="@color/ItemColor"
+        android:textColorHint="@color/itemColor"
+        app:boxStrokeErrorColor="@color/red"
+        app:boxStrokeColor="@color/itemColor"
         app:boxStrokeWidth="2dp"
-        android:background="@color/transparent"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +44,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:textColor="@color/text_color"
+
+            android:background="@color/cardColor"
             android:id="@+id/Nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,11 +64,10 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/email"
-        app:boxStrokeColor="@color/ItemColor"
-        app:hintTextColor="@color/ItemColor"
-
-        android:textColorHint="@color/ItemColor"
-        app:boxStrokeErrorColor="@color/Red"
+        app:boxStrokeColor="@color/itemColor"
+        app:hintTextColor="@color/itemColor"
+        android:textColorHint="@color/itemColor"
+        app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
@@ -74,6 +77,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailRegistration"
+            android:background="@color/cardColor"
+            android:textColor="@color/text_color"
+
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
@@ -82,7 +88,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/ItemColor"
+        app:hintTextColor="@color/itemColor"
         android:id="@+id/Pass"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -91,9 +97,8 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/Password"
-        app:boxStrokeErrorColor="@color/Red"
-        android:textColorHint="@color/ItemColor"
-        android:background="@color/transparent"
+        app:boxStrokeErrorColor="@color/red"
+        android:textColorHint="@color/itemColor"
         app:boxStrokeWidth="2dp"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
@@ -103,6 +108,9 @@
         app:layout_constraintTop_toBottomOf="@+id/emailPerfect">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@color/cardColor"
+            android:textColor="@color/text_color"
+
             android:id="@+id/passwordRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +120,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/ItemColor"
+        app:hintTextColor="@color/itemColor"
         android:id="@+id/RepeatPassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -121,22 +129,23 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/password_repeat"
-        android:textColorHint="@color/ItemColor"
-        app:boxStrokeErrorColor="@color/Red"
+        android:textColorHint="@color/itemColor"
+        app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="2dp"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Pass">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColor="@color/text_color"
             android:id="@+id/passwordRepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
+            android:background="@color/cardColor"
             android:inputType="textPassword"
              />
     </com.google.android.material.textfield.TextInputLayout>
@@ -150,7 +159,7 @@
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:text="@string/RegistrationClose"
-        android:textColor="@color/ItemColor"
+        android:textColor="@color/text_color"
         android:textSize="15sp"
         android:textStyle="bold"
         app:elevation="10dp"

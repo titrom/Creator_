@@ -8,11 +8,12 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textColorLink="@color/ItemColor"
+        android:textColor="@color/text_color"
         android:gravity="center_vertical"
-        style="@style/Theme.Creator_"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:id="@+id/buttonProfileRecycler"
         app:iconSize="18dp"
+        app:iconTint="@color/itemColor"
         android:textSize="15sp"
         android:fontFamily="@font/osr"
         />

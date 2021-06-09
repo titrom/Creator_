@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- View Color -->
+    <color name="background_navigation_bat">#050505</color>
+    <color name="text_color">#FFFFFF</color>
+    <color name="track_color">#9483038F</color>
+    <color name="indicator_color">#7E038F</color>
+    <color name="itemColor">#9500D8</color>
+    <color name="cardColor">#1B1A1A</color>
+    <color name="border_color">#450363</color>
+    <color name="background">#0B0B0B</color>
+    <color name="item_color_bar">#780581</color>
+    <color name="shadowCard">#00E5E5E5</color>
+
+
+</resources>

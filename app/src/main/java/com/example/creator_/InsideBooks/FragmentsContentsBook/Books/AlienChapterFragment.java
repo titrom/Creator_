@@ -91,8 +91,6 @@ public class AlienChapterFragment extends Fragment {
                             intent.putExtra("idBook",idBook);
                             startActivity(intent);
                         };
-
-
                         chapterRV.setLayoutManager(new LinearLayoutManager(getContext()));
                         AdapterChapter adapter = new AdapterChapter(ccList,oCC,getContext());
                         chapterRV.setAdapter(adapter);

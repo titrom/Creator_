@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- App Color -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_200">@color/itemColor</color>
+    <color name="teal_700">@color/border_color</color>
+    <color name="red">#DDFF0000</color>
     <color name="black">#FF000000</color>
-    <color name="bar">#190F0F</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="backgroundLoginActivity">#BC000000</color>
-    <color name="grey">#C6C4C4</color>
-    <color name="ItemColor">#03484A</color>
-    <color name="boxStrokeColor">#A201C6</color>
-    <color name="Red">#FF0000</color>
-    <color name="button">#8AB85DEA</color>
-    <color name="buttonStroke">#8A8E21D3</color>
-    <color name="MyCardColor">#94A537B8</color>
-    <color name="yellow">#F7FF00</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="background">#F5F5F5</color>
 
+    <!-- View Color -->
+    <color name="background_navigation_bat">#FFFFFF</color>
+    <color name="shadowCard">#878787</color>
+    <color name="cardColor">@color/background</color>
+    <color name="gradientStartColor">#110E9C</color>
+    <color name="gradientCentreColor">#BD00FF</color>
+    <color name="item_color_bar">#C00F79</color>
+    <color name="text_color">#000000</color>
+    <color name="track_color">#40E700FF</color>
+    <color name="indicator_color">#E700FF</color>
+    <color name="itemColor">#E700FF</color>
+    <color name="border_color">@color/item_color_bar</color>
+    <color name="background">#FFFFFFFF</color>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.creator_.Adapters.RecyclerButtonProfile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,17 +38,13 @@ public class AdapterRecyclerProfileButton extends RecyclerView.Adapter<AdapterRe
         return new ButtonRecyclerHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ButtonRecyclerHolder holder, int position) {
         ButtonProfileRecycler bProfileR=listProfBut.get(position);
         holder.button.setText(bProfileR.getNameButton());
         holder.button.setIconResource(bProfileR.getIdImageButtonProfileRecycler());
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListenerBPR.onProfileButtonRec(bProfileR,position);
-            }
-        });
+        holder.button.setOnClickListener(v -> onClickListenerBPR.onProfileButtonRec(bProfileR,position));
 
     }
 

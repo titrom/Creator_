@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -170,7 +171,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                     chapterFragment.updateChapter();
                 }
             });
-            swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
+            swipeRefreshLayout.setColorSchemeResources(R.color.itemColor);
         }
     }
 
@@ -316,6 +317,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
 
     private void dialogEdit(Dialog dialog){
         dialog.setContentView(R.layout.dialog_edit_book);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         inputNameBook = dialog.findViewById(R.id.NameBook);
         inputDescriptionBook = dialog.findViewById(R.id.description);
         close = dialog.findViewById(R.id.close);
@@ -373,6 +375,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
 
     private void dialogAdd(Dialog dialog){
         dialog.setContentView(R.layout.dialog_add_chapter);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         addFile = dialog.findViewById(R.id.addFile);
         rv = dialog.findViewById(R.id.RecyclerFiles);
         close = dialog.findViewById(R.id.close1);

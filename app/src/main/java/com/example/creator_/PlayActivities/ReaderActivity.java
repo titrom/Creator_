@@ -19,6 +19,7 @@ import com.example.creator_.R;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,7 @@ public class ReaderActivity extends AppCompatActivity {
     private Integer savePage;
     private final ArrayList<ChapterClass> ccList = new ArrayList<>();;
     private MaterialToolbar readerBar;
+    private AppBarLayout appBarLayout;
     private String idBook;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseUser user = mAuth.getCurrentUser();
@@ -60,7 +62,9 @@ public class ReaderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reader);
         pdfView = findViewById(R.id.pdf_view);
         readerBar = findViewById(R.id.reader_bar);
+        appBarLayout = findViewById(R.id.app_bar_reader);
         readerBar.setVisibility(View.INVISIBLE);
+        appBarLayout.setVisibility(View.INVISIBLE);
 
         Bundle arg = getIntent().getExtras();
         if (arg != null && user != null) {
@@ -171,10 +175,12 @@ public class ReaderActivity extends AppCompatActivity {
                                 .pageFling(true).pageFitPolicy(FitPolicy.WIDTH).onTap(e -> {
                                     if (touch){
                                         readerBar.setVisibility(View.INVISIBLE);
+                                        appBarLayout.setVisibility(View.INVISIBLE);
                                         touch =false;
                                     }
                                     else {
                                         readerBar.setVisibility(View.VISIBLE);
+                                        appBarLayout.setVisibility(View.VISIBLE);
                                         touch = true;
                                     }
                                     return false;

@@ -7,19 +7,19 @@
     android:layout_height="wrap_content"
     tools:context=".InsideBooks.FragmentsContentsBook.UserLib.OwnerBookToolsActivity">
     <RelativeLayout
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rr">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolBarBook"
-            android:background="@color/white"
             android:elevation="3dp"
             app:title="@string/book"
+            android:background="@color/background_navigation_bat"
             app:navigationIcon="@drawable/ic_back_item"
-            app:navigationIconTint="@color/ItemColor"
+            app:navigationIconTint="@color/itemColor"
             app:menu="@menu/title_book_item"
-            app:titleTextColor="@color/ItemColor"
+            app:titleTextColor="@color/itemColor"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             />
@@ -29,18 +29,17 @@
             android:layout_width="0dp"
             android:layout_height="0dp"/>
         <ScrollView
-            android:background="#EEEEEE"
             android:id="@+id/r2"
             android:layout_below="@id/toolBarBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:background="@color/background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     app:state_dragged="true"
-                    android:background="#00FFFFFF"
                     android:id="@+id/cardInformation"
                     android:layout_height="wrap_content">
                     <RelativeLayout
@@ -76,7 +75,7 @@
                             android:layout_marginTop="15dp"
                             android:maxLength="50"
                             android:textSize="20sp"
-                            android:textColor="@color/ItemColor"
+                            android:textColor="@color/text_color"
                             android:text="@string/name_book"
                             android:fontFamily="@font/opb"
                             />
@@ -95,7 +94,7 @@
                             android:minHeight="25dp"
                             android:layout_marginStart="160dp"
                             android:text="@string/name_user"
-                            android:textColor="#5BA3A5"
+                            android:textColor="@color/item_color_bar"
                             android:textSize="15sp" />
 
                         <TextView
@@ -107,7 +106,7 @@
                             android:layout_marginStart="160dp"
                             android:layout_below="@id/dateText"
                             android:textSize="15sp"
-                            android:textColor="#737373"
+                            android:textColor="@color/text_color"
                             android:text="Почитатили: 0"
                             />
                         <TextView
@@ -115,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="160dp"
                             android:id="@+id/dateText"
-                            android:textColor="#737373"
+                            android:textColor="@color/text_color"
                             android:text="Дата:"
                             android:layout_marginTop="185dp"
                             />
@@ -128,12 +127,14 @@
                             app:trackThickness="5dp"
                             android:layout_marginStart="40dp"
                             android:layout_marginEnd="130dp"
+                            app:indicatorColor="@color/indicator_color"
+                            app:trackColor="@color/track_color"
                             android:layout_below="@id/ThisBookImageView"/>
                         <TextView
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="80dp"
                             android:textSize="20sp"
-                            android:textColor="#8603484A"
+                            android:textColor="@color/text_color"
                             android:layout_marginTop="10dp"
                             android:visibility="invisible"
                             android:text="0%"
@@ -151,7 +152,7 @@
                             android:id="@+id/stopDownload"
                             android:gravity="start"
                             android:visibility="invisible"
-                            app:iconTint="@color/ItemColor"
+                            app:iconTint="@color/text_color"
                             app:icon="@drawable/ic_action_clear"
                             android:layout_height="wrap_content"/>
                         <com.google.android.material.button.MaterialButton
@@ -160,7 +161,7 @@
                             android:id="@+id/read"
                             style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:textSize="20sp"
-                            android:textColor="@color/ItemColor"
+                            android:textColor="@color/itemColor"
                             android:layout_marginStart="40dp"
                             android:layout_marginEnd="40dp"
                             android:layout_below="@id/ThisBookImageView"
@@ -168,6 +169,7 @@
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <LinearLayout
+                    android:background="@color/background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -180,14 +182,15 @@
                         android:layout_height="wrap_content">
                         <com.google.android.material.tabs.TabLayout
                             android:id="@+id/tab_layout_page"
+                            android:background="@color/background_navigation_bat"
                             app:tabRippleColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:tabIndicatorColor="@color/ItemColor">
+                            app:tabIndicatorColor="@color/itemColor">
                         </com.google.android.material.tabs.TabLayout>
                     </com.google.android.material.appbar.AppBarLayout>
                     <androidx.viewpager2.widget.ViewPager2
-                        android:background="@color/white"
+                        android:background="@color/background"
                         android:id="@+id/viewpager_owner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

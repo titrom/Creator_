@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:layout_centerVertical="true"
-        android:textColor="@color/ItemColor"
+        android:textColor="@color/itemColor"
         android:gravity="center"
         android:foregroundTintMode="screen"
         android:textSize="60sp"

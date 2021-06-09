@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+        android:background="@color/background"
         android:orientation="vertical"
         style="@style/Theme.Creator_"
         android:layout_width="match_parent"
@@ -13,16 +14,15 @@
             android:id="@+id/descriptionOwner"
             android:layout_width="match_parent"
             android:hint="@string/description"
-            android:textColorHint="@color/ItemColor"
-            app:hintTextColor="@color/ItemColor"
+            android:textColorHint="@color/itemColor"
+            app:hintTextColor="@color/itemColor"
             app:boxStrokeWidth="0dp"
-            app:errorEnabled="true"
             app:hintAnimationEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:textSize="20sp"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color"
                 android:enabled="false"
                 android:layout_width="match_parent"
                 android:maxLength="1000"

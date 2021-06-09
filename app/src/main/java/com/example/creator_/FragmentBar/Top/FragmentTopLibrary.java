@@ -3,6 +3,7 @@ package com.example.creator_.FragmentBar.Top;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.creator_.Adapters.AdapterBooks.AdapterAllBooksRv;
 import com.example.creator_.Adapters.AdapterBooks.AllBooksClass;
@@ -29,6 +31,7 @@ public class FragmentTopLibrary extends Fragment {
     private final static String TAG = "FragmentTopLibrary";
     private RecyclerView rvBooks;
     private AdapterAllBooksRv.OnClickAllBooksRv oCABR;
+    private SwipeRefreshLayout swipe;
     private ArrayList<AllBooksClass> abcList = new ArrayList<>();
 
 
@@ -46,11 +49,24 @@ public class FragmentTopLibrary extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvBooks = view.findViewById(R.id.rv_books);
+        swipe = view.findViewById(R.id.swipe);
         rvBooks.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-//        BooksRv();
+        update();
     }
 
-    protected void BooksRv(){
+
+    private void update(){
+        booksRv();
+        swipe.setOnRefreshListener(() -> {
+            Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+            booksRv();
+
+        });
+        swipe.setColorSchemeResources(R.color.itemColor);
+    }
+
+
+    protected void booksRv(){
         abcList.clear();
         db.collection("Book").whereEqualTo("privacyLevel", true).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
@@ -69,15 +85,20 @@ public class FragmentTopLibrary extends Fragment {
                         AdapterAllBooksRv adapterABR = new AdapterAllBooksRv(abcList,oCABR,getContext());
                         rvBooks.setAdapter(adapterABR);
                     }).addOnFailureListener(e -> {});
-                    TopFragment topFragment = (TopFragment) getParentFragment();
-                    if (topFragment.updateTop!=null){
-                        topFragment.updateTop.setRefreshing(false);
-                    }
-                }
+                }swipe.setRefreshing(false);
 
             }else Log.d(TAG, "Error getting documents: ", task.getException());
         });
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_refresh) {
+            Log.i(TAG, "Refresh menu item selected");
+            swipe.setRefreshing(true);
+            booksRv();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

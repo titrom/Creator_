@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="5dp"
-        app:shape_roundRect_borderColor="#E5E5E5"
         app:shape_roundRect_bottomLeftRadius="15dp"
         app:shape_roundRect_bottomRightRadius="15dp"
         app:shape_roundRect_topLeftRadius="15dp"
@@ -27,13 +26,15 @@
             android:elevation="4dp">
 
             <com.google.android.material.appbar.MaterialToolbar
+                app:navigationIcon="@drawable/ic_back_item"
+                app:navigationIconTint="@color/itemColor"
                 android:id="@+id/searchArchive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background"
                 app:menu="@menu/tool_bar_navig_icon"
                 app:title="@string/search_archive"
-                app:titleTextColor="@color/ItemColor" />
+                app:titleTextColor="@color/text_color" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <EditText
@@ -80,5 +81,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search"
-        android:background="#F5F5F5" />
+        android:background="@color/background" />
 </RelativeLayout>

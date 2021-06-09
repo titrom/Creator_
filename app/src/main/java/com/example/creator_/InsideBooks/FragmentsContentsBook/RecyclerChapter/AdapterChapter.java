@@ -39,19 +39,18 @@ public class AdapterChapter extends RecyclerView.Adapter<AdapterChapter.HolderCh
         return new HolderChapter(view);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull HolderChapter holder, int position) {
         ChapterClass cc= listChapter.get(position);
         if (cc.isDownloadCheck()){
             holder.nameChapter.setText(cc.getNameChapter());
             holder.nameChapter.setClickable(true);
-            holder.nameChapter.setTextColor(R.color.black);
+            holder.nameChapter.setTextColor(holder.itemView.getResources().getColor(R.color.text_color,holder.itemView.getResources().newTheme()));
             holder.nameChapter.setOnClickListener(v -> oCC.OnClickItem(cc, position));
         }else {
             holder.nameChapter.setText(cc.getNameChapter());
             holder.nameChapter.setClickable(false);
-            holder.nameChapter.setTextColor(R.color.grey);
+            holder.nameChapter.setTextColor(holder.itemView.getResources().getColor(R.color.itemColor,holder.itemView.getResources().newTheme()));
         }
 
     }

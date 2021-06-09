@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
+
     android:layout_height="match_parent"
     tools:context=".UserArchive.AddActivity.AddBookActivity">
     <RelativeLayout
@@ -15,15 +17,14 @@
             android:id="@+id/manual"
             android:elevation="0dp"
             style="@style/Theme.Creator_"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/background"
             app:borderWidth="0dp"
-            android:outlineSpotShadowColor="@color/white"
             android:src="@drawable/question"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="60dp"
             android:contentDescription="@string/todo" />
         <com.google.android.material.appbar.AppBarLayout
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
@@ -32,10 +33,11 @@
             >
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/check_bar"
+                android:background="@color/background_navigation_bat"
                 app:title="@string/new_book"
                 app:navigationIcon="@drawable/ic_action_clear"
-                app:navigationIconTint="@color/ItemColor"
-                app:titleTextColor="@color/ItemColor"
+                app:navigationIconTint="@color/itemColor"
+                app:titleTextColor="@color/text_color"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/true_false"
@@ -62,7 +64,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:background="@color/transparent"
                 app:counterEnabled="true"
                 app:counterMaxLength="50"
                 android:enabled="true"
@@ -70,10 +71,10 @@
                 android:layout_marginStart="5dp"
                 android:id="@+id/nameBookInput"
                 android:hint="@string/name_book"
-                android:textColorHint="@color/ItemColor"
-                app:boxStrokeErrorColor="@color/Red"
-                app:errorTextColor="@color/Red"
-                app:hintTextColor="@color/ItemColor"
+                android:textColorHint="@color/itemColor"
+                app:boxStrokeErrorColor="@color/red"
+                app:errorTextColor="@color/red"
+                app:hintTextColor="@color/itemColor"
                 app:boxStrokeWidth="2dp"
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
@@ -81,7 +82,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:background="@color/cardColor"
                     android:layout_width="match_parent"
+                    android:textColor="@color/text_color"
                     android:maxHeight="50dp"
                     android:maxLength="50"
                     android:inputType="textPersonName"
@@ -95,10 +98,10 @@
                 android:layout_marginEnd="5dp"
                 android:layout_below="@+id/reciclerrr"
                 android:hint="@string/description"
-                android:textColorHint="@color/ItemColor"
-                app:boxStrokeErrorColor="@color/Red"
-                app:errorTextColor="@color/Red"
-                app:hintTextColor="@color/ItemColor"
+                android:textColorHint="@color/itemColor"
+                app:boxStrokeErrorColor="@color/red"
+                app:errorTextColor="@color/red"
+                app:hintTextColor="@color/itemColor"
                 app:boxStrokeWidth="2dp"
                 app:errorEnabled="true"
                 android:id="@+id/description"
@@ -108,8 +111,10 @@
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:textColor="@color/text_color"
                     android:maxHeight="290dp"
                     android:maxLength="1000"
+                    android:background="@color/cardColor"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,10 +125,10 @@
                 android:id="@+id/addButtonFileBook"
                 android:gravity="center"
                 android:fontFamily="@font/opb"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color"
                 android:shadowColor="@color/white"
                 android:layout_marginEnd="25dp"
-                app:iconTint="@color/ItemColor"
+                app:iconTint="@color/itemColor"
                 app:icon="@drawable/ic_action_add_file"
                 android:layout_below="@+id/reciclerrr"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
@@ -134,8 +139,6 @@
                 android:id="@+id/RecyclerListFile"
                 android:layout_below="@+id/addButtonFileBook"/>
         </com.google.android.material.appbar.AppBarLayout>
-
-
     </RelativeLayout>
 
 

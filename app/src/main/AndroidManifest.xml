@@ -27,17 +27,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".FragmentBar.GlobalActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Creator_" />
+            android:screenOrientation="portrait" />
         <activity android:name=".Auth.RegistrationActivity" />
         <activity android:name=".Auth.LoginActivity" />
         <activity android:name=".Auth.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

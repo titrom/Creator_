@@ -15,6 +15,7 @@ import com.example.creator_.R;
 import com.example.creator_.Adapters.RecyclerMyBook.MyBookClass;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -91,6 +92,7 @@ public class ArchivivesActivity extends AppCompatActivity {
             BookNameSearch.setText(null);
         });
         getSupportFragmentManager().beginTransaction().add(R.id.ArchiveFragment,myLibraryFragment).commit();
+        searchBar.setNavigationOnClickListener(v -> onBackPressed());
         searchBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.search) {
                 getListBook.clear();

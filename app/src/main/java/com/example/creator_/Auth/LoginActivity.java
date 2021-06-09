@@ -9,14 +9,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.creator_.FragmentBar.GlobalActivity;
 import com.example.creator_.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button intentButtonRegistration;
     private TextView updatePassword;
     private boolean checkStartSing;
-    private EditText inputEditTextEmailUpdatePassword;
+    private TextInputEditText inputEditTextEmailUpdatePassword;
     private final FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     @SuppressLint("ResourceAsColor")
@@ -68,11 +71,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         updatePassword.setOnClickListener(v -> {
-            inputEditTextEmailUpdatePassword = new EditText(LoginActivity.this);
-            inputEditTextEmailUpdatePassword.setPadding(15,0,15,0);
+            inputEditTextEmailUpdatePassword = new TextInputEditText(LoginActivity.this);
+            LinearLayout.LayoutParams params =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            inputEditTextEmailUpdatePassword.setLayoutParams(params);
             inputEditTextEmailUpdatePassword.setTextSize(20);
+            inputEditTextEmailUpdatePassword.setTextColor(getResources().getColor(R.color.text_color, getResources().newTheme()));
             inputEditTextEmailUpdatePassword.setHint("Введите вашу почту");
-            inputEditTextEmailUpdatePassword.setBackgroundResource(R.color.white);
+            inputEditTextEmailUpdatePassword.setBackgroundResource(R.color.background);
             new MaterialAlertDialogBuilder(LoginActivity.this).setTitle("Востановить пароль")
                     .setMessage(" ")
                     .setView(inputEditTextEmailUpdatePassword)

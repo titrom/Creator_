@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     tools:context=".Auth.LoginActivity"
+    android:background="@color/background"
     >
 
     <TextView
@@ -19,7 +20,7 @@
         android:fontFamily="@font/osr"
         android:gravity="center"
         android:text="@string/hello"
-        android:textColor="@color/ItemColor"
+        android:textColor="@color/text_color"
 
         android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/emailPerfect"
@@ -39,21 +40,23 @@
         android:layout_marginEnd="30dp"
         android:enabled="true"
         android:hint="@string/email"
-        android:textColorHint="@color/ItemColor"
-        app:boxStrokeErrorColor="@color/Red"
-        app:errorTextColor="@color/Red"
-        app:hintTextColor="@color/ItemColor"
+        android:textColorHint="@color/itemColor"
+        app:boxStrokeErrorColor="@color/red"
+        app:errorTextColor="@color/red"
+        app:hintTextColor="@color/itemColor"
         app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
+            android:background="@color/cardColor"
             android:textSize="20sp"
+            android:textColor="@color/text_color"
+
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +66,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layoutLog"
-        android:background="@color/transparent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,25 +74,26 @@
         app:endIconMode="password_toggle"
         android:enabled="true"
         android:hint="@string/Password"
-        android:textColorHint="@color/ItemColor"
-        app:boxStrokeErrorColor="@color/Red"
+        android:textColorHint="@color/itemColor"
+        app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="2dp"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
-        app:hintTextColor="@color/ItemColor"
+        app:hintTextColor="@color/itemColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:errorTextColor="@color/Red"
-
+        app:errorTextColor="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailPerfectLog"
         app:layout_constraintVertical_bias="0.043">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditLogText"
             android:inputType="textPassword"
+            android:background="@color/cardColor"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
             android:fontFamily="@font/osr" />
 
 
@@ -104,7 +107,7 @@
         android:fontFamily="@font/osr"
         android:padding="5dp"
         android:text="@string/Sing"
-        android:textColor="@color/ItemColor"
+        android:textColor="@color/text_color"
         android:textSize="15sp"
         android:textStyle="bold"
         app:elevation="10dp"
@@ -127,7 +130,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/registration"
-        android:textColor="@color/ItemColor"
+        android:textColor="@color/text_color"
         android:textSize="15sp"
         android:textStyle="italic"
         app:elevation="10dp"
@@ -144,7 +147,7 @@
         android:clickable="true"
         android:fontFamily="@font/osr"
         android:text="@string/updatePassword"
-        android:textColor="#07C3C8"
+        android:textColor="@color/itemColor"
         android:textSize="12sp"
         android:textStyle="italic|bold"
         app:layout_constraintStart_toStartOf="parent"

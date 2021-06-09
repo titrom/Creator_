@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:iconTint="@color/ItemColor"
+        android:iconTint="@color/itemColor"
         android:icon="@drawable/edit"
         android:id="@+id/edit"
         android:title="@string/edit"
         tools:targetApi="o" />
     <item
-        android:iconTint="@color/ItemColor"
+        android:iconTint="@color/itemColor"
         android:id="@+id/add_chapter"
         android:title="@string/add_chapter"
         android:icon="@drawable/ic_action_add"

@@ -9,20 +9,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_reader"
         android:layout_width="match_parent"
-        android:backgroundTint="@color/transparent"
-        android:background="@color/background"
-        android:elevation="0dp"
-        android:outlineSpotShadowColor="@color/white"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/reader_bar"
-            android:background="#B58F8F8F"
+            android:background="#8F8F8F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="Глава 1"
-            app:navigationIconTint="@color/black"
+            app:navigationIconTint="@color/itemColor"
             app:navigationIcon="@drawable/ic_back_item"
-            app:titleTextColor="#000000"
+            app:titleTextColor="@color/black"
             app:menu="@menu/reader_bar_menu"
             />
     </com.google.android.material.appbar.AppBarLayout>

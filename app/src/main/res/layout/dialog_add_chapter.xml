@@ -6,6 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        android:textColor="@color/text_color"
         android:gravity="center"
         android:fontFamily="@font/osr"
         android:layout_width="match_parent"
@@ -20,9 +21,8 @@
         android:id="@+id/addFile"
         android:gravity="center"
         android:fontFamily="@font/opb"
-        android:textColor="@color/black"
-        android:shadowColor="@color/white"
-        app:iconTint="@color/ItemColor"
+        android:textColor="@color/text_color"
+        app:iconTint="@color/itemColor"
         app:icon="@drawable/ic_action_add_file"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
         android:layout_height="40dp"/>
@@ -32,8 +32,8 @@
         android:id="@+id/RecyclerFiles"
         />
     <LinearLayout
-        android:gravity="start"
-        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginTop="22dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

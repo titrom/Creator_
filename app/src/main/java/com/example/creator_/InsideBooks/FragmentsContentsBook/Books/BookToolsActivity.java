@@ -184,7 +184,7 @@ public class BookToolsActivity extends AppCompatActivity {
                     chapterFragment.updateChapter();
                 }
             });
-            swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
+            swipeRefreshLayout.setColorSchemeResources(R.color.itemColor);
         }
     }
     private void createDirectory(String idBook){

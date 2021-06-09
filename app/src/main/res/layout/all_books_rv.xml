@@ -5,10 +5,12 @@
     style="@style/Theme.Creator_"
     android:layout_marginEnd="5dp"
     android:layout_marginStart="5dp"
+    android:layout_marginBottom="5dp"
     app:shape_roundRect_bottomLeftRadius="10dp"
     app:shape_roundRect_bottomRightRadius="10dp"
     app:shape_roundRect_topLeftRadius="10dp"
     app:shape_roundRect_topRightRadius="10dp"
+    android:elevation="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -16,6 +18,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardBooks"
+            android:background="@color/cardColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
@@ -29,12 +32,11 @@
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:elevation="1dp"
+                    android:elevation="5dp"
                     app:shape_roundRect_bottomLeftRadius="10dp"
                     app:shape_roundRect_bottomRightRadius="10dp"
                     app:shape_roundRect_topLeftRadius="10dp"
                     app:shape_roundRect_topRightRadius="10dp">
-
                     <ImageView
                         android:id="@+id/image_books"
                         android:layout_width="125dp"
@@ -44,6 +46,7 @@
                         android:contentDescription="@string/todo" />
                 </com.github.florent37.shapeofview.shapes.RoundRectView>
                 <TextView
+                    android:textColor="@color/text_color"
                     android:paddingStart="5dp"
                     android:text="12345678901234567890123456789012345678901234567890"
                     android:id="@+id/nameBookCard"

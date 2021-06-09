@@ -62,7 +62,7 @@ public class FavoriteFragment extends Fragment {
 
     }
     private void init(View view){
-        viewPager2 = view.findViewById(R.id.viewpager2);
+        viewPager2 = view.findViewById(R.id.vp2);
         tabLayout = view.findViewById(R.id.tab_layout_favorite);
     }
 }

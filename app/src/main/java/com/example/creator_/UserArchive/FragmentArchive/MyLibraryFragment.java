@@ -80,7 +80,7 @@ public class MyLibraryFragment extends Fragment {
             Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
             LoadListMyBook();
         });
-        swipeRefreshLayout.setColorSchemeResources(R.color.ItemColor);
+        swipeRefreshLayout.setColorSchemeResources(R.color.itemColor);
         DocumentReference docRef=db.collection("UserProfile").document(Objects.requireNonNull(user).getUid());
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){

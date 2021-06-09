@@ -6,18 +6,19 @@
 
         android:id="@+id/topHot"
         android:enabled="true"
-        android:icon="@drawable/baseline_local_fire_department_black_18dp"
+        android:icon="@drawable/top"
         android:title="Топ"/>
     <item
         android:id="@+id/favorite"
         android:enabled="true"
-        android:icon="@drawable/baseline_favorite_black_18dp"
+        android:icon="@drawable/favorite"
         android:title="Подписки"/>
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/baseline_account_circle_black_18dp"
+        android:icon="@drawable/profile"
         android:title="Профиль"
+
         />
 
 </menu>

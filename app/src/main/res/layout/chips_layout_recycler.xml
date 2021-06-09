@@ -12,9 +12,9 @@
         <com.google.android.material.chip.Chip
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:chipBackgroundColor="#688EBFB4"
+            app:chipBackgroundColor="@color/item_color_bar"
+            android:textColor="@color/text_color"
             android:id="@+id/chipRec"
-            app:rippleColor="@color/bar"
             app:chipIcon="@drawable/ic_file"
             android:fontFamily="@font/opb"
             android:textSize="20sp"

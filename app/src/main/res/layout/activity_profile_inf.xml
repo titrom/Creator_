@@ -64,7 +64,7 @@
                 android:layout_marginStart="170dp"
                 android:progress="0"
                 android:max="100"
-                app:indicatorColor="@color/ItemColor"
+                app:indicatorColor="@color/itemColor"
                 app:trackThickness="7dp"
                 android:id="@+id/expBar"
                 android:layout_marginEnd="5dp"
@@ -93,7 +93,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_height="wrap_content"/>
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:textColor="@color/ItemColor"
+                android:textColor="@color/itemColor"
                 android:text="@string/subscribe"
                 android:textSize="12sp"
                 android:paddingStart="22dp"
