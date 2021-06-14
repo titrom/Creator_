@@ -89,7 +89,7 @@
                             android:focusable="true"
                             android:gravity="start"
                             android:layout_alignParentTop="true"
-                            android:layout_marginTop="130dp"
+                            android:layout_marginTop="80dp"
                             android:layout_below="@id/CollSub"
                             android:minHeight="25dp"
                             android:layout_marginStart="160dp"

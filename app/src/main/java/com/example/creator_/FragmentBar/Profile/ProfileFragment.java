@@ -40,6 +40,7 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.creator_.R.*;
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -121,7 +122,8 @@ public class ProfileFragment extends Fragment{
                         .getString(string.yes), (dialog, which) -> { FirebaseAuth.getInstance()
                         .signOut();
                         Intent intent = new Intent(requireView().getContext(), LoginActivity.class);
-                        startActivity(intent);}).show();
+                        startActivity(intent);
+                        requireActivity().finish();}).show();
             }
         };
         AdapterRecyclerProfileButton adapterRPB=

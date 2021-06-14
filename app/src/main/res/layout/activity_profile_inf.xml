@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,107 +7,147 @@
     android:background="@color/background"
     tools:context=".Profile.ProfileInfActivity">
     <com.github.florent37.shapeofview.shapes.RoundRectView
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:id="@+id/bb"
-        android:elevation="2dp"
-        app:shape_roundRect_bottomLeftRadius="10dp"
-        app:shape_roundRect_bottomRightRadius="10dp"
-        app:shape_roundRect_topLeftRadius="10dp"
-        app:shape_roundRect_topRightRadius="10dp"
-        app:shape_roundRect_borderColor="#C6C4C4"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:background="@color/white"
+        android:elevation="4dp"
+        android:background="@drawable/background_shape"
+        app:shape_roundRect_borderColor="@color/shadowCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        app:shape_roundRect_bottomLeftRadius="15dp"
+        app:shape_roundRect_bottomRightRadius="15dp"
+        app:shape_roundRect_topLeftRadius="15dp"
+        app:shape_roundRect_topRightRadius="15dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:elevation="4dp"
+            android:background="@color/cardColor"
             android:layout_width="match_parent"
-            android:id="@+id/r1"
             android:layout_height="wrap_content">
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/circleView2"
+                android:layout_width="170dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/buttonImageUser"
+                    android:layout_width="170dp"
+                    android:layout_height="125dp"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_action_add"
+                    android:translationY="-5dp" />
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="213dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="start"
+                android:text="@string/nickname"
+                android:textColor="@color/text_color"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toEndOf="@+id/circleView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                app:layout_constraintVertical_bias="0.343">
+
+                <TextView
+                    android:id="@+id/Level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:paddingStart="3dp"
+                    android:text="Уровень: 0"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Xp_progress" />
+
+                <TextView
+                    android:id="@+id/xp_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="0/100 XP"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/Level"
+                    app:layout_constraintTop_toBottomOf="@+id/Xp_progress" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/Xp_progress"
+                    android:layout_width="200dp"
+                    android:layout_height="6dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:indicatorColor="@color/indicator_color"
+                    app:trackColor="@color/track_color" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/subColl"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/circleView"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="220dp"
-                android:text="Подписчиков: "
-                />
-            <com.github.florent37.shapeofview.shapes.CircleView
-                android:id="@+id/circleView"
-                android:layout_width="160dp"
-                android:layout_height="110dp"
-                android:layout_marginTop="8dp"
-                android:elevation="2dp"
-                >
-                <ImageView
-                    android:layout_gravity="center"
-                    android:id="@+id/ImageUser"
-                    android:layout_width="175dp"
-                    android:layout_height="125dp"
-                    android:contentDescription="@string/todo"/>
-            </com.github.florent37.shapeofview.shapes.CircleView>
-            <TextView
-                android:textSize="25sp"
-                android:fontFamily="@font/opb"
-                android:id="@+id/nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="170dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="170dp"
-                android:progress="0"
-                android:max="100"
-                app:indicatorColor="@color/itemColor"
-                app:trackThickness="7dp"
-                android:id="@+id/expBar"
-                android:layout_marginEnd="5dp"
-                android:layout_below="@+id/nickname"/>
+                android:layout_marginEnd="112dp"
+                android:layout_marginBottom="10dp"
+                android:text="Подписчиков: 0"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_below="@id/expBar"
-                android:layout_marginEnd="5dp"
-                android:textSize="15sp"
-                style="@style/Theme.Creator_"
-                android:text="0/100xp"
-                android:id="@+id/Xp_progress"
-                android:fontFamily="@font/osr"
-                android:layout_alignParentEnd="true"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_below="@id/expBar"
-                android:layout_marginEnd="155dp"
-                android:textSize="15sp"
-                android:text="Уровень "
-                style="@style/Theme.Creator_"
-                android:id="@+id/Level"
-                android:fontFamily="@font/osr"
-                android:layout_alignParentEnd="true"
-                android:layout_height="wrap_content"/>
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:textColor="@color/itemColor"
-                android:text="@string/subscribe"
-                android:textSize="12sp"
-                android:paddingStart="22dp"
-                android:elevation="1dp"
-                android:shadowColor="#F5F5F5"
                 android:id="@+id/subscribe"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/Level"
-                android:gravity="top|center"
-                android:fontFamily="@font/osr"
-                android:backgroundTint="@color/white"
+                android:layout_marginEnd="10dp"
+                android:text="@string/subscribe"
+                app:icon="@drawable/ic_done"
+                app:iconTint="@color/itemColor"
+                android:backgroundTint="@color/background"
+                android:textColor="@color/itemColor"
+                android:textSize="15sp"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subColl" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.github.florent37.shapeofview.shapes.RoundRectView>
 
-</RelativeLayout>
+</LinearLayout>

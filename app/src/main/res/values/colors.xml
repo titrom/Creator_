@@ -12,6 +12,7 @@
     <color name="transparent">#00FFFFFF</color>
 
     <!-- View Color -->
+    <color name="background_edit_text">#EFEEEE</color>
     <color name="background_navigation_bat">#FFFFFF</color>
     <color name="shadowCard">#878787</color>
     <color name="cardColor">@color/background</color>

@@ -53,12 +53,12 @@ public class ProfileInfActivity extends AppCompatActivity {
         }
     }
     private void init(){
-        imageUser = findViewById(R.id.ImageUser);
-        nickname = findViewById(R.id.nickname);
+        imageUser = findViewById(R.id.buttonImageUser);
+        nickname = findViewById(R.id.nameTextView);
         level = findViewById(R.id.Level);
-        xp_progress = findViewById(R.id.Xp_progress);
+        xp_progress = findViewById(R.id.xp_point);
         subColl = findViewById(R.id.subColl);
-        expBar = findViewById(R.id.expBar);
+        expBar = findViewById(R.id.Xp_progress);
         subscribe = findViewById(R.id.subscribe);
     }
     private void isSubscribe(){

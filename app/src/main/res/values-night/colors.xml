@@ -11,6 +11,6 @@
     <color name="background">#0B0B0B</color>
     <color name="item_color_bar">#780581</color>
     <color name="shadowCard">#00E5E5E5</color>
-
+    <color name="background_edit_text">#1B1A1A</color>
 
 </resources>

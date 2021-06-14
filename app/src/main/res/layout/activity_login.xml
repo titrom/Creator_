@@ -45,6 +45,7 @@
         app:errorTextColor="@color/red"
         app:hintTextColor="@color/itemColor"
         app:boxStrokeWidth="2dp"
+        app:boxStrokeColor="@color/text_color"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,10 +54,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:textSize="20sp"
             android:textColor="@color/text_color"
-
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditLogText"
             android:inputType="textPassword"
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

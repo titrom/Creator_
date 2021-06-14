@@ -46,7 +46,7 @@
         <EditText
             android:textColor="@color/text_color"
 
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:id="@+id/Nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailRegistration"
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:textColor="@color/text_color"
 
             android:layout_width="match_parent"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailPerfect">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:textColor="@color/text_color"
 
             android:id="@+id/passwordRegistration"
@@ -145,7 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/osr"
-            android:background="@color/cardColor"
+            android:background="@color/background_edit_text"
             android:inputType="textPassword"
              />
     </com.google.android.material.textfield.TextInputLayout>
