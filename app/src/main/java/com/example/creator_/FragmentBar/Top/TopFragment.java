@@ -22,14 +22,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TopFragment extends Fragment {
     private final static String TAG = "TopFragment";
     private ViewPager2 vp2;
-    private TabLayout tabLayout;
     private final FragmentTopLibrary fragmentTopLib = new FragmentTopLibrary();
-    private final FragmentTopAudioLib fragmentTopAudioLib = new FragmentTopAudioLib();
-    private final FragmentTopGallery fragmentTopGallery = new FragmentTopGallery();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,29 +50,15 @@ public class TopFragment extends Fragment {
     private void init(View view){
 
         vp2 = view.findViewById(R.id.vp2);
-        tabLayout = view.findViewById(R.id.tab_layout);
     }
 
 
     private void viewPager2(){
         ArrayList<Fragment> fragments = new ArrayList<>();
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Книги");
-        arrayList.add("Музыка");
-        arrayList.add("Картины");
         fragments.add(fragmentTopLib);
-        fragments.add(fragmentTopAudioLib);
-        fragments.add(fragmentTopGallery);
-        FragmentStateAdapter adapter=new AdapterViewPager2((FragmentActivity) getContext(),fragments);
+        FragmentStateAdapter adapter=new AdapterViewPager2((FragmentActivity) requireContext(),fragments);
         vp2.setAdapter(adapter);
-        new TabLayoutMediator(tabLayout, vp2, (tab, position) -> {
-            switch (position){
-                case 0 : tab.setText("Книги"); break;
-                case 1 : tab.setText("Музыка"); break;
-                case 2 : tab.setText("Картины"); break;
-                default: break;
-            }
-        }).attach();
+
     }
 
 }

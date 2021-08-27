@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentContainerView;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,8 +17,11 @@ import com.example.creator_.FragmentBar.Profile.ProfileFragment;
 import com.example.creator_.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class GlobalActivity extends AppCompatActivity{
+    private static final String TAG = "GlobalActivity";
     private BottomNavigationView barNavigation;
     private static long back_pressed;
     private final  ProfileFragment profileFragment=new ProfileFragment();
@@ -30,6 +34,12 @@ public class GlobalActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_global);
+        File booksDirt = new File(getExternalFilesDir(null)+"/Books");
+        if (!booksDirt.exists()){
+            if (booksDirt.mkdir()){
+                Log.d(TAG,"Create OK");
+            }
+        }
         favoriteContainer = findViewById(R.id.favorite_fragment);
         getSupportFragmentManager().beginTransaction().add(favoriteContainer.getId(),favoriteFragment).hide(favoriteFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.profileFragment,profileFragment).hide(profileFragment).commit();

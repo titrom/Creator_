@@ -17,6 +17,8 @@ import com.example.creator_.InsideBooks.FragmentsContentsBook.RecyclerChapter.Ad
 import com.example.creator_.InsideBooks.FragmentsContentsBook.RecyclerChapter.ChapterClass;
 import com.example.creator_.PlayActivities.ReaderActivity;
 import com.example.creator_.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,17 +35,18 @@ public class AlienChapterFragment extends Fragment {
     private int i;
     protected  boolean create = false;
     private ArrayList<ChapterClass> ccList = new ArrayList<>();;
-    private final FirebaseFirestore db=FirebaseFirestore.getInstance();;
+    private final FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.chapter_fragment_layout,container,false);
+        return inflater.inflate(R.layout.alin_fragment,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        chapterRV = view.findViewById(R.id.chapterRV);
+        chapterRV = view.findViewById(R.id.rV);
 
     }
     protected void updateChapter(){
@@ -51,9 +54,8 @@ public class AlienChapterFragment extends Fragment {
             chapterRV.setAdapter(null);
             ccList.clear();
         }
-        ArrayList<String> ids = new ArrayList<>();
         BookToolsActivity bookToolsActivity = (BookToolsActivity) this.getActivity();
-        ids = Objects.requireNonNull(bookToolsActivity).StringIdBookAndUserID();
+        ArrayList<String> ids = Objects.requireNonNull(bookToolsActivity).StringIdBookAndUserID();
         idBook = ids.get(0);
         userId = ids.get(1);
         if (idBook!= null&& userId!= null){
@@ -79,11 +81,12 @@ public class AlienChapterFragment extends Fragment {
 
                         }
                         AdapterChapter.OnClickChapter oCC = (cc, position) -> {
-                            db.collection("UserProfile").document(userId)
+                            assert user != null;
+                            db.collection("UserProfile").document(user.getUid())
                                     .update(idBook+".chapter",position+1)
                                     .addOnSuccessListener(aVoid -> Log.d(TAG,"Good update !!! "))
                                     .addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
-                            db.collection("UserProfile").document(userId)
+                            db.collection("UserProfile").document(user.getUid())
                                     .update(idBook+".page",0)
                                     .addOnSuccessListener(aVoid -> Log.d(TAG,"Good update !!! "))
                                     .addOnFailureListener(e -> Log.e(TAG,e.getMessage()));

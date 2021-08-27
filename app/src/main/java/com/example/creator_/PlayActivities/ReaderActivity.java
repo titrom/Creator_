@@ -75,13 +75,11 @@ public class ReaderActivity extends AppCompatActivity {
             Dialog dialog = new Dialog(ReaderActivity.this);
             dialogChapters(dialog);
             readerBar.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()){
-                    case R.id.chapters: {
-                        dialog.show();
-                        return true;
-                    }
-                    default: return false;
+                if (item.getItemId() == R.id.chapters) {
+                    dialog.show();
+                    return true;
                 }
+                return false;
             });
             loadRead(idBook);
         }

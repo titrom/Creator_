@@ -1,6 +1,7 @@
 package com.example.creator_.Adapters.AdapterFavoriteUser;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,11 @@ public class AdapterFavoriteUser extends RecyclerView.Adapter<AdapterFavoriteUse
     @Override
     public void onBindViewHolder(@NonNull HolderFavoriteUser holder, int position) {
         FavoriteUserClass fUC = fUCs.get(position);
-        Picasso.with(context).load(fUC.getImageUser()).into(holder.imageFavUser);
+        if (holder.imageFavUser != null){
+            Picasso.with(context).load(fUC.getImageUser()).into(holder.imageFavUser);
+        }else{
+            Picasso.with(context).load(R.drawable.ic_action_add).into(holder.imageFavUser);
+        }
         holder.nicknameFavUser.setText(fUC.getNicknameFavoriteWriter());
         holder.cardView.setOnClickListener(v -> oCFU.setOnClickItemFavoriteUser(fUC,position));
     }

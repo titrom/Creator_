@@ -105,8 +105,26 @@ public class FavoriteCreators extends Fragment {
                                             }
                                         }
                                     });
-
-                                }).addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
+                                }).addOnFailureListener(e -> {
+                                    Log.e(TAG,e.getMessage());
+                                    db.collection("UserProfile").document(i).get().addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()){
+                                            DocumentSnapshot document = task1.getResult();
+                                            if (Objects.requireNonNull(document).exists()){
+                                                fUCs.add(new FavoriteUserClass(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("nickname")).toString()
+                                                        ,null,i));
+                                                oCFU = (fUC, position) -> {
+                                                    Intent intent = new Intent(getContext(), ProfileInfActivity.class);
+                                                    intent.putExtra("userId",fUC.getIdUser());
+                                                    startActivity(intent);
+                                                };
+                                                AdapterFavoriteUser adapterFU = new AdapterFavoriteUser(fUCs,oCFU,getContext());
+                                                favoriteUser.setAdapter(adapterFU);
+                                                create = true;
+                                            }
+                                        }
+                                    });
+                                });
                             }
 
                         }

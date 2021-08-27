@@ -32,15 +32,6 @@
             app:menu="@menu/tool_bar_navig_icon"
             />
         </com.github.florent37.shapeofview.shapes.RoundRectView>
-        <com.google.android.material.tabs.TabLayout
-            android:layout_marginTop="20dp"
-            android:id="@+id/tab_layout"
-            android:layout_below="@+id/shape"
-            android:background="@color/background_navigation_bat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/itemColor">
-        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:background="@color/background"

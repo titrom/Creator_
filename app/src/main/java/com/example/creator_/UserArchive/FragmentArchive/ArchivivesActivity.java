@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ArchivivesActivity extends AppCompatActivity {
     private File booksDirt;
@@ -58,7 +59,7 @@ public class ArchivivesActivity extends AppCompatActivity {
             Book.document(deleteIdBook).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
                     DocumentSnapshot snapshot = task.getResult();
-                    if (snapshot.exists()){
+                    if (Objects.requireNonNull(snapshot).exists()){
                         int collChapter = Integer.parseInt(snapshot.getData().put("collChapter",0).toString());
                         for (int i = 0; i<collChapter; i++){
                             StorageReference fileRef =  storageRef.child(user.getUid()+"/Book/"+deleteIdBook+"/"+"Глава"+i+".pdf");
