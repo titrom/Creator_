@@ -34,6 +34,7 @@ import com.example.creator_.PlayActivities.ReaderActivity;
 import com.example.creator_.R;
 import com.example.creator_.Adapters.RecyclerChipsAndAdapter.AdapterRecyclerChips;
 import com.example.creator_.Adapters.RecyclerChipsAndAdapter.ChipRecycler;
+import com.example.creator_.UserArchive.FragmentArchive.ArchivivesActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -528,18 +529,18 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
                                             .addOnFailureListener(e -> Log.e(TAG,e.getMessage()));
                                     information(idBook);
                                 }).show();
-                    }
-//                    case R.id.delete: {
-//                        new MaterialAlertDialogBuilder(OwnerBookToolsActivity.this).setTitle("Удалть книгу")
-//                                .setMessage("Вы действительно хотите удалить книгу?")
-//                                .setPositiveButton(R.string.Yes,(dialog, which) -> {
-//                                    dialog.cancel();
-//                                    Intent intent = new Intent(OwnerBookToolsActivity.this, ArchivivesActivity.class);
-//                                    intent.putExtra("deleteIdBook", idBook);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }).setNegativeButton(R.string.No,(dialog, which) -> dialog.cancel()).show();
-//                    }return true;
+                    }return true;
+                    case R.id.delete: {
+                        new MaterialAlertDialogBuilder(OwnerBookToolsActivity.this).setTitle("Удалть книгу")
+                                .setMessage("Вы действительно хотите удалить книгу?")
+                                .setPositiveButton(R.string.yes,(dialog, which) -> {
+                                    dialog.cancel();
+                                    Intent intent = new Intent(OwnerBookToolsActivity.this, ArchivivesActivity.class);
+                                    intent.putExtra("deleteIdBook", idBook);
+                                    startActivity(intent);
+                                    finish();
+                                }).setNegativeButton(R.string.no,(dialog, which) -> dialog.cancel()).show();
+                    }return true;
                     default: return false;
                 }
             }

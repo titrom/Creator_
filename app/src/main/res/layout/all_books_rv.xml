@@ -10,18 +10,19 @@
     app:shape_roundRect_bottomRightRadius="10dp"
     app:shape_roundRect_topLeftRadius="10dp"
     app:shape_roundRect_topRightRadius="10dp"
-    android:elevation="5dp"
+    android:elevation="2dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:padding="10dp"
         android:layout_width="wrap_content"
+        android:focusable="true"
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardBooks"
             android:background="@color/cardColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"

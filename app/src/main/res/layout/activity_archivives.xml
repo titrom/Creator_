@@ -27,7 +27,6 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 app:navigationIcon="@drawable/ic_back_item"
-                app:navigationIconTint="@color/itemColor"
                 android:id="@+id/searchArchive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

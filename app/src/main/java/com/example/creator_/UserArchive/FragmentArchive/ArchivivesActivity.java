@@ -1,9 +1,12 @@
 package com.example.creator_.UserArchive.FragmentArchive;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.creator_.R;
 import com.example.creator_.Adapters.RecyclerMyBook.MyBookClass;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,11 +49,17 @@ public class ArchivivesActivity extends AppCompatActivity {
     private FloatingActionButton stop;
     private MaterialToolbar searchBar;
     private EditText BookNameSearch;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_archivives);
+        Bundle delete = getIntent().getExtras();
+        if (delete != null){
+            String deleteIdBook = delete.get("deleteIdBook").toString();
+            deleteBook(deleteIdBook);
+        }
         init();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         stop = findViewById(R.id.stopSearch);
@@ -86,6 +98,7 @@ public class ArchivivesActivity extends AppCompatActivity {
             if (BookNameSearch.getText().toString().trim().isEmpty()){
                 BookNameSearch.setVisibility(View.INVISIBLE);
                 searchBar.setTitle(R.string.search_archive);
+                searchBar.setNavigationIcon(R.drawable.ic_back_item);
                 stop.setVisibility(View.INVISIBLE);
                 imm.hideSoftInputFromWindow(stop.getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
@@ -99,6 +112,7 @@ public class ArchivivesActivity extends AppCompatActivity {
                 getListBook.clear();
                 if (myLibraryFragment.created) {
                     searchBar.setTitle(null);
+                    searchBar.setNavigationIcon(null);
                     stop.setVisibility(View.VISIBLE);
                     myLibraryFragment.getBookList(getListBook);
                     Log.d(TAG, getListBook.size() + "");
@@ -115,6 +129,7 @@ public class ArchivivesActivity extends AppCompatActivity {
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                         }
                     }
+
                     if (setListBook.size() != 0) {
                         myLibraryFragment.setBookList(setListBook);
                         BookNameSearch.setText(null);
@@ -124,6 +139,17 @@ public class ArchivivesActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    private void deleteBook(String idBook){
+        File bookDir = new File(getExternalFilesDir(null)+"/Books/"+idBook);
+        if (bookDir.exists()) bookDir.delete();
+        db.collection("Book").document(idBook).delete().addOnSuccessListener(unused -> {
+            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+        }).addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+        db.collection("UserProfile").document(user.getUid()).update("listIdBook", FieldValue.arrayRemove(idBook))
+                .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot successfully updated!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
     }
 
     private void init(){
