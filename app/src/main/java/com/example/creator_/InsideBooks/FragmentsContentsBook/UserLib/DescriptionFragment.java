@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class DescriptionFragment extends Fragment {
     private TextInputLayout description;
     private String idBook;
+    private TextView payText;
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     @Nullable
     @Override
@@ -29,16 +31,17 @@ public class DescriptionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         description = view.findViewById(R.id.descriptionOwner);
+        payText = view.findViewById(R.id.payLink);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        dsrUpdate();
+        Update();
     }
 
-    protected void dsrUpdate(){
+    protected void Update(){
         OwnerBookToolsActivity ownerBookToolsActivity = (OwnerBookToolsActivity) this.getActivity();
         idBook = Objects.requireNonNull(ownerBookToolsActivity).StringIdBook();
         db.collection("Book").document(idBook).get().addOnCompleteListener(task -> {
@@ -46,6 +49,8 @@ public class DescriptionFragment extends Fragment {
                 DocumentSnapshot snapshot =task.getResult();
                 if (Objects.requireNonNull(snapshot).exists()){
                     Objects.requireNonNull(description.getEditText()).setText((String) snapshot.get("description"));
+                    payText.setText((String) snapshot.get("paySystem"));
+
                 }
             }
         });
@@ -53,6 +58,6 @@ public class DescriptionFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        dsrUpdate();
+        Update();
     }
 }

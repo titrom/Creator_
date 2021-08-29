@@ -10,11 +10,17 @@
     <string name="Sing">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     <string name="menu_refresh">menu_refresh</string>
+    <string name="save">Сохронить</string>
+    <string name="new_email">Сменть почту</string>
+    <string name="new_password">Сменить пароль</string>
+    <string name="delete_user">Удалть акаунт</string>
     <string name="password_repeat">Повторите пароль</string>
     <string name="errorPassword">Пороли не совпадают</string>
     <string name="registration_hello">Регистрация</string>
     <string name="search">Поиск</string>
     <string name="search_archive">Поиск: архив</string>
+    <string name="settings">Настройки</string>
+    <string name="new_name">Смена никнейма</string>
     <string name="writer">Библиотека</string>
     <string name="music">Музыка</string>
     <string name="art">Галерея</string>
@@ -23,9 +29,11 @@
     <string name="atelier">Студии</string>
     <string name="real">Читать</string>
     <string name="exp">Опыт Творца:</string>
+    <string name="pay">Поощрения</string>
     <string name="name_book">Название книги</string>
     <string name="add_file">Вставить файл</string>
     <string name="close">Отмена</string>
+    <string name="email_conf">Подтвердить почту</string>
     <string name="complete">Готово</string>
     <string name="description">Описание книги</string>
     <string name="out">Выход</string>
@@ -41,6 +49,8 @@
     <string name="delete_book">Удалить книгу</string>
     <string name="chapters">Главы</string>
     <string name="TopNew">Новинки</string>
+    <string name="TopBooks">Популярные книги</string>
+    <string name="TopUsers">Популярные писатели</string>
     <string name="subscribe">Подписаться</string>
 
     <string name="updatePassword"><u>Забыли пароль ?</u></string>
@@ -52,7 +62,7 @@
     <string name="manual">Чтобы правильно добавить книгу, вам необходимо:
         Написать название книги, описание книги,
         прикрепите обложку и файлы глав книги в хронологическом порядке.
-        (Один файл одна глава).</string>
+        (Один файл одна глава). Так же можете указать куда будут поступать поощрения от других пользователей(по желанию).  </string>
 
 
 </resources>

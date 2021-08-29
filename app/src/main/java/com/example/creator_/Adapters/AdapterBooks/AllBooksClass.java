@@ -8,13 +8,19 @@ public class AllBooksClass {
     private final Uri imageBook;
     private final String idBook;
     private final String writerId;
+    private final int subColl;
 
-    public AllBooksClass(String nameBook, double timestamp, Uri imageBook, String idBook, String writerId) {
+    public AllBooksClass(String nameBook, double timestamp, Uri imageBook, String idBook, String writerId, int subColl) {
         this.nameBook = nameBook;
         this.timestamp = timestamp;
         this.imageBook = imageBook;
         this.idBook = idBook;
         this.writerId = writerId;
+        this.subColl = subColl;
+    }
+
+    public int getSubColl() {
+        return subColl;
     }
 
     public String getIdBook() {

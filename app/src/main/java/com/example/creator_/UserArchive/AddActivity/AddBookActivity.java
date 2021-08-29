@@ -69,7 +69,7 @@ public class AddBookActivity extends AppCompatActivity {
     private Uri uriImageBookLoad;
     private FloatingActionButton manual;
     private static long back_pressed;
-    private TextInputLayout inputLayoutNameBookEdit,inputLayoutDescriptionBook;
+    private TextInputLayout inputLayoutNameBookEdit,inputLayoutDescriptionBook, paySystem;
     private ArrayList<MediaFile> list= new ArrayList<>();
     private final String TAG="AddBookActivity";
     private boolean checkErrorStart;
@@ -123,6 +123,7 @@ public class AddBookActivity extends AppCompatActivity {
         MaterialButton addFile = findViewById(R.id.addButtonFileBook);
         inputLayoutNameBookEdit=findViewById(R.id.nameBookInput);
         inputLayoutDescriptionBook=findViewById(R.id.description);
+        paySystem = findViewById(R.id.pay);
         ErrorControl();
         addFile.setOnClickListener(v -> {
             Intent intent = new Intent(AddBookActivity.this, FilePickerActivity.class);
@@ -153,6 +154,7 @@ public class AddBookActivity extends AppCompatActivity {
     private void AddBook(ArrayList<MediaFile> list,Uri uriBookImage,boolean privacy){
         String nameBook= Objects.requireNonNull(inputLayoutNameBookEdit.getEditText()).getText().toString();
         String description= Objects.requireNonNull(inputLayoutDescriptionBook.getEditText()).getText().toString();
+        String pay = Objects.requireNonNull(paySystem.getEditText()).getText().toString();
         if (user!=null){
             DocumentReference docRef=db.collection("UserProfile").document(user.getUid());
             docRef.get().addOnCompleteListener(task -> {
@@ -161,7 +163,7 @@ public class AddBookActivity extends AppCompatActivity {
                     if (Objects.requireNonNull(snapshot).exists()){
                         ArrayList<String> listBook= (ArrayList<String>) Objects.requireNonNull(snapshot.getData()).put("listIdBook",null);
                         Timestamp timestamp= new Timestamp(Calendar.getInstance().getTime());
-                        BookClass book=new BookClass(timestamp,description,nameBook,user.getUid(),privacy,0, new ArrayList<>(),list.size());
+                        BookClass book=new BookClass(timestamp,description,nameBook,user.getUid(),privacy,0, new ArrayList<>(),list.size(), pay);
                         Log.d(TAG, "DocumentSnapshot data: " + snapshot.getData());
                         db.collection("Book").add(book).addOnSuccessListener(documentReference -> {
                             Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());

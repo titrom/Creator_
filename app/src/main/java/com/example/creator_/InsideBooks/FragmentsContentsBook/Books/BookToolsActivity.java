@@ -74,6 +74,7 @@ public class BookToolsActivity extends AppCompatActivity {
     private MaterialButton stopDownloadButton;
     private boolean stopDownload =false;
     private int progressDownloadFileBook;
+    private boolean setting = false;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private final FirebaseFirestore db=FirebaseFirestore.getInstance();
     private final FirebaseStorage storage=FirebaseStorage.getInstance();
@@ -84,8 +85,9 @@ public class BookToolsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_tools);
         Bundle arg=getIntent().getExtras();
         if (arg!=null) {
-            idBook=arg.get("idBook").toString();
+            idBook = arg.get("idBook").toString();
             userId = arg.get("userId").toString();
+            if (arg.get("settings") != null) setting = (boolean) arg.get("settings");
             aBoolean =true;
         }
         init();
@@ -97,11 +99,13 @@ public class BookToolsActivity extends AppCompatActivity {
         read.setOnClickListener(v -> onRead(idBook));
         isSub();
         subscribeBooks();
-        nameWriter.setOnClickListener(v -> {
-            Intent intent = new Intent(BookToolsActivity.this, ProfileInfActivity.class);
-            intent.putExtra("userId", userId);
-            startActivity(intent);
-        });
+        if (!setting) {
+            nameWriter.setOnClickListener(v -> {
+                Intent intent = new Intent(BookToolsActivity.this, ProfileInfActivity.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            });
+        }
     }
 
 

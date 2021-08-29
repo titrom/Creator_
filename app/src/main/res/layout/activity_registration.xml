@@ -42,10 +42,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <EditText
             android:textColor="@color/text_color"
-
+            android:maxLength="50"
             android:background="@color/background_edit_text"
             android:id="@+id/Nickname"
             android:layout_width="match_parent"

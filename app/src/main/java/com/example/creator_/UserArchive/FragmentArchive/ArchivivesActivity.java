@@ -142,14 +142,16 @@ public class ArchivivesActivity extends AppCompatActivity {
     }
 
     private void deleteBook(String idBook){
-        File bookDir = new File(getExternalFilesDir(null)+"/Books/"+idBook);
-        if (bookDir.exists()) bookDir.delete();
+        File bookDir = new File(getExternalFilesDir(null)+"/Books");
+        File book = new File(bookDir+"/" +idBook);
+        book.deleteOnExit();
         db.collection("Book").document(idBook).delete().addOnSuccessListener(unused -> {
             Log.d(TAG, "DocumentSnapshot successfully deleted!");
         }).addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
         db.collection("UserProfile").document(user.getUid()).update("listIdBook", FieldValue.arrayRemove(idBook))
                 .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot successfully updated!"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error updating document", e));
+
     }
 
     private void init(){

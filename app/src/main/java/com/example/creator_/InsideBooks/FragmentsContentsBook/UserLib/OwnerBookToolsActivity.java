@@ -167,7 +167,7 @@ public class OwnerBookToolsActivity extends AppCompatActivity{
             swipeRefreshLayout.setOnRefreshListener(() -> {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
                 information(idBook);
-                descriptionFragment.dsrUpdate();
+                descriptionFragment.Update();
                 if (chapterFragment.create){
                     chapterFragment.updateChapter();
                 }

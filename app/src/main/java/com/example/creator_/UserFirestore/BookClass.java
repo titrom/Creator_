@@ -13,8 +13,9 @@ public class BookClass {
     private final int subColl;
     private final int collChapter;
     private final ArrayList<String> subId;
+    private final String paySystem;
 
-    public BookClass(Timestamp dateBook, String description,String nameBook, String userId,boolean privacyLevel,int subColl,ArrayList<String> subId, int collChapter) {
+    public BookClass(Timestamp dateBook, String description,String nameBook, String userId,boolean privacyLevel,int subColl,ArrayList<String> subId, int collChapter, String paySystem) {
         this.nameBook = nameBook;
         this.description = description;
         UserId = userId;
@@ -23,6 +24,7 @@ public class BookClass {
         this.subColl=subColl;
         this.subId=subId;
         this.collChapter=collChapter;
+        this.paySystem = paySystem;
     }
 
     public int getCollChapter() {
@@ -49,6 +51,9 @@ public class BookClass {
         return UserId;
     }
 
+    public String getPaySystem() {
+        return paySystem;
+    }
 
     public boolean isPrivacyLevel() {
         return privacyLevel;

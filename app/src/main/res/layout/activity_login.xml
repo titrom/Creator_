@@ -95,8 +95,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
             android:fontFamily="@font/osr" />
-
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

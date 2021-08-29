@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment{
                 drawable.ic_action_name_archive));
 //        bPRlist.add(new ButtonProfileRecycler("Статистика",
 //                drawable.ic_action_name_statistic));
-//        bPRList.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
+        bPRList.add(new ButtonProfileRecycler("Настройки",R.drawable.ic_setings));
         bPRList.add(new ButtonProfileRecycler("Выйти", drawable.ic_action_exit));
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -110,10 +110,10 @@ public class ProfileFragment extends Fragment{
             if (position==0){
                 Intent intent = new Intent(requireView().getContext(), ArchivivesActivity.class);
                 startActivity(intent);
-            }else if (position==2){
-                Intent intent = new Intent(requireView().getContext(),SettingsActivity.class);
-                startActivity(intent);
             }else if (position==1){
+                Intent intent = new Intent(requireView().getContext(), SettingsActivity.class);
+                startActivity(intent);
+            }else if (position==2){
                 new MaterialAlertDialogBuilder(requireView().getContext())
                         .setTitle(getResources().getString(string.out))
                         .setMessage(getResources().getString(string.want_some))
@@ -206,11 +206,9 @@ public class ProfileFragment extends Fragment{
 
     private UCrop.Options getUCropOptions(){
         UCrop.Options options=new UCrop.Options();
-        //options.setStatusBarColor(bar);
         options.setCircleDimmedLayer(true);
         options.withMaxResultSize
                 (requireView().getWidth()/3, requireView().getHeight()/3);
-        //options.setToolbarColor(bar);
         return options;
     }
 

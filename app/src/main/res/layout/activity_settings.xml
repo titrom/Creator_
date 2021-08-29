@@ -1,17 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".FragmentBar.Profile.SettingsActivity">
-    <androidx.recyclerview.widget.RecyclerView
-        android:background="@color/white"
-        android:smoothScrollbar="false"
-        android:elevation="3dp"
-        android:scrollbars="none"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settingsButtonRecycler"
-    />
-</LinearLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/background"
+                android:src="@drawable/ic_back_item"
+                />
+            <TextView
+                android:paddingEnd="16dp"
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/settings"
+                android:textColor="@color/text_color"
+                android:textSize="30sp"
+                tools:layout_editor_absoluteX="16dp" />
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="1dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/new_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/new_nickname_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:enabled="true"
+                    android:hint="@string/nickname"
+                    android:textColorHint="@color/itemColor"
+                    app:boxStrokeColor="@color/itemColor"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:boxStrokeWidth="2dp"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextColor="@color/itemColor"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/new_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/background_edit_text"
+                        android:fontFamily="@font/osr"
+                        android:inputType="textPersonName"
+                        android:maxLength="50"
+                        android:textColor="@color/text_color" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/save_nickname"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/save"
+                    android:textColor="@color/text_color" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="1dp"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/card_email"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="@string/new_email"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/new_email_layout"
+                    android:layout_marginTop="15dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:enabled="true"
+                    android:hint="@string/email"
+                    android:textColorHint="@color/itemColor"
+                    app:boxStrokeErrorColor="@color/red"
+                    app:errorTextColor="@color/red"
+                    app:hintTextColor="@color/itemColor"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeColor="@color/text_color"
+                    app:errorEnabled="true"
+                    app:hintAnimationEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailEditText"
+                        android:background="@color/background_edit_text"
+                        android:textSize="20sp"
+                        android:textColor="@color/text_color"
+                        android:inputType="textEmailAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/osr"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:id="@+id/save_email"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/save"
+                    android:textColor="@color/text_color" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="15sp"
+            android:id="@+id/save_password"
+            android:textColor="@color/text_color"
+            android:text="@string/new_password"
+            android:backgroundTint="@color/background_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="15sp"
+            android:id="@+id/verified_email"
+            android:textColor="@color/itemColor"
+            android:text="@string/email_conf"
+            android:backgroundTint="@color/background_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:textSize="15sp"
+            android:id="@+id/delete_bt"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/red"
+            android:text="@string/delete_user"
+            android:backgroundTint="@color/background_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+</ScrollView>
