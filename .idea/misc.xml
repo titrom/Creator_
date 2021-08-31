@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/drawable-anydpi/ic_action_add.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/drawable-anydpi/ic_back_item.xml" value="0.14322916666666666" />
-        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/activity_add_book.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/drawable-anydpi/question.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/activity_add_book.xml" value="0.6" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/activity_archivives.xml" value="0.182518115942029" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/activity_global.xml" value="0.182518115942029" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/activity_login.xml" value="0.21621621621621623" />
@@ -15,16 +17,23 @@
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/alin_fragment.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/all_books_rv.xml" value="0.25" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/archive_my_art_fragment.xml" value="0.182518115942029" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/archive_my_library_fragment.xml" value="0.25" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/chapter_fragment_layout.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/description_fragment_layout.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/dialog_refresh.xml" value="0.2" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/favorite_creations.xml" value="0.25" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/favorite_creators.xml" value="0.25" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/favorite_fragment.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/fragment_search_book.xml" value="0.11342592592592593" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/fragment_search_complete.xml" value="0.264" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/fragment_search_user.xml" value="0.10092592592592593" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/owner_book_tools_activity.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/profile_fragment.xml" value="0.182518115942029" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/recycler_my_book.xml" value="0.1" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/top_fragmen_library.xml" value="0.182518115942029" />
-        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/top_fragment.xml" value="0.182518115942029" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/top_fragment.xml" value="0.4" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/layout/users_item.xml" value="0.25" />
+        <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/menu/tool_bar_navig_icon.xml" value="0.34427083333333336" />
         <entry key="..\:/Users/tacsi/Documents/GitHub/Creator_/app/src/main/res/menu/tool_book.xml" value="0.25" />
       </map>
     </option>

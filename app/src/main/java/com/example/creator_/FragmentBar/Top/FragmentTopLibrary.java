@@ -165,7 +165,7 @@ public class FragmentTopLibrary extends Fragment {
                     storageRef.child(document.getId() + "/" + "Avatar.jpg").getDownloadUrl().addOnSuccessListener(uri -> {
                         auListTopUsers.add(new AllUsers(nickname, uri, document.getId(), Objects.requireNonNull(subId).size()));
                         for (AllUsers i: auListTopUsers){
-                            if (i.getSubColl()<=0){
+                            if (i.getSubColl()<=5){
                                 auListTopUsers.remove(i);
                             }
                         }

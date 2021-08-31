@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
         <com.github.florent37.shapeofview.shapes.RoundRectView
             android:id="@+id/shape"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,19 +21,54 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:elevation="4dp"
-            app:shape_roundRect_bottomLeftRadius="15dp"
-            ><com.google.android.material.appbar.MaterialToolbar
-            android:background="@color/cardColor"
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/search"
-            app:titleTextColor="@color/text_color"
-            app:titleMarginStart="15sp"
-            app:menu="@menu/tool_bar_navig_icon"
-            />
+            app:shape_roundRect_bottomLeftRadius="15dp">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:background="@color/cardColor"
+                android:id="@+id/topSearchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/search"
+                app:titleTextColor="@color/text_color"
+                app:titleMarginStart="15sp"
+                app:menu="@menu/tool_bar_navig_icon" />
+            <EditText
+                android:id="@+id/searchEditText"
+                style="@style/Theme.Creator_"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="100dp"
+                android:background="@color/transparent"
+                android:elevation="5dp"
+                android:fontFamily="@font/osr"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:maxLength="50"
+                android:minHeight="50dp"
+                android:paddingStart="15dp"
+                android:rotationX="0"
+                android:textColorHint="#D3D3D3"
+                android:textSize="20sp"
+                android:visibility="invisible"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                android:id="@+id/stopSearch"
+                android:elevation="4dp"
+                android:visibility="invisible"
+                android:layout_marginEnd="50dp"
+                style="@style/Theme.Creator_"
+                android:backgroundTint="@color/itemColor"
+                app:borderWidth="0dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_action_clear"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/todo" />
         </com.github.florent37.shapeofview.shapes.RoundRectView>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:id="@+id/fragment_top"

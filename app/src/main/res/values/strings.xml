@@ -63,6 +63,8 @@
         Написать название книги, описание книги,
         прикрепите обложку и файлы глав книги в хронологическом порядке.
         (Один файл одна глава). Так же можете указать куда будут поступать поощрения от других пользователей(по желанию).  </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

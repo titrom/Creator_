@@ -59,6 +59,7 @@ public class FavoriteCreators extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        fUCs.clear();
         favoriteUsers();
         Log.d(TAG,"onResume");
     }

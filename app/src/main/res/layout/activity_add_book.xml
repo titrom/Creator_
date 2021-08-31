@@ -17,157 +17,165 @@
             android:id="@+id/manual"
             android:elevation="0dp"
             style="@style/Theme.Creator_"
-            android:backgroundTint="@color/background"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/itemColor"
             app:borderWidth="0dp"
             android:src="@drawable/question"
+            android:tint="@color/itemColor"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:contentDescription="@string/todo" />
+
         <com.google.android.material.appbar.AppBarLayout
-            android:background="@color/background"
+            android:id="@+id/barTrue_False"
+            style="@style/Theme.Creator_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            style="@style/Theme.Creator_"
-            android:id="@+id/barTrue_False"
-            >
+            android:background="@color/background"
+            android:elevation="4dp">
+
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/check_bar"
-                android:background="@color/background_navigation_bat"
-                app:title="@string/new_book"
-                app:navigationIcon="@drawable/ic_action_clear"
-                app:navigationIconTint="@color/itemColor"
-                app:titleTextColor="@color/text_color"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/background_navigation_bat"
                 app:menu="@menu/true_false"
-                />
+                app:navigationIcon="@drawable/ic_action_clear"
+                app:navigationIconTint="@color/itemColor"
+                app:title="@string/new_book"
+                app:titleTextColor="@color/text_color" />
+
             <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:id="@+id/reciclerrr"
                 android:layout_width="140dp"
                 android:layout_height="170dp"
-                android:id="@+id/reciclerrr"
-                android:elevation="2dp"
                 android:layout_margin="15dp"
-                app:shape_roundRect_bottomRightRadius="10dp"
+                android:elevation="2dp"
                 app:shape_roundRect_bottomLeftRadius="10dp"
+                app:shape_roundRect_bottomRightRadius="10dp"
                 app:shape_roundRect_topLeftRadius="10dp"
-                app:shape_roundRect_topRightRadius="10dp"
-                >
+                app:shape_roundRect_topRightRadius="10dp">
+
                 <ImageButton
-                    android:layout_gravity="center"
+                    android:id="@+id/bookImage"
                     android:layout_width="150dp"
                     android:layout_height="180dp"
-                    android:id="@+id/bookImage"
-                    android:src="@drawable/ic_action_name_pluss"
-                    android:contentDescription="@string/todo" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_action_name_pluss" />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                app:counterEnabled="true"
-                app:counterMaxLength="50"
-                android:enabled="true"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:id="@+id/nameBookInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:enabled="true"
                 android:hint="@string/name_book"
                 android:textColorHint="@color/itemColor"
                 app:boxStrokeErrorColor="@color/red"
-                app:errorTextColor="@color/red"
-                app:hintTextColor="@color/itemColor"
                 app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
                 app:endIconMode="clear_text"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_height="wrap_content">
+                app:errorEnabled="true"
+                app:errorTextColor="@color/red"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/itemColor">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:background="@color/background_edit_text"
                     android:layout_width="match_parent"
-                    android:textColor="@color/text_color"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_edit_text"
+                    android:inputType="textPersonName"
                     android:maxHeight="50dp"
                     android:maxLength="50"
-                    android:inputType="textPersonName"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                app:counterEnabled="true"
-                android:layout_marginStart="5dp"
-                app:counterMaxLength="1000"
-                android:layout_marginEnd="5dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/reciclerrr"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:hint="@string/description"
                 android:textColorHint="@color/itemColor"
                 app:boxStrokeErrorColor="@color/red"
-                app:errorTextColor="@color/red"
-                app:hintTextColor="@color/itemColor"
                 app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                android:id="@+id/description"
-                app:hintAnimationEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="1000"
                 app:endIconMode="clear_text"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_height="wrap_content">
+                app:errorEnabled="true"
+                app:errorTextColor="@color/red"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/itemColor">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:textColor="@color/text_color"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_edit_text"
                     android:maxHeight="290dp"
                     android:maxLength="1000"
-                    android:background="@color/background_edit_text"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                app:counterEnabled="true"
-                app:counterMaxLength="200"
-                android:enabled="true"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:id="@+id/pay"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:enabled="true"
                 android:hint="@string/pay"
                 android:textColorHint="@color/itemColor"
                 app:boxStrokeErrorColor="@color/red"
-                app:errorTextColor="@color/red"
-                app:hintTextColor="@color/itemColor"
                 app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
                 app:endIconMode="clear_text"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_height="wrap_content">
+                app:errorEnabled="true"
+                app:errorTextColor="@color/red"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="@color/itemColor">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:background="@color/background_edit_text"
                     android:layout_width="match_parent"
-                    android:textColor="@color/text_color"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_edit_text"
+                    android:inputType="textPersonName"
                     android:maxHeight="50dp"
                     android:maxLength="200"
-                    android:inputType="textPersonName"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_marginStart="10dp"
-                android:text="@string/add_file"
-                android:textSize="15sp"
                 android:id="@+id/addButtonFileBook"
-                android:gravity="center"
-                android:fontFamily="@font/opb"
-                android:textColor="@color/text_color"
-                android:shadowColor="@color/white"
-                android:layout_marginEnd="10dp"
-                app:iconTint="@color/itemColor"
-                app:icon="@drawable/ic_action_add_file"
-                android:layout_below="@+id/reciclerrr"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                android:layout_height="40dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/reciclerrr"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/opb"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:text="@string/add_file"
+                android:textColor="@color/text_color"
+                android:textSize="15sp"
+                app:icon="@drawable/ic_action_add_file"
+                app:iconTint="@color/itemColor" />
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerListFile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/RecyclerListFile"
-                android:layout_below="@+id/addButtonFileBook"/>
+                android:layout_below="@+id/addButtonFileBook" />
         </com.google.android.material.appbar.AppBarLayout>
     </RelativeLayout>
 

@@ -56,15 +56,15 @@
             <TextView
                 android:id="@+id/NameBook"
                 android:layout_width="256dp"
-                android:maxLength="50"
-                android:maxLines="30"
-                android:text="@string/name_book"
                 android:layout_height="130dp"
-                android:textColor="@color/itemColor"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="141dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/opb"
+                android:maxLength="50"
+                android:maxLines="30"
+                android:text="@string/name_book"
+                android:textColor="@color/itemColor"
                 android:textSize="20sp" />
             <TextView
                 android:layout_width="match_parent"

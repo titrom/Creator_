@@ -59,6 +59,7 @@ public class FavoriteCreations extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        myBC.clear();
         myFavoriteBook();
     }
 
